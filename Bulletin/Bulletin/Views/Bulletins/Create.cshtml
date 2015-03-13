@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Создание нового метеорологического бюллетеня</h2>
+
+@Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.")
+
+@using (Html.BeginForm()){
+    <fieldset>
+        <legend>Заполните данные:</legend>
+        <p>
+
+        <div id="sandbox-container">
+            <div id="bulletin-day" class="input-group date">
+            <span class="input-group-addon">Дата: </span>
+    <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+    </div>
+
+    </div>
+
+            <label for="Name">
+                Дата:</label>
+            @Html.TextBox("Name")
+            @Html.ValidationMessage("Name", "*")
+        </p>
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    </fieldset>
+     } 
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+<script>
+    $(document).ready(function () {
+
+                $('#bulletin-day').datepicker({
+                    todayBtn: true,
+                    clearBtn: true,
+                    language: "ru",
+                    calendarWeeks: true,
+                    autoclose: true,
+                    todayHighlight: true,
+
+            
+             });
+    });
+</script>
