@@ -19,7 +19,14 @@ namespace Bulletin.Common
                 {
                     var configuration = new Configuration();
                     configuration.Configure();
-                    configuration.AddAssembly(typeof(Bulletin.Models.Bulletin).Assembly);
+                    configuration.AddAssembly(typeof(Bulletin.Models.Bulletin).Assembly);                    
+                    //configuration.AddAssembly(typeof(Bulletin.Models.Cloudiness).Assembly);
+                    /*
+                    configuration.AddAssembly(typeof(Bulletin.Models.Condition).Assembly);
+                    configuration.AddAssembly(typeof(Bulletin.Models.Precipitation).Assembly);
+                    configuration.AddAssembly(typeof(Bulletin.Models.Region).Assembly);
+                    configuration.AddAssembly(typeof(Bulletin.Models.Wind).Assembly);
+                     * */
                     _sessionFactory = configuration.BuildSessionFactory();
                 }
                 return _sessionFactory;
@@ -36,6 +43,11 @@ namespace Bulletin.Common
             var configuration = new Configuration();
             configuration.Configure();
             configuration.AddAssembly(typeof(Bulletin.Models.Bulletin).Assembly);
+            /*configuration.AddAssembly(typeof(Bulletin.Models.Cloudiness).Assembly);
+            configuration.AddAssembly(typeof(Bulletin.Models.Condition).Assembly);
+            configuration.AddAssembly(typeof(Bulletin.Models.Precipitation).Assembly);
+            configuration.AddAssembly(typeof(Bulletin.Models.Region).Assembly);
+            configuration.AddAssembly(typeof(Bulletin.Models.Wind).Assembly);*/
             NHibernate.Tool.hbm2ddl.SchemaUpdate schemaUpdate
                 = new NHibernate.Tool.hbm2ddl.SchemaUpdate(configuration);
             schemaUpdate.Execute(true, true);

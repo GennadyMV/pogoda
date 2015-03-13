@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bulletin.Common;
-using Bulletin.Models;
 using NHibernate;
+using Bulletin.Common;
 using NHibernate.Criterion;
 
 namespace Bulletin.Repositories
 {
-    public class BulletinRepository : IRepository<Models.Bulletin>
+    public class ConditionRepository : IRepository<Bulletin.Models.Condition>
     {
-        #region IRepository<Bulletin> Members
+        #region IRepository<Condition> Members
 
-        void IRepository<Models.Bulletin>.Save(Models.Bulletin entity)
+        void IRepository<Bulletin.Models.Condition>.Save(Bulletin.Models.Condition entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -25,7 +24,7 @@ namespace Bulletin.Repositories
             }
         }
 
-        void IRepository<Models.Bulletin>.Update(Models.Bulletin entity)
+        void IRepository<Bulletin.Models.Condition>.Update(Bulletin.Models.Condition entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -37,7 +36,7 @@ namespace Bulletin.Repositories
             }
         }
 
-        void IRepository<Models.Bulletin>.Delete(Models.Bulletin entity)
+        void IRepository<Bulletin.Models.Condition>.Delete(Bulletin.Models.Condition entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -49,19 +48,19 @@ namespace Bulletin.Repositories
             }
         }
 
-        Models.Bulletin IRepository<Models.Bulletin>.GetById(int id)
+        Bulletin.Models.Condition IRepository<Bulletin.Models.Condition>.GetById(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
-                return session.CreateCriteria<Models.Bulletin>().Add(Restrictions.Eq("ID", id)).UniqueResult<Models.Bulletin>();
+                return session.CreateCriteria<Bulletin.Models.Condition>().Add(Restrictions.Eq("ID", id)).UniqueResult<Bulletin.Models.Condition>();
         }
 
-        IList<Models.Bulletin> IRepository<Models.Bulletin>.GetAll()
+        IList<Bulletin.Models.Condition> IRepository<Bulletin.Models.Condition>.GetAll()
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                ICriteria criteria = session.CreateCriteria(typeof(Models.Bulletin));
+                ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.Condition));
                 criteria.AddOrder(Order.Desc("ID"));
-                return criteria.List<Models.Bulletin>();
+                return criteria.List<Bulletin.Models.Condition>();
             }
         }
 

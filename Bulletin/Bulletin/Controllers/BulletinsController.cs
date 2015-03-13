@@ -16,6 +16,7 @@ namespace Bulletin.Controllers
         public ActionResult Index()
         {
             IRepository<Models.Bulletin> repo = new BulletinRepository();
+
             return View(repo.GetAll());
         }
 
