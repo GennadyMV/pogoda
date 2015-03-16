@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Облочность";
+}
+
+
+
+<h2>Просмотр облочности</h2>
+
+    <fieldset>
+        <legend>Поля</legend>
+        <p>
+            Наименование:
+            @Html.Encode(Model.Name)
+        </p>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Редактировать", "Edit", new { id=Model.ID }) |
+        @Html.ActionLink("Назад", "Index")
+    </p>

@@ -3,34 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Bulletin.Common;
 using Bulletin.Repositories;
+using Bulletin.Common;
 using Bulletin.Models;
 
 namespace Bulletin.Controllers
 {
-    public class WindTemplateController : Controller
+    public class PrecipitationTemplateController : Controller
     {
         //
-        // GET: /WindTemplate/
+        // GET: /PrecipitationTemplate/
 
         public ActionResult Index()
         {
-            IRepository<Models.WindTemplate> repo = new WindTemplateRepository();
+            IRepository<Models.PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
             return View(repo.GetAll());
         }
 
         //
-        // GET: /WindTemplate/Details/5
+        // GET: /PrecipitationTemplate/Details/5
 
         public ActionResult Details(int id)
         {
-            IRepository<WindTemplate> repo = new WindTemplateRepository();
+            IRepository<PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
             return View(repo.GetById(id));
         }
 
         //
-        // GET: /WindTemplate/Create
+        // GET: /PrecipitationTemplate/Create
 
         public ActionResult Create()
         {
@@ -38,7 +38,7 @@ namespace Bulletin.Controllers
         } 
 
         //
-        // POST: /WindTemplate/Create
+        // POST: /PrecipitationTemplate/Create
 
         [HttpPost]
         public ActionResult Create(FormCollection collection)
@@ -47,11 +47,10 @@ namespace Bulletin.Controllers
             {
                 // TODO: Add insert logic here
                 string name = collection.Get("Name");
-                WindTemplate wind = new WindTemplate() { Name = name };
+                PrecipitationTemplate precipitation = new PrecipitationTemplate() { Name = name };
 
-                IRepository<WindTemplate> repo = new WindTemplateRepository();
-                repo.Save(wind);
-
+                IRepository<PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
+                repo.Save(precipitation);
                 return RedirectToAction("Index");
             }
             catch
@@ -61,28 +60,28 @@ namespace Bulletin.Controllers
         }
         
         //
-        // GET: /WindTemplate/Edit/5
+        // GET: /PrecipitationTemplate/Edit/5
  
         public ActionResult Edit(int id)
         {
-            IRepository<WindTemplate> repo = new WindTemplateRepository();
+            IRepository<PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
             return View(repo.GetById(id));
         }
 
         //
-        // POST: /WindTemplate/Edit/5
+        // POST: /PrecipitationTemplate/Edit/5
 
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
+                // TODO: Add update logic here
                 string name = collection.Get("Name");
-                WindTemplate wind = new WindTemplate() { ID = id, Name = name };
+                PrecipitationTemplate precipitation = new PrecipitationTemplate() { ID = id, Name = name };
 
-                IRepository<WindTemplate> repo = new WindTemplateRepository();
-                repo.Update(wind);
-
+                IRepository<PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
+                repo.Update(precipitation); 
                 return RedirectToAction("Index");
             }
             catch
@@ -92,26 +91,25 @@ namespace Bulletin.Controllers
         }
 
         //
-        // GET: /WindTemplate/Delete/5
+        // GET: /PrecipitationTemplate/Delete/5
  
         public ActionResult Delete(int id)
         {
-            IRepository<Models.WindTemplate> repo = new WindTemplateRepository();
+            IRepository<Models.PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
             repo.Delete(repo.GetById(id));
             return RedirectToAction("Index");
         }
 
         //
-        // POST: /WindTemplate/Delete/5
+        // POST: /PrecipitationTemplate/Delete/5
 
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-                IRepository<Models.WindTemplate> repo = new WindTemplateRepository();
-                repo.Delete(repo.GetById(id)); 
+                IRepository<Models.PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
+                repo.Delete(repo.GetById(id));
                 return RedirectToAction("Index");
             }
             catch

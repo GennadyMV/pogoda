@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Явления";
+}
+
+
+
+<h2>Просмотр явлений</h2>
+
+    <fieldset>
+        <legend>Поля</legend>
+        <p>
+            Наименование:
+            @Html.Encode(Model.Name)
+        </p>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Редактировать", "Edit", new { id=Model.ID }) |
+        @Html.ActionLink("Назад", "Index")
+    </p>

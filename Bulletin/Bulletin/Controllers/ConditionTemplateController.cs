@@ -3,42 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Bulletin.Common;
 using Bulletin.Repositories;
+using Bulletin.Common;
 using Bulletin.Models;
 
 namespace Bulletin.Controllers
 {
-    public class WindTemplateController : Controller
+    public class ConditionTemplateController : Controller
     {
         //
-        // GET: /WindTemplate/
+        // GET: /ConditionTemplate/
 
         public ActionResult Index()
         {
-            IRepository<Models.WindTemplate> repo = new WindTemplateRepository();
+            IRepository<Models.ConditionTemplate> repo = new ConditionTemplateRepository();
             return View(repo.GetAll());
         }
 
         //
-        // GET: /WindTemplate/Details/5
+        // GET: /ConditionTemplate/Details/5
 
         public ActionResult Details(int id)
         {
-            IRepository<WindTemplate> repo = new WindTemplateRepository();
+            IRepository<ConditionTemplate> repo = new ConditionTemplateRepository();
             return View(repo.GetById(id));
         }
 
         //
-        // GET: /WindTemplate/Create
+        // GET: /ConditionTemplate/Create
 
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
-        // POST: /WindTemplate/Create
+        // POST: /ConditionTemplate/Create
 
         [HttpPost]
         public ActionResult Create(FormCollection collection)
@@ -47,11 +47,10 @@ namespace Bulletin.Controllers
             {
                 // TODO: Add insert logic here
                 string name = collection.Get("Name");
-                WindTemplate wind = new WindTemplate() { Name = name };
+                ConditionTemplate condition = new ConditionTemplate() { Name = name };
 
-                IRepository<WindTemplate> repo = new WindTemplateRepository();
-                repo.Save(wind);
-
+                IRepository<ConditionTemplate> repo = new ConditionTemplateRepository();
+                repo.Save(condition);
                 return RedirectToAction("Index");
             }
             catch
@@ -59,30 +58,30 @@ namespace Bulletin.Controllers
                 return View();
             }
         }
-        
+
         //
-        // GET: /WindTemplate/Edit/5
- 
+        // GET: /ConditionTemplate/Edit/5
+
         public ActionResult Edit(int id)
         {
-            IRepository<WindTemplate> repo = new WindTemplateRepository();
+            IRepository<ConditionTemplate> repo = new ConditionTemplateRepository();
             return View(repo.GetById(id));
         }
 
         //
-        // POST: /WindTemplate/Edit/5
+        // POST: /ConditionTemplate/Edit/5
 
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
+                // TODO: Add update logic here
                 string name = collection.Get("Name");
-                WindTemplate wind = new WindTemplate() { ID = id, Name = name };
+                ConditionTemplate condition = new ConditionTemplate() { ID = id, Name = name };
 
-                IRepository<WindTemplate> repo = new WindTemplateRepository();
-                repo.Update(wind);
-
+                IRepository<ConditionTemplate> repo = new ConditionTemplateRepository();
+                repo.Update(condition);
                 return RedirectToAction("Index");
             }
             catch
@@ -92,26 +91,25 @@ namespace Bulletin.Controllers
         }
 
         //
-        // GET: /WindTemplate/Delete/5
- 
+        // GET: /ConditionTemplate/Delete/5
+
         public ActionResult Delete(int id)
         {
-            IRepository<Models.WindTemplate> repo = new WindTemplateRepository();
+            IRepository<Models.ConditionTemplate> repo = new ConditionTemplateRepository();
             repo.Delete(repo.GetById(id));
             return RedirectToAction("Index");
         }
 
         //
-        // POST: /WindTemplate/Delete/5
+        // POST: /ConditionTemplate/Delete/5
 
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-                IRepository<Models.WindTemplate> repo = new WindTemplateRepository();
-                repo.Delete(repo.GetById(id)); 
+                IRepository<Models.ConditionTemplate> repo = new ConditionTemplateRepository();
+                repo.Delete(repo.GetById(id));
                 return RedirectToAction("Index");
             }
             catch
