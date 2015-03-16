@@ -21,7 +21,7 @@ namespace Bulletin.Models
         // Осадки
         public virtual Precipitation Precipitation { get; set; }
         // Ветер
-        public virtual Wind Wind { get; set; }
+        public virtual WindTemplate Wind { get; set; }
         public virtual int WindValueMin { get; set; }
         public virtual int WindValueMax { get; set; }
         // Температура

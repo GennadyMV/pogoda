@@ -6,7 +6,9 @@
 
 @Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.")
 
-@using (Html.BeginForm()){
+@using (Html.BeginForm("Create", "Bulletins", new { ReturnUrl = ViewBag.ReturnUrl },
+            FormMethod.Post, new { @class = "form-horizontal" }))
+{
     <fieldset>
         <legend>Заполните данные:</legend>
         <p>
@@ -28,7 +30,7 @@
             <input type="submit" value="Сохранить" />
         </p>
     </fieldset>
-     } 
+            } 
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
