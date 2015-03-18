@@ -2,6 +2,11 @@
     ViewBag.Title = "Административный район";
 }
 
+@if (@ViewBag.Error != null)
+{
+    <h2>@ViewBag.Error</h2>
+}
+
 <h2>Добавить административный район</h2>
 
 @Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.")

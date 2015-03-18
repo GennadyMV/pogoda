@@ -53,8 +53,9 @@ namespace Bulletin.Controllers
                 repo.Save(region);
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
+                ViewBag.Error = ex.Message + ex.Source + ex.StackTrace + ex.InnerException;
                 return View();
             }
         }
@@ -86,7 +87,7 @@ namespace Bulletin.Controllers
                 return RedirectToAction("Index");
             }
             catch
-            {
+            {                
                 return View();
             }
         }

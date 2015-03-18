@@ -33,7 +33,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Create()
         {
-
+            ViewBag.DateTime = DateTime.Now.ToShortDateString();
             return View();
         } 
 

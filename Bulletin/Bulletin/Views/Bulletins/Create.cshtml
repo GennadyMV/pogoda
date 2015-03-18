@@ -1,5 +1,10 @@
-﻿@{
-    ViewBag.Title = "Create";
+﻿@using Bulletin.Repositories;
+@using Bulletin.Models;
+@using Bulletin.Common;
+   
+
+@{
+    ViewBag.Title = "Создание нового метеорологического бюллетеня";
 }
 
 <h2>Создание нового метеорологического бюллетеня</h2>
@@ -11,26 +16,768 @@
 {
     <fieldset>
         <legend>Заполните данные:</legend>
-        <p>
+       
 
         <div id="sandbox-container">
             <div id="bulletin-day" class="input-group date">
             <span class="input-group-addon">Дата: </span>
-    <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+    <input type="text" value="@ViewBag.DateTime" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+    </div>
     </div>
 
-    </div>
+    <hr />
 
-            <label for="Name">
-                Дата:</label>
-            @Html.TextBox("Name")
-            @Html.ValidationMessage("Name", "*")
-        </p>
-        <p>
+
+    <div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#night" aria-controls="night" role="tab" data-toggle="tab">Ночь</a></li>
+    <li role="presentation"><a href="#day" aria-controls="day" role="tab" data-toggle="tab">День</a></li>    
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">  
+    
+       <div role="tabpanel" class="tab-pane active" id="night">
+    
+    <div role="tabpanel" class="tab-panel active" id="night">        
+   
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-precipitation" href="#" >Добавить осадки (Ночь)</a>
+            </div>
+            <div class="panel-body">
+                <div class="panel-group" id="accordion-precipitation" role="tablist" aria-multiselectable="true">
+                    @foreach (var item in ((IRepository<PrecipitationTemplate>)(new PrecipitationTemplateRepository())).GetAll())
+                    {                    
+                        <div class="panel panel-default panel-accordion">
+                            <div class="panel-heading" role="tab" id="heading@(item.ID)">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.ID)" aria-expanded="true" aria-controls="collapse@(item.ID)">
+                                        @item.Name
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse@(item.ID)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading@(item.ID)">
+                                <div class="panel-body">
+                                    @foreach (var region in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> @region.Name
+                                            </label>
+                                        </div>                                    
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>      
+            </div>
+        </div>    
+        <script>
+            $("#accordion-precipitation .in").collapse('hide');
+        </script>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-wind" href="#" >Добавить ветер (Ночь)</a>
+            </div>
+            <div class="panel-body">
+                <div class="panel-group" id="accordion-wind" role="tablist" aria-multiselectable="true">
+                    @foreach (var item in ((IRepository<WindTemplate>)(new WindTemplateRepository())).GetAll())
+                    {
+                        <div class="panel panel-default panel-accordion">
+                            <div class="panel-heading" role="tab" id="heading-wind@(item.ID)">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion-wind" href="#collapse-wind@(item.ID)" aria-expanded="true" aria-controls="collapse-wind@(item.ID)">
+                                        @item.Name
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse-wind@(item.ID)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-wind@(item.ID)">
+                                <div class="panel-body">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Административный район
+                                                </th>
+                                                <th>
+                                                    Минимальное значение (м/с)
+                                                </th>
+                                                <th>
+                                                    Максимальное значение (м/с)
+                                                </th>
+                                                <th>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var region in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                                            {
+                                                <tr>
+                                                    <td class="col-md-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox"> @region.Name
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-md-3">
+                                                        <input type="text" class="form-control input-sm" id="wind-min" >
+                                                    </td>
+                                                    <td class="col-md-3">
+                                                        <input type="text" class="form-control input-sm" id="wind-max" >
+                                                    </td>
+                                                    <td class="col-md-6">
+                                                    </td>
+                                               </tr>
+                                            }
+                                       </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                      </div>
+                    }
+                </div>     
+            </div>
+        </div>    
+        <script>
+            $("#accordion-wind .in").collapse('hide');
+        </script>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#myModal" href="#" >Добавить температуру (Ночь)</a>
+        </div>
+        <div class="panel-body">
+            <div class="panel-group" id="accordion-temperature" role="tablist" aria-multiselectable="true">
+            <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Административный район
+                                            </th>
+                                            <th>
+                                                Минимальное значение (&degC)
+                                            </th>
+                                            <th>
+                                                Максимальное значение (&degC)
+                                            </th>
+                                            <th>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                        <tbody>
+                                            
+
+                                @foreach (var region in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                                {
+                                    
+                                            <tr>
+                                                <td class="col-md-3">
+                                                <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @region.Name
+                                        </label>
+                                      </div>
+                                                </td>
+                                                <td class="col-md-3">
+                                                    <input type="text" class="form-control input-sm" id="wind-min" >
+                                                </td>
+                                                <td class="col-md-3">
+                                                    <input type="text" class="form-control input-sm" id="wind-max" >
+                                                </td>
+                                                <td class="col-md-6">
+                                                </td>
+                                            </tr>
+                                        
+                                }
+                                </tbody>
+                                    </table>                
+            </div>     
+        </div>
+    </div>    
+    <script>
+        $("#accordion-temperature .in").collapse('hide');
+    </script>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#modal-cloudiness" href="#" >Добавить облачность (Ночь)</a>
+        </div>
+        <div class="panel-body">
+            <div class="panel-group" id="accordion-cloudiness" role="tablist" aria-multiselectable="true">
+
+                @foreach (var item in ((IRepository<CloudinessTemplate>)(new CloudinessTemplateRepository())).GetAll())
+                {
+                    
+                    <div class="panel panel-default panel-accordion">
+                        <div class="panel-heading" role="tab" id="heading-cloudiness@(item.ID)">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion-cloudiness" href="#collapse-cloudiness@(item.ID)" aria-expanded="true" aria-controls="collapse-cloudiness@(item.ID)">
+                              @item.Name
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapse-cloudiness@(item.ID)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-cloudiness@(item.ID)">
+                          <div class="panel-body">
+                                @foreach (var region in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                                {
+                                      <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @region.Name
+                                        </label>
+                                      </div>
+                                    
+                                }
+                          </div>
+                        </div>
+                      </div>
+                }
+            </div>     
+        </div>
+    </div>    
+    <script>
+        $("#accordion-cloudiness .in").collapse('hide');
+    </script>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#modal-condition" href="#" >Добавить явления (Ночь)</a>
+        </div>
+        <div class="panel-body">
+            <div class="panel-group" id="accordion-condition" role="tablist" aria-multiselectable="true">
+
+                @foreach (var item in ((IRepository<ConditionTemplate>)(new ConditionTemplateRepository())).GetAll())
+                {
+                    
+                    <div class="panel panel-default panel-accordion">
+                        <div class="panel-heading" role="tab" id="heading-condition@(item.ID)">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion-condition" href="#collapse-condition@(item.ID)" aria-expanded="true" aria-controls="collapse-condition@(item.ID)">
+                              @item.Name
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapse-condition@(item.ID)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-condition@(item.ID)">
+                          <div class="panel-body">
+                                @foreach (var region in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                                {
+                                      <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @region.Name
+                                        </label>
+                                      </div>
+                                    
+                                }
+                          </div>
+                        </div>
+                      </div>
+                }
+            </div>     
+        </div>
+    </div>    
+    <script>
+        $("#accordion-condition .in").collapse('hide');
+    </script>
+
             <input type="submit" value="Сохранить" />
-        </p>
+
+
+<div class="modal fade" id="modal-precipitation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимые осадки</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<PrecipitationTemplate>)(new PrecipitationTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modal-wind" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимые направления ветров</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<WindTemplate>)(new WindTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="modal-cloudiness" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимую облачность</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<CloudinessTemplate>)(new CloudinessTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="modal-condition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимые явления</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<ConditionTemplate>)(new ConditionTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="day">
+    
+    <div role="tabpanel" class="tab-panel active" id="night">        
+   
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-precipitation" href="#" >Добавить осадки (День)</a>
+            </div>
+            <div class="panel-body">
+                <div class="panel-group" id="accordion-precipitation" role="tablist" aria-multiselectable="true">
+                    @foreach (var item in ((IRepository<PrecipitationTemplate>)(new PrecipitationTemplateRepository())).GetAll())
+                    {                    
+                        <div class="panel panel-default panel-accordion">
+                            <div class="panel-heading" role="tab" id="heading@(item.ID)">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.ID)" aria-expanded="true" aria-controls="collapse@(item.ID)">
+                                        @item.Name
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse@(item.ID)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading@(item.ID)">
+                                <div class="panel-body">
+                                    @foreach (var region in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> @region.Name
+                                            </label>
+                                        </div>                                    
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>      
+            </div>
+        </div>    
+        <script>
+            $("#accordion-precipitation .in").collapse('hide');
+        </script>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a class="btn btn-primary" data-toggle="modal" data-target="#modal-wind" href="#" >Добавить ветер (День)</a>
+            </div>
+            <div class="panel-body">
+                <div class="panel-group" id="accordion-wind" role="tablist" aria-multiselectable="true">
+                    @foreach (var item in ((IRepository<WindTemplate>)(new WindTemplateRepository())).GetAll())
+                    {
+                        <div class="panel panel-default panel-accordion">
+                            <div class="panel-heading" role="tab" id="heading-wind@(item.ID)">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion-wind" href="#collapse-wind@(item.ID)" aria-expanded="true" aria-controls="collapse-wind@(item.ID)">
+                                        @item.Name
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse-wind@(item.ID)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-wind@(item.ID)">
+                                <div class="panel-body">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Административный район
+                                                </th>
+                                                <th>
+                                                    Минимальное значение (м/с)
+                                                </th>
+                                                <th>
+                                                    Максимальное значение (м/с)
+                                                </th>
+                                                <th>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var region in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                                            {
+                                                <tr>
+                                                    <td class="col-md-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox"> @region.Name
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-md-3">
+                                                        <input type="text" class="form-control input-sm" id="wind-min" >
+                                                    </td>
+                                                    <td class="col-md-3">
+                                                        <input type="text" class="form-control input-sm" id="wind-max" >
+                                                    </td>
+                                                    <td class="col-md-6">
+                                                    </td>
+                                               </tr>
+                                            }
+                                       </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                      </div>
+                    }
+                </div>     
+            </div>
+        </div>    
+        <script>
+            $("#accordion-wind .in").collapse('hide');
+        </script>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#myModal" href="#" >Добавить температуру (День)</a>
+        </div>
+        <div class="panel-body">
+            <div class="panel-group" id="accordion-temperature" role="tablist" aria-multiselectable="true">
+            <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Административный район
+                                            </th>
+                                            <th>
+                                                Минимальное значение (&degC)
+                                            </th>
+                                            <th>
+                                                Максимальное значение (&degC)
+                                            </th>
+                                            <th>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                        <tbody>
+                                            
+
+                                @foreach (var region in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                                {
+                                    
+                                            <tr>
+                                                <td class="col-md-3">
+                                                <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @region.Name
+                                        </label>
+                                      </div>
+                                                </td>
+                                                <td class="col-md-3">
+                                                    <input type="text" class="form-control input-sm" id="wind-min" >
+                                                </td>
+                                                <td class="col-md-3">
+                                                    <input type="text" class="form-control input-sm" id="wind-max" >
+                                                </td>
+                                                <td class="col-md-6">
+                                                </td>
+                                            </tr>
+                                        
+                                }
+                                </tbody>
+                                    </table>                
+            </div>     
+        </div>
+    </div>    
+    <script>
+        $("#accordion-temperature .in").collapse('hide');
+    </script>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#modal-cloudiness" href="#" >Добавить облачность (День)</a>
+        </div>
+        <div class="panel-body">
+            <div class="panel-group" id="accordion-cloudiness" role="tablist" aria-multiselectable="true">
+
+                @foreach (var item in ((IRepository<CloudinessTemplate>)(new CloudinessTemplateRepository())).GetAll())
+                {
+                    
+                    <div class="panel panel-default panel-accordion">
+                        <div class="panel-heading" role="tab" id="heading-cloudiness@(item.ID)">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion-cloudiness" href="#collapse-cloudiness@(item.ID)" aria-expanded="true" aria-controls="collapse-cloudiness@(item.ID)">
+                              @item.Name
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapse-cloudiness@(item.ID)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-cloudiness@(item.ID)">
+                          <div class="panel-body">
+                                @foreach (var region in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                                {
+                                      <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @region.Name
+                                        </label>
+                                      </div>
+                                    
+                                }
+                          </div>
+                        </div>
+                      </div>
+                }
+            </div>     
+        </div>
+    </div>    
+    <script>
+        $("#accordion-cloudiness .in").collapse('hide');
+    </script>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#modal-condition" href="#" >Добавить явления (День)</a>
+        </div>
+        <div class="panel-body">
+            <div class="panel-group" id="accordion-condition" role="tablist" aria-multiselectable="true">
+
+                @foreach (var item in ((IRepository<ConditionTemplate>)(new ConditionTemplateRepository())).GetAll())
+                {
+                    
+                    <div class="panel panel-default panel-accordion">
+                        <div class="panel-heading" role="tab" id="heading-condition@(item.ID)">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion-condition" href="#collapse-condition@(item.ID)" aria-expanded="true" aria-controls="collapse-condition@(item.ID)">
+                              @item.Name
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapse-condition@(item.ID)" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-condition@(item.ID)">
+                          <div class="panel-body">
+                                @foreach (var region in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                                {
+                                      <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @region.Name
+                                        </label>
+                                      </div>
+                                    
+                                }
+                          </div>
+                        </div>
+                      </div>
+                }
+            </div>     
+        </div>
+    </div>    
+    <script>
+        $("#accordion-condition .in").collapse('hide');
+    </script>
+
+            <input type="submit" value="Сохранить" />
+
+
+<div class="modal fade" id="modal-precipitation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимые осадки</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<PrecipitationTemplate>)(new PrecipitationTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modal-wind" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимые направления ветров</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<WindTemplate>)(new WindTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="modal-cloudiness" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимую облачность</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<CloudinessTemplate>)(new CloudinessTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="modal-condition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимые явления</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<ConditionTemplate>)(new ConditionTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+    </div>
+  </div>
+
+ </div>
+            <input type="submit" value="Сохранить" />
+        
     </fieldset>
-            } 
+    }
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
@@ -49,4 +796,122 @@
             
              });
     });
+
+    function PrecipitionAdd() {
+        
+    }
 </script>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-precipitation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимые осадки</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<PrecipitationTemplate>)(new PrecipitationTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modal-wind" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимые направления ветров</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<WindTemplate>)(new WindTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="modal-cloudiness" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимую облачность</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<CloudinessTemplate>)(new CloudinessTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="modal-condition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Укажите необходимые явления</h4>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in ((IRepository<ConditionTemplate>)(new ConditionTemplateRepository())).GetAll())
+        {
+            <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox"> @item.Name
+                                        </label>
+                                      </div>
+        }
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary">Выбрать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
