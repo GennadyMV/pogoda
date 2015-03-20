@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Bulletin.Models" assembly="Bulletin">
+  <class name="Group" table="Groups">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="Name" />
+    <set name="Abonents" table="AbonentsGroups" generic="true">
+      <key>
+        <column name="abonent_id" not-null="true" sql-type="INTEGER" />
+      </key>
+      <many-to-many class="Abonent" fetch="join">
+        <column name="ID" not-null="true" sql-type="INTEGER" />
+      </many-to-many>
+    </set>
+  </class>
+</hibernate-mapping>
+

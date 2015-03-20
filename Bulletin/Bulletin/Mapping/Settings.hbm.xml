@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Bulletin.Models" assembly="Bulletin">
+  <class name="Settings" table="Settings">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="SMTP_HOST" />
+    <property name="SMTP_USER" />
+    <property name="SMTP_PORT" />
+    <property name="MSG_FROM" />
+    <property name="MSG_SUBJECT" />
+
+  </class>
+</hibernate-mapping>
+

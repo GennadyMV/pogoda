@@ -1,18 +1,21 @@
 ﻿@{
-    ViewBag.Title = "Метеорологические бюллетени погоды";
+    ViewBag.Title = "Абонент";
 }
 
-<h2>Метеорологические бюллетени погоды</h2>
+<h2>Абонент</h2>
 
     <p>
-        @Html.ActionLink("Создать новый", "Create", null, new { @class="btn btn-default"})
+        @Html.ActionLink("Добавить", "Create", null, new { @class="btn btn-primary"})
     </p>
 
     <table class="table table-bordered table-hover tablesorter">
         <tr>
             <th>#</th>
             <th>
-                Наименование:
+                Имя:
+            </th>
+            <th>
+                Email:
             </th>
             <th></th>
         </tr>
@@ -26,6 +29,9 @@
             <td>
                 @Html.Encode(item.Name)
             </td>
+            <td>
+                @Html.Encode(item.Email)
+            </td>
             <td>            
                 @Html.ActionLink("Редактировать", "Edit", new {  id=item.ID }) |
                 @Html.ActionLink("Просмотр", "Details", new { id = item.ID }) |
@@ -36,7 +42,4 @@
     } 
 
     </table>
-
-    
-
 

@@ -73,28 +73,37 @@
   <ItemGroup>
     <Compile Include="Common\IRepository.cs" />
     <Compile Include="Common\NHibernateHelper.cs" />
+    <Compile Include="Controllers\AbonentController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\CloudinessTemplateController.cs" />
     <Compile Include="Controllers\ConditionTemplateController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\PrecipitationTemplateController.cs" />
     <Compile Include="Controllers\RegionTemplateController.cs" />
     <Compile Include="Controllers\SchemaController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\WindTemplateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Abonent.cs" />
     <Compile Include="Models\Bulletin.cs" />
     <Compile Include="Models\CloudinessTemplate.cs" />
     <Compile Include="Models\ConditionTemplate.cs" />
+    <Compile Include="Models\Group.cs" />
     <Compile Include="Models\PrecipitationTemplate.cs" />
     <Compile Include="Models\RegionTemplate.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\WindTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AbonentRepository.cs" />
     <Compile Include="Repositories\BulletinRepository.cs" />
     <Compile Include="Repositories\CloudinessTemplateRepository.cs" />
     <Compile Include="Repositories\ConditionTemplateRepository.cs" />
+    <Compile Include="Repositories\GroupRepository.cs" />
     <Compile Include="Repositories\PrecipitationTemplateRepository.cs" />
     <Compile Include="Repositories\RegionTemplateRepository.cs" />
+    <Compile Include="Repositories\SettingsRepository.cs" />
     <Compile Include="Repositories\WindTemplateRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +148,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Mapping\WindTemplate.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapping\Abonent.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapping\Group.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapping\Settings.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\html5shiv.min.js" />
@@ -278,6 +296,16 @@
     <Content Include="Views\CloudinessTemplate\Details.cshtml" />
     <Content Include="Views\CloudinessTemplate\Edit.cshtml" />
     <Content Include="Views\CloudinessTemplate\Index.cshtml" />
+    <Content Include="Views\Abonent\Index.cshtml" />
+    <Content Include="Views\Abonent\Create.cshtml" />
+    <Content Include="Views\Abonent\Edit.cshtml" />
+    <Content Include="Views\Abonent\Details.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\Group\Create.cshtml" />
+    <Content Include="Views\Group\Edit.cshtml" />
+    <Content Include="Views\Group\Details.cshtml" />
+    <Content Include="Views\Settings\Edit.cshtml" />
+    <Content Include="Views\Settings\Details.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -296,7 +324,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3583</DevelopmentServerPort>
+          <DevelopmentServerPort>3112</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

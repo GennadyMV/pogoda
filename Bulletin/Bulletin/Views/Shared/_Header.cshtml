@@ -20,10 +20,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right">      
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Справочники<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+            <li>@Html.ActionLink("Абоненты", "Index", "Abonent")</li>
+            <li>@Html.ActionLink("Группы абонентов", "Index", "Group")</li>
+            <li class="divider"></li>
             <li>@Html.ActionLink("Административные районы", "Index", "RegionTemplate")</li>
             <li class="divider"></li>
             <li>@Html.ActionLink("Осадки", "Index", "PrecipitationTemplate")</li>
@@ -32,6 +35,7 @@
             <li>@Html.ActionLink("Облачность", "Index", "CloudinessTemplate")</li>
           </ul>
         </li>
+        <li>@Html.ActionLink("Настройки", "Index", "Settings")</li>
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Администрирование<span class="caret"></span></a>
