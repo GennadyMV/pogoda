@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Bulletin.Common;
 using Bulletin.Repositories;
+using System.Net.Mail;
+using System.Net;
 
 namespace Bulletin.Controllers
 {
@@ -87,6 +89,34 @@ namespace Bulletin.Controllers
             IRepository<Models.Settings> repo = new SettingsRepository();
             repo.Delete(repo.GetById(id));
             return RedirectToAction("Index");
+        }
+
+        public ActionResult SmtpTest(string smtp_host, string smtp_user, int smtp_port, string msg_from, string msg_to, string msg_subject)
+        {
+            try
+            {
+                ViewBag.Msg = "Успешно";
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient(smtp_host);
+                mail.From = new MailAddress(msg_to);
+                mail.To.Add(msg_to);
+                mail.Subject = msg_subject;
+                mail.IsBodyHtml = true;
+                mail.Body = "<p>test</p>";
+                SmtpServer.Port = smtp_port;
+                SmtpServer.EnableSsl = false;
+                NetworkCredential UserInfo = new NetworkCredential("dvmeteo@dvugms.khv.ru", "dvmeteo");
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = UserInfo;
+                
+                SmtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Msg = ex.Message;
+            } 
+
+            return View();
         }
 
     }

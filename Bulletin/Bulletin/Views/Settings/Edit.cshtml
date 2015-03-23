@@ -8,47 +8,120 @@
 @using (Html.BeginForm("Edit", "Settings", new { ReturnUrl = ViewBag.ReturnUrl },
             FormMethod.Post, new { @class = "form-horizontal" }))
  {
+    <div class="panel panel-default">
+        <div class="panel-heading">Настройки почтового сервера</div>
+            <div class="panel-body">
             
-  <div class="form-group">
-    <label for="smtp_host" class="col-sm-2 control-label">Сервер SMTP:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="smtp_host" name="smtp_host" value="@Model.SMTP_HOST">
-    </div>
-  </div>
+              <div class="form-group">
+                <label for="smtp_host" class="col-sm-2 control-label">Сервер SMTP:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="smtp_host" name="smtp_host" value="@Model.SMTP_HOST">
+                </div>
+              </div>
 
-  <div class="form-group">
-    <label for="smtp_port" class="col-sm-2 control-label">Порт:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="smtp_port" name="smtp_port" value="@Model.SMTP_PORT">
-    </div>
-  </div>
+              <div class="form-group">
+                <label for="smtp_port" class="col-sm-2 control-label">Порт:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="smtp_port" name="smtp_port" value="@Model.SMTP_PORT">
+                </div>
+              </div>
 
-  <div class="form-group">
-    <label for="smtp_user" class="col-sm-2 control-label">Пользователь:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="smtp_user" name="smtp_user" value="@Model.SMTP_USER">
-    </div>
-  </div>
+              <div class="form-group">
+                <label for="smtp_user" class="col-sm-2 control-label">Пользователь:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="smtp_user" name="smtp_user" value="@Model.SMTP_USER">
+                </div>
+              </div>
 
-  <div class="form-group">
-    <label for="msg_from" class="col-sm-2 control-label">От кого:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="msg_from" name="msg_from" value="@Model.MSG_FROM" >
-    </div>
-  </div>
+              <div class="form-group">
+                <label for="msg_from" class="col-sm-2 control-label">От кого:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="msg_from" name="msg_from" value="@Model.MSG_FROM" >
+                </div>
+              </div>
 
-  <div class="form-group">
-    <label for="msg_subject" class="col-sm-2 control-label">Тема:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="msg_subject" name="msg_subject" value="@Model.MSG_SUBJECT" >
-    </div>
-  </div>
+              <div class="form-group">
+                <label for="msg_subject" class="col-sm-2 control-label">Тема:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="msg_subject" name="msg_subject" value="@Model.MSG_SUBJECT" >
+                </div>
+              </div>
 
+              <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#smtp-input-target-email" href="#" role="button">Отправить тестовое сообщение</a>
+              <p id="smtp-input-target-email-answer" class="btn bg-success pull-right"></p>
+              <script>
+                $("#smtp-input-target-email-answer").hide();                
+              </script>
+
+              <div class="modal fade" id="smtp-input-target-email" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Введите тестовый электронный адрес:</h4>
+                      </div>
+                      <div class="modal-body">
+                            
+                                <input type="email" class="form-control" id="smtp-input-target-email-enter" placeholder="Куда отправить тестовое сообщение">
+                                
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" id="smtp-input-target-email-confirm" >Отправить</button>
+                        
+
+                      </div>
+                    </div>
+                  </div>
+             </div>
+
+             <script>
+                 $(document).ready(function () {
+                     $("#smtp-input-target-email-confirm").click(function () {
+                         var email_target = $("#smtp-input-target-email-enter").val();
+                         var smtp_host = $("#smtp_host").val();
+                         var smtp_user = $("#smtp_user").val();
+                         var smtp_port = $("#smtp_port").val();
+                         var msg_from = $("#msg_from").val();
+                         var msg_subject = $("#msg_subject").val();
+
+                         console.log(email_target);
+                         console.log(smtp_host);
+                         console.log(smtp_user);
+                         console.log(smtp_port);
+                         console.log(msg_from);
+                         console.log(msg_subject);
+
+                         $('#smtp-input-target-email').modal('hide');
+
+                         var param = { smtp_host: smtp_host, smtp_user: smtp_user, smtp_port: smtp_port, msg_from: msg_from, msg_to: email_target, msg_subject: msg_subject };
+                         $.ajax({
+                             cache: false,
+                             url: '@Url.Action("SmtpTest", "Settings")',
+                             data: param,
+                             success: function (data) {                                 
+                                 $("#smtp-input-target-email-answer").text(data);
+                                 $("#smtp-input-target-email-answer").show();
+                             },
+                             error: function (x, e) {
+
+                             }
+                         });
+
+
+                     });
+                 });
+             </script>
+
+
+
+            </div>
+        </div>
   
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-default">Сохранить</button>
     </div>
   </div>
-}
+ }
 
