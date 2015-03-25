@@ -105,10 +105,11 @@ namespace Bulletin.Controllers
                 mail.Body = "<p>test</p>";
                 SmtpServer.Port = smtp_port;
                 SmtpServer.EnableSsl = false;
+               /*
                 NetworkCredential UserInfo = new NetworkCredential("dvmeteo@dvugms.khv.ru", "dvmeteo");
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = UserInfo;
-                
+                */
                 SmtpServer.Send(mail);
             }
             catch (Exception ex)

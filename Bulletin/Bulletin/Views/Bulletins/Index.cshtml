@@ -5,7 +5,17 @@
 <h2>Метеорологические бюллетени погоды</h2>
 
     <p>
-        @Html.ActionLink("Создать новый", "Create", null, new { @class="btn btn-default"})
+        
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            Создать новый <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>@Html.ActionLink("Создать через административные районы", "Create")</li>
+            <li>@Html.ActionLink("Создать через осадки", "CreateByParam")</li>
+          </ul>
+        </div>
+                
     </p>
 
     <table class="table table-bordered table-hover tablesorter">

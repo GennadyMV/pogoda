@@ -35,13 +35,40 @@ namespace Bulletin.Controllers
         {
             ViewBag.DateTime = DateTime.Now.ToShortDateString();
             return View();
-        } 
+        }
 
         //
         // POST: /Bulletins/Create
 
         [HttpPost]
         public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        //
+        // GET: /Bulletins/CreateByParam
+
+        public ActionResult CreateByParam()
+        {
+            ViewBag.DateTime = DateTime.Now.ToShortDateString();
+            return View();
+        } 
+
+        //
+        // POST: /Bulletins/CreateByParam
+
+        [HttpPost]
+        public ActionResult CreateByParam(FormCollection collection)
         {
             try
             {
