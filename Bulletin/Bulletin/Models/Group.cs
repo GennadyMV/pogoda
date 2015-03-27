@@ -27,5 +27,21 @@ namespace Bulletin.Models
                 this._Abonents = value;
             }
         }
+        public virtual void ClearAbonents()
+        {
+            this.Abonents.Clear();
+        }
+
+        public virtual Boolean IsExistAbonent(int AbonentID)
+        {
+            foreach (var theAbonent in this.Abonents)
+            {
+                if (theAbonent.ID == AbonentID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

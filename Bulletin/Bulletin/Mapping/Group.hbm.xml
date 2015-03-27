@@ -6,12 +6,12 @@
       <generator class="identity"/>
     </id>
     <property name="Name" />
-    <set name="Abonents" table="AbonentsGroups" generic="true">
+    <set name="Abonents" table="AbonentsGroups" generic="true"  lazy="false">
       <key>
-        <column name="abonent_id" not-null="true" sql-type="INTEGER" />
+        <column name="group_id" not-null="true" sql-type="INTEGER" />
       </key>
       <many-to-many class="Abonent" fetch="join">
-        <column name="ID" not-null="true" sql-type="INTEGER" />
+        <column name="abonent_id" not-null="true" sql-type="INTEGER" />
       </many-to-many>
     </set>
   </class>

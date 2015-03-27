@@ -8,12 +8,12 @@
     <property name="Name" />
     <property name="Email" />
 
-    <set name="Groups" table="AbonentsGroups" generic="true">
+    <set name="Groups" table="AbonentsGroups" generic="true" lazy="false">
       <key>
-        <column name="group_id" not-null="true" sql-type="INTEGER" />
+        <column name="abonent_id" not-null="true" sql-type="INTEGER" />
       </key>
       <many-to-many class="Group" fetch="join">
-        <column name="ID" not-null="true" sql-type="INTEGER" />
+        <column name="group_id" not-null="true" sql-type="INTEGER" />
       </many-to-many>
     </set>
     

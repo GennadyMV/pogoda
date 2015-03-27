@@ -12,6 +12,12 @@
             Наименование:
             @Html.Encode(Model.Name)
         </p>
+        <h5>Абоненты:</h5>
+        @foreach (var item in @Model.Abonents)
+        {
+            @item.Name
+            <br />
+        }
     </fieldset>
     <p>
         @Html.ActionLink("Редактировать", "Edit", new { id=Model.ID }) |

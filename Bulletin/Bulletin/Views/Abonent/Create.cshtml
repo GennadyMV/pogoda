@@ -1,4 +1,8 @@
-﻿@{
+﻿@using Bulletin.Repositories;
+@using Bulletin.Models;
+@using Bulletin.Common;
+
+@{
     ViewBag.Title = "Абонент";
 }
 
@@ -23,6 +27,22 @@
       <input type="email" class="form-control" name="Email" id="Email" placeholder="Email">      
     </div>
   </div>
+    
+    <h4>Группы</h4>
+    <table class="table">
+        <tbody>
+            @foreach (var group in ((IRepository<Group>)(new GroupRepository())).GetAll())
+            {
+                <tr>
+                    <td>
+                        
+                            <input type="checkbox" name="Groups" id="@group.ID" value="@group.ID">@group.Name
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
     
     <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">

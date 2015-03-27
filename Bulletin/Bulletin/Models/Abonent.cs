@@ -26,5 +26,21 @@ namespace Bulletin.Models
                 this._Groups = value;
             }
         }
+        public virtual void ClearGroups()
+        {
+            this.Groups.Clear();
+        }
+
+        public virtual Boolean IsExistGroup(int GroupID)
+        {
+            foreach (var theGroup in this.Groups)
+            {
+                if (theGroup.ID == GroupID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

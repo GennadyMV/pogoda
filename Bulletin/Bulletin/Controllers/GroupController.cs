@@ -45,9 +45,24 @@ namespace Bulletin.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-                string name = collection.Get("Name");
-                Group group = new Group() { Name = name };
+                string param_name = collection.Get("Name");
+                Group group = new Group() { Name = param_name };
+                if (collection.Get("Abonents") != null)
+                {
+                    string param_abonents = collection.Get("Abonents"); ;
+                    string[] arrayAbonents = param_abonents.Split(',');
+
+                    foreach (string str in arrayAbonents)
+                    {
+                        int AbonentID = Convert.ToInt32(str);
+                        Abonent abonent = new Abonent();
+                        IRepository<Abonent> repo_abonent = new AbonentRepository();
+                        abonent = repo_abonent.GetById(AbonentID);
+
+                        group.Abonents.Add(abonent);
+                    }
+                }
+
 
                 IRepository<Group> repo = new GroupRepository();
                 repo.Save(group);
@@ -76,12 +91,29 @@ namespace Bulletin.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-                string name = collection.Get("Name");
-                Group Group = new Group() { ID = id, Name = name };
-
+                string param_name = collection.Get("Name");
                 IRepository<Group> repo = new GroupRepository();
-                repo.Update(Group);
+                Group group = new Group();
+                group = repo.GetById(id);
+                group.Name = param_name;
+                group.ClearAbonents();
+                if (collection.Get("Abonents") != null)
+                {
+                    string param_abonents = collection.Get("Abonents"); ;
+                    string[] arrayAbonents = param_abonents.Split(',');
+
+                    foreach (string str in arrayAbonents)
+                    {
+                        int AbonentID = Convert.ToInt32(str);
+                        Abonent abonent = new Abonent();
+                        IRepository<Abonent> repo_abonent = new AbonentRepository();
+                        abonent = repo_abonent.GetById(AbonentID);
+
+                        group.Abonents.Add(abonent);
+                    }
+                }
+
+                repo.Update(group);
                 return RedirectToAction("Index");
             }
             catch

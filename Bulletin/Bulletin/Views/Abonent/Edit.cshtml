@@ -1,4 +1,8 @@
-﻿@{
+﻿@using Bulletin.Repositories;
+@using Bulletin.Models;
+@using Bulletin.Common;
+
+@{
     ViewBag.Title = "Абонент";
 }
 
@@ -6,7 +10,7 @@
 
 @Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.")
 
-@using (Html.BeginForm("Edit", "Abonent", new { id=@Model.ID },
+@using (Html.BeginForm("Edit", "Abonent", new { id = @Model.ID },
             FormMethod.Post, new { @class = "form-horizontal" }))
 {
     
@@ -26,6 +30,35 @@
       <input type="email" class="form-control" name="Email" id="Email" placeholder="Email" value="@Model.Email">      
     </div>
   </div>
+    
+    <h4>Группы</h4>
+    <table class="table">
+        <tbody>
+            @foreach (var group in ((IRepository<Group>)(new GroupRepository())).GetAll())
+            {
+                <tr>
+                    <td>
+
+                        @if (Model.IsExistGroup(Convert.ToInt32(group.ID))) {
+                                <input type="checkbox"
+                                checked="true"
+                                id=@group.ID
+                                name="Groups"
+                                value="@group.ID"/>@group.Name
+                        }
+                        else
+                        {
+                                <input type="checkbox"
+                                id=@group.ID
+                                name="Groups"
+                                value="@group.ID"/>@group.Name
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
     
     <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">

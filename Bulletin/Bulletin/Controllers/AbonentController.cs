@@ -44,11 +44,26 @@ namespace Bulletin.Controllers
         public ActionResult Create(FormCollection collection)
         {
             try
-            {
-                // TODO: Add insert logic here
-                string name = collection.Get("Name");
-                string email = collection.Get("Email");
-                Abonent abonent = new Abonent() { Name = name, Email = email };
+            {                
+                string param_name = collection.Get("Name");
+                string param_email = collection.Get("Email");
+                Abonent abonent = new Abonent() { Name = param_name, Email = param_email };
+                string param_groups;
+                string[] arrayGroups;
+                if (collection.Get("Groups") != null) {
+                    param_groups = collection.Get("Groups"); ;
+                    arrayGroups = param_groups.Split(',');
+
+                    foreach (string str in arrayGroups)
+                    {
+                        int GroupID = Convert.ToInt32(str);
+                        Group group = new Group();
+                        IRepository<Group> repo_group = new GroupRepository();
+                        group = repo_group.GetById(GroupID);
+
+                        abonent.Groups.Add(group);
+                    }
+                }
 
                 IRepository<Abonent> repo = new AbonentRepository();
                 repo.Save(abonent);
@@ -65,6 +80,9 @@ namespace Bulletin.Controllers
 
         public ActionResult Edit(int id)
         {
+            IRepository<Group> repo_groups = new GroupRepository();
+            @ViewBag.Groups = repo_groups.GetAll();
+
             IRepository<Abonent> repo = new AbonentRepository();
             return View(repo.GetById(id));
         }
@@ -78,11 +96,36 @@ namespace Bulletin.Controllers
             try
             {
                 // TODO: Add update logic here
-                string name = collection.Get("Name");
-                string email = collection.Get("Email");
-                Abonent abonent = new Abonent() { ID = id, Name = name, Email = email };
-
+                string param_name = collection.Get("Name");
+                string param_email = collection.Get("Email");
                 IRepository<Abonent> repo = new AbonentRepository();
+                Abonent abonent = new Abonent();
+                abonent = repo.GetById(id);
+                abonent.Name = param_name;
+                abonent.Email = param_email;
+                abonent.ClearGroups();
+                string param_groups;
+                string[] arrayGroups;
+
+                if (collection.Get("Groups") != null)
+                {
+                    param_groups = collection.Get("Groups"); ;
+                    arrayGroups = param_groups.Split(',');
+
+                    foreach (string str in arrayGroups)
+                    {
+                        int GroupID = Convert.ToInt32(str);
+                        Group group = new Group();
+                        IRepository<Group> repo_group = new GroupRepository();
+                        group = repo_group.GetById(GroupID);
+
+                        abonent.Groups.Add(group);
+                    }
+
+
+                }
+
+                
                 repo.Update(abonent);
                 return RedirectToAction("Index");
             }

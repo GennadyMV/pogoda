@@ -3,7 +3,7 @@
     }
 
 
-<h2>Просмотр абонентов</h2>
+<h2>Просмотр абонента</h2>
 
     <fieldset>
         <legend>Поля</legend>
@@ -15,6 +15,12 @@
             Email:
             @Html.Encode(Model.Email)
         </p>
+        <h5>Группы:</h5>
+        @foreach (var item in @Model.Groups)
+        {
+            @item.Name
+            <br />
+        }
     </fieldset>
     <p>
         @Html.ActionLink("Редактировать", "Edit", new { id=Model.ID }) |
