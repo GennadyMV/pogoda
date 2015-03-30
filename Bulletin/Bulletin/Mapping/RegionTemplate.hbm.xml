@@ -6,6 +6,9 @@
       <generator class="identity"/>
     </id>
     <property name="Name" />
-
+    <property name="Deltawind" />
+    <property name="Deltatemperature" />
+    <property name="Territory" />
+    
   </class>
 </hibernate-mapping>
