@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="Models\Abonent.cs" />
     <Compile Include="Models\Bulletin.cs" />
+    <Compile Include="Models\Clarification.cs" />
     <Compile Include="Models\CloudinessTemplate.cs" />
     <Compile Include="Models\ConditionTemplate.cs" />
     <Compile Include="Models\Group.cs" />
@@ -163,6 +164,9 @@
     <None Include="hibernate.cfg.xml_debug">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <EmbeddedResource Include="Mapping\СlarificationTemplate.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\html5shiv.min.js" />
     <Content Include="Scripts\i18n\defaults-cs_CZ.js" />
