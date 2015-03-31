@@ -47,7 +47,27 @@ namespace Bulletin.Controllers
             {
                 // TODO: Add insert logic here
                 string name = collection.Get("Name");
-                RegionTemplate region = new RegionTemplate() { Name = name };
+                int deltawind = 0;
+                if (collection.Get("Deltawind") != null)
+                {
+                    deltawind = Convert.ToInt32(collection.Get("Deltawind"));
+                }
+                int deltatemperature = 0;
+                if (collection.Get("Deltatemperature") != null)
+                {
+                    deltatemperature = Convert.ToInt32(collection.Get("Deltatemperature"));
+                }
+
+                int territory = (int)Territory.Region;
+                if (collection.Get("Territory") != null)
+                {
+                    territory =  Convert.ToInt32(collection.Get("Territory"));
+                }
+
+                RegionTemplate region = new RegionTemplate() { Name = name, 
+                                                            Deltawind = deltawind, 
+                                                            Deltatemperature = deltatemperature,
+                                                            Territory = territory};
 
                 IRepository<RegionTemplate> repo = new RegionTemplateRepository();
                 repo.Save(region);
@@ -59,6 +79,22 @@ namespace Bulletin.Controllers
                 return View();
             }
         }
+
+        //
+        // GET: /RegoinTemplate/CreateRegion
+
+        public ActionResult CreateRegion()
+        {
+            return View();
+        }
+
+        //
+        // GET: /RegoinTemplate/CreateLocality
+
+        public ActionResult CreateLocality()
+        {
+            return View();
+        } 
         
         //
         // GET: /RegoinTemplate/Edit/5
@@ -77,9 +113,29 @@ namespace Bulletin.Controllers
         {
             try
             {
-                // TODO: Add update logic here
                 string name = collection.Get("Name");
-                RegionTemplate region = new RegionTemplate() { ID = id, Name = name };
+                int deltawind = 0;
+                if (collection.Get("Deltawind") != null)
+                {
+                    deltawind = Convert.ToInt32(collection.Get("Deltawind"));
+                }
+                int deltatemperature = 0;
+                if (collection.Get("Deltatemperature") != null)
+                {
+                    deltatemperature = Convert.ToInt32(collection.Get("Deltatemperature"));
+                }
+
+                int territory = (int)Territory.Region;
+                if (collection.Get("Territory") != null)
+                {
+                    territory = Convert.ToInt32(collection.Get("Territory"));
+                }
+
+                RegionTemplate region = new RegionTemplate() { ID = id, 
+                                                            Name = name,
+                                                            Deltawind = deltawind,
+                                                            Deltatemperature = deltatemperature,
+                                                            Territory = territory};
 
                 IRepository<RegionTemplate> repo = new RegionTemplateRepository();
                 repo.Update(region);

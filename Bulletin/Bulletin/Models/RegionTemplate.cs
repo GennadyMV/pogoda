@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Bulletin.Models
 {
-    enum Territory {
+    public enum Territory {
         Region = 1,
         Locality = 2
     };
@@ -13,8 +13,8 @@ namespace Bulletin.Models
     {
         public virtual int ID { get; set; }        
         public virtual string Name { get; set; }
-        public virtual string Deltawind { get; set; }
-        public virtual string Deltatemperature { get; set; }
+        public virtual int Deltawind { get; set; }
+        public virtual int Deltatemperature { get; set; }
         public virtual int Territory { get; set; }
     }
 }

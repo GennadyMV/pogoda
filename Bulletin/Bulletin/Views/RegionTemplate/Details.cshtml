@@ -1,10 +1,12 @@
-﻿@{
-    ViewBag.Title = "Административный район";
+﻿@using Bulletin.Models
+
+@{
+    ViewBag.Title = "Территория";
 }
 
 
 
-<h2>Просмотр административнного района</h2>
+<h2>Просмотр территории</h2>
 
     <fieldset>
         <legend>Поля</legend>
@@ -12,8 +14,28 @@
             Наименование:
             @Html.Encode(Model.Name)
         </p>
+        <p>
+            Градация по ветру:
+            @Html.Encode(Model.Deltawind)
+        </p>
+        <p>
+            Градация по температуре:
+            @Html.Encode(Model.Deltatemperature)
+        </p>        
+        <p>
+            Тип терртории:
+            @if (Model.Territory == (int)Territory.Region)
+            {
+                @Html.Encode("Административный район")                    
+            }
+            @if (Model.Territory == (int)Territory.Locality)
+            {
+                @Html.Encode("Населённый пункт")                    
+            }
+            
+        </p>
     </fieldset>
     <p>
-        @Html.ActionLink("Редактировать", "Edit", new { id=Model.ID }) |
+        @Html.ActionLink("Редактировать", "Edit", new { id = Model.ID }) |
         @Html.ActionLink("Назад", "Index")
     </p>
