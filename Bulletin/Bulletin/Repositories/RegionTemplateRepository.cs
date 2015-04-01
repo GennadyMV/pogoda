@@ -6,6 +6,7 @@
     using NHibernate;
     using Bulletin.Common;
     using NHibernate.Criterion;
+using Bulletin.Models;
 
     namespace Bulletin.Repositories
     {
@@ -61,6 +62,16 @@
                 {
                     ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.RegionTemplate));
                     criteria.AddOrder(Order.Desc("ID"));
+                    return criteria.List<Bulletin.Models.RegionTemplate>();
+                }
+            }
+
+            public IList<Bulletin.Models.RegionTemplate> GetByTerritory(Territory territory)
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.RegionTemplate));
+                    criteria.Add(Restrictions.Eq("Territory", (int)territory));
                     return criteria.List<Bulletin.Models.RegionTemplate>();
                 }
             }

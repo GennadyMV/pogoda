@@ -75,6 +75,7 @@
     <Compile Include="Common\NHibernateHelper.cs" />
     <Compile Include="Controllers\AbonentController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
+    <Compile Include="Controllers\ClarificationTemplateController.cs" />
     <Compile Include="Controllers\CloudinessTemplateController.cs" />
     <Compile Include="Controllers\ConditionTemplateController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
@@ -88,7 +89,7 @@
     </Compile>
     <Compile Include="Models\Abonent.cs" />
     <Compile Include="Models\Bulletin.cs" />
-    <Compile Include="Models\Clarification.cs" />
+    <Compile Include="Models\ClarificationTemplate.cs" />
     <Compile Include="Models\CloudinessTemplate.cs" />
     <Compile Include="Models\ConditionTemplate.cs" />
     <Compile Include="Models\Group.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AbonentRepository.cs" />
     <Compile Include="Repositories\BulletinRepository.cs" />
+    <Compile Include="Repositories\ClarificationTemplateRepository.cs" />
     <Compile Include="Repositories\CloudinessTemplateRepository.cs" />
     <Compile Include="Repositories\ConditionTemplateRepository.cs" />
     <Compile Include="Repositories\GroupRepository.cs" />
@@ -302,6 +304,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\RegionTemplate\CreateRegion.cshtml" />
     <Content Include="Views\RegionTemplate\CreateLocality.cshtml" />
+    <Content Include="Views\ClarificationTemplate\Index.cshtml" />
+    <Content Include="Views\ClarificationTemplate\Create.cshtml" />
+    <Content Include="Views\ClarificationTemplate\Edit.cshtml" />
+    <Content Include="Views\ClarificationTemplate\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fonts\" />
@@ -367,7 +373,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2891</DevelopmentServerPort>
+          <DevelopmentServerPort>2224</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
