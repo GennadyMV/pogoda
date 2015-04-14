@@ -1,0 +1,52 @@
+﻿@using Bulletin.Repositories;
+@using Bulletin.Models;
+@using Bulletin.Common;
+
+<div class="panel panel-primary">
+            <div class="panel-heading lg">Ночь</div>
+            <div class="panel-body">
+                <table class="table">
+                    <tbody>
+                        <tr class="something">
+                            <td class="col-md-1">
+                                Осадки:
+                            </td>
+                            <td class="col-md-11">
+                                <select id="bulletin-@(ViewBag.forecast)-precipitation-night" class="selectpicker" data-style="btn-primary" data-live-search="true" data-width="50%">
+                                    @foreach (var precipitation in ((IRepository<PrecipitationTemplate>)(new PrecipitationTemplateRepository())).GetAll())
+                                    {
+                                        <option>@precipitation.Name</option>
+                                    }                                                        
+                                </select>
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>                                           
+            </div>
+        </div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading">День</div>
+        <div class="panel-body">                                       
+                <table class="table">
+                    <tbody>
+                        <tr class="something">
+                            <td class="col-md-1">
+                                Осадки:
+                            </td>
+                            <td class="col-md-11">
+                                <select id="bulletin-@(ViewBag.forecast)-precipitation-day" class="selectpicker" data-style="btn-primary" data-live-search="true" data-width="50%">
+                                    @foreach (var precipitation in ((IRepository<PrecipitationTemplate>)(new PrecipitationTemplateRepository())).GetAll())
+                                    {
+                                        <option>@precipitation.Name</option>
+                                    }                                                        
+                                </select>
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>                                             
+            </div>
+        </div>
+

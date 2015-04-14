@@ -1,0 +1,428 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+            <hr />
+         <div class="panel-group" id="accordion-region" role="tablist" aria-multiselectable="true">
+                    @foreach (var item in ((IRepository<RegionTemplate>)(new RegionTemplateRepository())).GetAll())
+                    {                    
+                        <div class="panel panel-default panel-accordion">
+                            <div class="panel-heading" role="tab" id="heading@(item.ID)">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.ID)" aria-expanded="true" aria-controls="collapse@(item.ID)">
+                                        @item.Name
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse@(item.ID)" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="heading@(item.ID)">
+                                <div class="panel-body">
+
+                                    <p class="pull-right">
+                                        <a class="btn btn-default" href="#" role="button">Копировать</a>
+                                        <a class="btn btn-default" href="#" role="button">Вставить</a>
+                                    </p>
+                                   
+                                   <div role="tabpanel">
+
+                                      <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active"><a href="#cloudiness-region@(item.ID)" aria-controls="cloudiness-region@(item.ID)" role="tab" data-toggle="tab">Облачность</a></li>
+                                        <li role="presentation"><a href="#precipitation-region@(item.ID)" aria-controls="precipitation-region@(item.ID)" role="tab" data-toggle="tab">Осадки</a></li>
+                                        <li role="presentation"><a href="#condition-region@(item.ID)" aria-controls="condition-region@(item.ID)" role="tab" data-toggle="tab">Явления</a></li>
+                                        <li role="presentation"><a href="#wind-region@(item.ID)" aria-controls="wind-region@(item.ID)" role="tab" data-toggle="tab">Ветер</a></li>
+                                        <li role="presentation"><a href="#temperature-region@(item.ID)" aria-controls="temperature-region@(item.ID)" role="tab" data-toggle="tab">Температура</a></li>                                       
+                                      </ul>
+
+                                      <!-- Tab panes -->
+                                      <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane" id="precipitation-region@(item.ID)">
+                                            
+                                            <div class="panel panel-primary">
+                                              <div class="panel-heading lg">Ночь</div>
+                                              <div class="panel-body">
+                                              <!--
+                                                    Временая характеристика:
+                                                    <select class="selectpicker" data-style="btn-primary">                                                    
+                                                        <option>Временно</option>
+                                                        <option>Кратковременный</option>
+                                                        <option>Продолжительный</option>
+                                                    </select>
+                                            -->
+                                                    Осадки:
+                                                    <select class="selectpicker" data-style="btn-primary" data-live-search="true">
+                                                        @foreach (var precipitation in ((IRepository<PrecipitationTemplate>)(new PrecipitationTemplateRepository())).GetAll())
+                                                        {
+                                                            <option>@precipitation.Name</option>
+                                                        }                                                        
+                                                    </select>
+                                            <!--
+                                                    Интенсивность:
+                                                    <select class="selectpicker" data-style="btn-primary">                                                    
+                                                        <option>Сильный</option>
+                                                        <option>Слабый</option>
+                                                        <option>Умеренный</option>
+                                                    </select>
+                                        -->
+                                              </div>
+                                            </div>
+
+                                            <div class="panel panel-success">
+                                              <div class="panel-heading">День</div>
+                                              <div class="panel-body">
+                                        <!--
+                                                Временая характеристика:
+                                                    <select class="selectpicker" data-style="btn-primary">                                                    
+                                                        <option>Временно</option>
+                                                        <option>Кратковременный</option>
+                                                        <option>Продолжительный</option>
+                                                    </select>
+                                        -->
+                                                    Осадки:
+                                                    <select class="selectpicker" data-style="btn-primary data-live-search="true"">
+                                                        @foreach (var precipitation in ((IRepository<PrecipitationTemplate>)(new PrecipitationTemplateRepository())).GetAll())
+                                                        {
+                                                            <option>@precipitation.Name</option>
+                                                        }                                                        
+                                                    </select>
+                                        <!--
+                                                    Интенсивность:
+                                                    <select class="selectpicker" data-style="btn-primary">                                                    
+                                                        <option>Сильный</option>
+                                                        <option>Слабый</option>
+                                                        <option>Умеренный</option>
+                                                    </select>
+                                        -->
+                                              </div>
+                                            </div>
+
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="wind-region@(item.ID)">
+
+                                            <div class="panel panel-primary">
+                                              <div class="panel-heading lg">Ночь</div>
+                                              <div class="panel-body">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Ветер
+                                                                </th>
+                                                                <th>
+                                                                    Минимальное значение (м/с)
+                                                                </th>
+                                                                <th>
+                                                                    Максимальное значение (м/с)
+                                                                </th>
+                                                                <th>
+                                                                    Уточнение
+                                                                </th>
+                                                                <th>
+                                                                    Минимальное значение (м/с)
+                                                                </th>
+                                                                <th>
+                                                                    Максимальное значение (м/с)
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="col-md-1">
+                                                                    <select class="selectpicker" data-style="btn-primary">                                                    
+                                                                        @foreach (var wind in ((IRepository<WindTemplate>)(new WindTemplateRepository())).GetAll())
+                                                                        {
+                                                                            <option>@wind.Name</option>
+                                                                        }                                                        
+                                                                    </select>                                                                        
+                                                                </td>
+                                                                <td class="col-md-3">
+                                                                    <input type="number" class="form-control input-sm delta" id="wind-min" region="@item.ID" times="day" who="wind">
+                                                                </td>
+                                                                <td class="col-md-3">
+                                                                    <input type="number" class="form-control input-sm" id="wind-max-region-@item.ID-day" >
+                                                                </td>
+                                                                <td class="col-md-1">
+                                                                    <select class="selectpicker" data-style="btn-primary">                                                                        
+                                                                            <option>порывы</option>
+                                                                            <option>по долинам рек порывы</option>
+                                                                            <option>по долинам рек и на побережье</option>
+                                                                            <option>на побережье</option>
+                                                                    </select>                                                                        
+                                                                </td>
+                                                                <td class="col-md-3">
+                                                                    <input type="number" class="form-control input-sm delta" id="wind-min" region="@item.ID" times="night" who="wind">
+                                                                </td>
+                                                                <td class="col-md-3">
+                                                                    <input type="number" class="form-control input-sm" id="wind-max-region-@item.ID-night" >
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                                                                    
+                                              </div>
+                                            </div>
+
+                                            <div class="panel panel-success">
+                                              <div class="panel-heading">День</div>
+                                              <div class="panel-body">
+                                                
+                                                <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Ветер
+                                                                </th>
+                                                                <th>
+                                                                    Минимальное значение (м/с)
+                                                                </th>
+                                                                <th>
+                                                                    Максимальное значение (м/с)
+                                                                </th>
+                                                                <th>
+                                                                    Уточнение
+                                                                </th>
+                                                                <th>
+                                                                    Минимальное значение (м/с)
+                                                                </th>
+                                                                <th>
+                                                                    Максимальное значение (м/с)
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="col-md-1">
+                                                                    <select class="selectpicker" data-style="btn-primary">                                                    
+                                                                        @foreach (var wind in ((IRepository<WindTemplate>)(new WindTemplateRepository())).GetAll())
+                                                                        {
+                                                                            <option>@wind.Name</option>
+                                                                        }                                                        
+                                                                    </select>                                                                        
+                                                                </td>
+                                                                <td class="col-md-3">
+                                                                    <input type="number" class="form-control input-sm delta" id="wind-min" region="@item.ID" times="night" who="wind">
+                                                                </td>
+                                                                <td class="col-md-3">
+                                                                    <input type="number" class="form-control input-sm" id="wind-max-region-@item.ID-night" >
+                                                                </td>
+                                                                <td class="col-md-1">
+                                                                    <select class="selectpicker" data-style="btn-primary">                                                                        
+                                                                            <option>порывы</option>
+                                                                            <option>по долинам рек порывы</option>
+                                                                            <option>по долинам рек и на побережье</option>
+                                                                            <option>на побережье</option>
+                                                                    </select>                                                                        
+                                                                </td>
+                                                                <td class="col-md-3">
+                                                                    <input type="number" class="form-control input-sm delta" id="wind-min" region="@item.ID" times="night" who="wind">
+                                                                </td>
+                                                                <td class="col-md-3">
+                                                                    <input type="number" class="form-control input-sm" id="wind-max-region-@item.ID-night" >
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                              </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane" id="temperature-region@(item.ID)">
+
+
+                                            <div role="tabpanel">
+
+                                                  <!-- Nav tabs -->
+                                                  <ul class="nav nav-tabs" role="tablist">
+                                                    <li role="presentation" class="active"><a href="#temperature-region@(item.ID)-night" aria-controls="temperature-region@(item.ID)-night" role="tab" data-toggle="tab">Ночь</a></li>
+                                                    <li role="presentation"><a href="#temperature-region@(item.ID)-day" aria-controls="temperature-region@(item.ID)-day" role="tab" data-toggle="tab">День</a></li>
+                                                    
+                                                  </ul>
+
+                                                  <!-- Tab panes -->
+                                                  <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane active" id="temperature-region@(item.ID)-night">
+                                                                
+                                                                <table class="table table-bordered table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Минимальное значение (Ночь) (&degC)
+                                                                            </th>
+                                                                            <th>
+                                                                                Максимальное значение (Ночь)  (&degC)
+                                                                            </th>
+                                                                            <th>
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                        <tbody>
+                                            
+                                                                                
+                                                                            <tr>
+                                            
+                                                                                <td class="col-md-3">
+                                                                                    <input type="number" class="form-control input-sm delta" id="temperature-min" region="@item.ID" times="night" who="temperature">
+                                                                                </td>
+                                                                                <td class="col-md-3">
+                                                                                    <input type="number" class="form-control input-sm" id="temperature-max-region-@item.ID-night" >
+                                                                                </td>
+                                                                                <td class="col-md-9">
+                                                                                </td>
+                                                                            </tr>
+                                        
+                                
+                                                                </tbody>
+                                                                    </table>   
+
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane" id="temperature-region@(item.ID)-day">
+                                                         <table class="table table-bordered table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Минимальное значение (День) (&degC)
+                                                                            </th>
+                                                                            <th>
+                                                                                Максимальное значение (День) (&degC)
+                                                                            </th>
+                                                                            <th>
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                        <tbody>
+                                            
+                                                                                
+                                                                            <tr>
+                                            
+                                                                                <td class="col-md-3">
+                                                                                    <input type="number" class="form-control input-sm delta" id="temperature-min" region="@item.ID" times="day" who="temperature">
+                                                                                </td>
+                                                                                <td class="col-md-3">
+                                                                                    <input type="number" class="form-control input-sm" id="temperature-max-region-@item.ID-day" >
+                                                                                </td>
+                                                                                <td class="col-md-9">
+                                                                                </td>
+                                                                            </tr>
+                                        
+                                
+                                                                </tbody>
+                                                                    </table>  
+                                                    </div>
+                                                    
+                                                  </div>
+
+                                                </div>
+
+
+
+                                            
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane active" id="cloudiness-region@(item.ID)">
+                                            
+                                            <table class="table table-bordered table-hover col-md-1">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Ночь
+                                                    </th>
+                                                    
+                                                    <th>
+                                                        День
+                                                    </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <select class="selectpicker" data-style="btn-primary">                                                    
+                                                            @foreach (var cloudiness in ((IRepository<CloudinessTemplate>)(new CloudinessTemplateRepository())).GetAll())
+                                                            {
+                                                                <option>@cloudiness.Name</option>
+                                                            }                                                        
+                                                        </select> 
+                                                    </td>
+                                                    
+                                                    <td>
+                                                        <select class="selectpicker" data-style="btn-primary">                                                    
+                                                            @foreach (var cloudiness in ((IRepository<CloudinessTemplate>)(new CloudinessTemplateRepository())).GetAll())
+                                                            {
+                                                                <option>@cloudiness.Name</option>
+                                                            }                                                        
+                                                        </select> 
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                            </table>
+
+                                            
+
+                                        </div>
+                                        
+                                        <div role="tabpanel" class="tab-pane" id="condition-region@(item.ID)">
+
+                                            <table class="table table-bordered table-hover col-md-1">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Ночь
+                                                    </th>
+                                                    
+                                                    <th>
+                                                        День
+                                                    </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <select class="selectpicker" data-style="btn-primary">                                                    
+                                                            @foreach (var condition in ((IRepository<ConditionTemplate>)(new ConditionTemplateRepository())).GetAll())
+                                                            {
+                                                                <option>@condition.Name</option>
+                                                            }                                                        
+                                                        </select> 
+
+                                                        <div class="clearfix"></div>
+                                                        <div class="checkbox pull-left">
+                                                          <label><input type="checkbox" value="">местами</label>
+                                                        </div>
+                                                        
+                                                    </td>
+
+
+                                                    
+                                                    <td>
+                                                        <select class="selectpicker" data-style="btn-primary">                                                    
+                                                            @foreach (var condition in ((IRepository<ConditionTemplate>)(new ConditionTemplateRepository())).GetAll())
+                                                            {
+                                                                <option>@condition.Name</option>
+                                                            }                                                        
+                                                        </select> 
+                                                        <div class="clearfix"></div>
+                                                        <div class="checkbox pull-left">
+                                                          <label><input type="checkbox" value="">местами</label>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                            </table>
+
+                                        </div>
+
+                                      </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>    

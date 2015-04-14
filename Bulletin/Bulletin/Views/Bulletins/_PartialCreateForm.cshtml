@@ -1,0 +1,163 @@
+﻿@using Bulletin.Repositories;
+@using Bulletin.Models;
+@using Bulletin.Common;
+
+
+                <select id="bulletin-@(Model)-territories" data-style="btn-info" multiple title='Укажите территорию...' data-width="50%">
+                  <optgroup label="Административные районы">
+                    @foreach (var item in ((new RegionTemplateRepository())).GetByTerritory(Territory.Region))
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                                        
+                  </optgroup>
+                    <optgroup label="Населённые пункты">
+                        @foreach (var item in ((RegionTemplateRepository)(new RegionTemplateRepository())).GetByTerritory(Territory.Locality))
+                        {
+                            <option value="@item.ID">@item.Name</option>
+                        }
+                    </optgroup>
+                </select>
+                <script>
+
+                    $('#bulletin-@(Model)-territories').selectpicker({
+                        style: 'btn-success',
+                        size: 6
+                    });
+                </script>
+            
+
+                
+                <div role="tabpanel">
+
+                                      <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active"><a href="#cloudiness-region-@(Model)" aria-controls="cloudiness-region-@(Model)" role="tab" data-toggle="tab">Облачность</a></li>
+                                        <li role="presentation"><a href="#precipitation-region-@(Model)" aria-controls="precipitation-region-@(Model)" role="tab" data-toggle="tab">Осадки</a></li>
+                                        <li role="presentation"><a href="#condition-region-@(Model)" aria-controls="condition-region-@(Model)" role="tab" data-toggle="tab">Явления</a></li>
+                                        <li role="presentation"><a href="#wind-region-@(Model)" aria-controls="wind-region-@(Model)" role="tab" data-toggle="tab">Ветер</a></li>
+                                        <li role="presentation"><a href="#temperature-region-@(Model)" aria-controls="temperature-region-@(Model)" role="tab" data-toggle="tab">Температура</a></li>                                       
+                                      </ul>
+
+                                      <!-- Tab panes -->
+                                      <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane" id="precipitation-region-@(Model)">                                            
+                                            @Html.Partial("Params\\_Precipitation", new ViewDataDictionary { { "forecast", Model } })
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane" id="wind-region-@(Model)">
+                                            @Html.Partial("Params\\_Wind", new ViewDataDictionary { { "forecast", Model } })
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane" id="temperature-region-@(Model)">
+                                            @Html.Partial("Params\\_Temperature", new ViewDataDictionary { { "forecast", Model } })
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane active" id="cloudiness-region-@(Model)">
+                                            @Html.Partial("Params\\_Cloudiness", new ViewDataDictionary { { "forecast", Model } })
+                                        </div>
+                                        
+                                        <div role="tabpanel" class="tab-pane" id="condition-region-@(Model)">
+                                            @Html.Partial("Params\\_Condition", new ViewDataDictionary { { "forecast", Model } })
+                                        </div>
+
+                                      </div>
+
+                                    </div>      
+
+<script>
+    $(document).ready(function () {
+        $('.delta').change(function () {
+            var region = $(this).attr('region');
+            var times = $(this).attr('times');
+            var who = $(this).attr('who');
+
+            $('#' + who + '-max-region-@(Model)-' + region + '-' + times).val(parseInt($(this).val()) + 5);
+        });
+    });
+</script>
+
+<button id="bulletin-@(Model)-save" class="btn btn-primary btn-lg" type="submit">Сохранить</button>
+
+@Html.Partial("Params\\_Alerts", new ViewDataDictionary { { "forecast", Model } })
+
+<script>
+    function AlertsHide@(Model)() {
+        $('#bulletin-@(Model)-alerts-territories').hide();
+        $("#bulletin-@(Model)-alerts-cloudiness-day").hide();
+        $("#bulletin-@(Model)-alerts-cloudiness-night").hide();
+        $("#bulletin-@(Model)-alerts-precipitation-day").hide();
+        $("#bulletin-@(Model)-alerts-precipitation-night").hide();
+        $("#bulletin-@(Model)-alerts-condition-day").hide();
+        $("#bulletin-@(Model)-alerts-condition-night").hide();
+        $("#bulletin-@(Model)-alerts-wind-day").hide();
+        $("#bulletin-@(Model)-alerts-wind-night").hide();
+        $("#bulletin-@(Model)-alerts-windmin-day").hide();
+        $("#bulletin-@(Model)-alerts-windmin-night").hide();
+        $("#bulletin-@(Model)-alerts-windmax-day").hide();
+        $("#bulletin-@(Model)-alerts-windmax-night").hide();
+
+        $("#bulletin-@(Model)-alerts-temperaturemin-day").hide();
+        $("#bulletin-@(Model)-alerts-temperaturemin-night").hide();
+        $("#bulletin-@(Model)-alerts-temperaturemax-day").hide();
+        $("#bulletin-@(Model)-alerts-temperaturemax-night").hide();
+    }
+
+    $(document).ready(function () {
+        AlertsHide@(Model)();
+
+        $("#bulletin-@(Model)-save").click(function () {
+            AlertsHide@(Model)();
+            if ($("#bulletin-@(Model)-territories").val() == null) {
+                $("#bulletin-@(Model)-alerts-territories").show();
+            }
+            if ($("#bulletin-@(Model)-cloudiness-night").val() == null) {
+                $("#bulletin-@(Model)-alerts-cloudiness-night").show();
+            }
+            if ($("#bulletin-@(Model)-cloudiness-day").val() == null) {
+                $("#bulletin-@(Model)-alerts-cloudiness-day").show();
+            }
+            if ($("#bulletin-@(Model)-precipitation-night").val() == null) {
+                $("#bulletin-@(Model)-alerts-precipitation-night").show();
+            }
+            if ($("#bulletin-@(Model)-precipitation-day").val() == null) {
+                $("#bulletin-@(Model)-alerts-precipitation-day").show();
+            }
+            if ($("#bulletin-@(Model)-condition-night").val() == null) {
+                $("#bulletin-@(Model)-alerts-condition-night").show();
+            }
+            if ($("#bulletin-@(Model)-condition-day").val() == null) {
+                $("#bulletin-@(Model)-alerts-condition-day").show();
+            }
+            if ($("#bulletin-@(Model)-wind-night").val() == null) {
+                $("#bulletin-@(Model)-alerts-wind-night").show();
+            }
+            if ($("#bulletin-@(Model)-wind-day").val() == null) {
+                $("#bulletin-@(Model)-alerts-wind-day").show();
+            }
+            if ($("#bulletin-@(Model)-windmin-night").val() == "") {
+                $("#bulletin-@(Model)-alerts-windmin-night").show();
+            }
+            if ($("#bulletin-@(Model)-windmin-day").val() == "") {
+                $("#bulletin-@(Model)-alerts-windmin-day").show();
+            }
+            if ($("#wind-max-region-@(Model)-0-day").val() == "") {
+                $("#bulletin-@(Model)-alerts-windmax-night").show();
+            }
+            if ($("#wind-max-region-@(Model)-0-day").val() == "") {
+                $("#bulletin-@(Model)-alerts-windmax-day").show();
+            }
+            if ($("#bulletin-@(Model)-temperaturemin-night").val() == "") {
+                $("#bulletin-@(Model)-alerts-temperaturemin-night").show();
+            }
+            if ($("#bulletin-@(Model)-temperaturemin-day").val() == "") {
+                $("#bulletin-@(Model)-alerts-temperaturemin-day").show();
+            }
+            if ($("#temperature-max-region-@(Model)-0-night").val() == "") {
+                $("#bulletin-@(Model)-alerts-temperaturemax-night").show();
+            }
+            if ($("#temperature-max-region-@(Model)-0-day").val() == "") {
+                $("#bulletin-@(Model)-alerts-temperaturemax-day").show();
+            }
+        });
+    });
+</script>   

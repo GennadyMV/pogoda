@@ -38,8 +38,7 @@
                 $('<p class="note">' + html + '</p>').insertAfter('form');
             }
             $('.selectpicker').selectpicker({
-                style: 'btn-default',
-                size: 4
+                style: 'btn-default'
             });
         });
 
@@ -56,6 +55,10 @@
 <body>
     @Html.Partial("_Header")
     @Html.Partial("_Footer")
-    @RenderBody()
+    
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+    
 </body>
 </html>
