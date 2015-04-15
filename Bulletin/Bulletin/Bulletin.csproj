@@ -316,6 +316,8 @@
     <Content Include="Views\Bulletins\Edit.cshtml" />
     <Content Include="Views\Bulletins\Params\_Alerts.cshtml" />
     <Content Include="Views\Bulletins\_PartialCreateForm.cshtml" />
+    <Content Include="Views\Bulletins\_PartialTabPanel.cshtml" />
+    <Content Include="Views\Bulletins\_PartialCreateFormPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fonts\" />
@@ -381,7 +383,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1745</DevelopmentServerPort>
+          <DevelopmentServerPort>1732</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
