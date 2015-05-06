@@ -5,7 +5,6 @@
       <column name="ID" not-null="true" />
       <generator class="identity"/>
     </id>
-    <property name="Day" />
 
     <many-to-one name="Cloudiness" column="Cloudiness_ID" />
     <many-to-one name="Precipitation" column="Precipitation_ID" />

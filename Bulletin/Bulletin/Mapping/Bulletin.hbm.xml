@@ -7,21 +7,11 @@
     </id>
     <property name="Day" />
 
-    <many-to-one name="Cloudiness" column="Cloudiness_ID" />    
-    <many-to-one name="Region" column="Region_ID" />
-    
-    <many-to-one name="Precipitation" column="Precipitation_ID" />
-    <many-to-one name="Wind" column="Wind_ID" />
-    
-    <property name="WindValueMax" />
-    <property name="WindValueMin" />    
-    <property name="TempDayMax" />
-    <property name="TempDayMin" />
-    <property name="TempNightMax" />
-    <property name="TempNightMin" />
-    
-    <many-to-one name="Condition" column="Condition_ID" />
-    
+    <set name="Forecasts"  lazy="false" >
+      <key column="BULLETIN_ID"/>
+      <one-to-many class="Forecast"/>
+    </set>
+
 
   </class>
 </hibernate-mapping>

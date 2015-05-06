@@ -7,7 +7,9 @@
     </id>
     <property name="Name" />
     <property name="Deltawind" />
-    <property name="Deltatemperature" />    
+    <property name="Deltatemperature" />
+
+    <many-to-one name="Territory" column="TERRITORY_ID" />
     
   </class>
 </hibernate-mapping>

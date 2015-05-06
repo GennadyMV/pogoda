@@ -8,6 +8,8 @@
     <property name="Distance" />
     <many-to-one name="Bulletin" column="Bulletin_ID" />
     <many-to-one name="Territory" column="Territory_ID" />
+    <many-to-one name="ValueDay" column="VALUE_ID_DAY" />
+    <many-to-one name="ValueNight" column="VALUE_ID_NIGHT" />
 
   </class>
 </hibernate-mapping>

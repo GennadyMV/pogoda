@@ -6,6 +6,10 @@
       <generator class="identity"/>
     </id>
     <property name="Name" />
+    <set name="Regions"  lazy="false" >
+      <key column="TERRITORY_ID"/>
+      <one-to-many class="Region"/>
+    </set>
 
   </class>
 </hibernate-mapping>

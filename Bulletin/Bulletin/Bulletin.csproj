@@ -166,14 +166,16 @@
     <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Mapping\Сlarification.hbm.xml">
+    <EmbeddedResource Include="Mapping\Clarification.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Mapping\Forecast.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Mapping\Territory.hbm.xml" />
-    <Content Include="Mapping\Value.hbm.xml" />
+    <Content Include="Mapping\Value.hbm.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\html5shiv.min.js" />
     <Content Include="Scripts\i18n\defaults-cs_CZ.js" />
