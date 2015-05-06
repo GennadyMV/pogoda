@@ -139,19 +139,19 @@
     <EmbeddedResource Include="Mapping\Bulletin.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mapping\CloudinessTemplate.hbm.xml">
+    <EmbeddedResource Include="Mapping\Cloudiness.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mapping\ConditionTemplate.hbm.xml">
+    <EmbeddedResource Include="Mapping\Condition.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mapping\PrecipitationTemplate.hbm.xml">
+    <EmbeddedResource Include="Mapping\Precipitation.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mapping\RegionTemplate.hbm.xml">
+    <EmbeddedResource Include="Mapping\Region.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mapping\WindTemplate.hbm.xml">
+    <EmbeddedResource Include="Mapping\Wind.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Mapping\Abonent.hbm.xml">
@@ -166,9 +166,14 @@
     <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Mapping\СlarificationTemplate.hbm.xml">
+    <EmbeddedResource Include="Mapping\Сlarification.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mapping\Forecast.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="Mapping\Territory.hbm.xml" />
+    <Content Include="Mapping\Value.hbm.xml" />
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\html5shiv.min.js" />
     <Content Include="Scripts\i18n\defaults-cs_CZ.js" />

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Bulletin.Models" assembly="Bulletin">
+  <class name="Value" table="Value">
+    <id name="ID" unsaved-value="0">
+      <column name="ID" not-null="true" />
+      <generator class="identity"/>
+    </id>
+    <property name="Day" />
+
+    <many-to-one name="Cloudiness" column="Cloudiness_ID" />
+    <many-to-one name="Precipitation" column="Precipitation_ID" />
+    <many-to-one name="Wind" column="Wind_ID" />
+    <property name="WindMax" column="Wind_Max" />
+    <property name="WindMin" column="Wind_Min"/>
+    <many-to-one name="WindClarification" column="Wind_Clarification_ID" />
+    <property name="WindClarificationMax" column="Wind_Clarification_Max" />
+    <property name="WindClarificationMin" column="Wind_Clarification_Min"/>
+    <many-to-one name="Condition" column="Condition_ID" />
+    <property name="TemperatureMax" column ="Temperature_Max"/>
+    <property name="TemperatureMin" column ="Temperature_Min"/>
+    <many-to-one name="TemperatureClarification" column="Temperature_Clarification_ID" />
+    <property name="TemperatureClarificationMax" column ="Temperature_Clarification_Max"/>
+    <property name="TemperatureClarificationMin" column ="Temperature_Clarification_Min"/>
+
+    <many-to-one name="Condition" column="Condition_ID" />
+
+
+  </class>
+</hibernate-mapping>

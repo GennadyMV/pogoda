@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Bulletin.Models" assembly="Bulletin">
-  <class name="Wind" table="Wind">
+  <class name="Forecast" table="Forecast">
     <id name="ID" unsaved-value="0">
       <column name="ID" not-null="true" />
       <generator class="identity"/>
     </id>
-    <property name="Name" />
+    <property name="Distance" />
+    <many-to-one name="Bulletin" column="Bulletin_ID" />
+    <many-to-one name="Territory" column="Territory_ID" />
 
   </class>
 </hibernate-mapping>
