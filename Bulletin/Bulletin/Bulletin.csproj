@@ -80,33 +80,40 @@
     <Compile Include="Controllers\ConditionTemplateController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\PrecipitationTemplateController.cs" />
-    <Compile Include="Controllers\RegionTemplateController.cs" />
+    <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\SchemaController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\TerritoryController.cs" />
     <Compile Include="Controllers\WindTemplateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Abonent.cs" />
     <Compile Include="Models\Bulletin.cs" />
-    <Compile Include="Models\ClarificationTemplate.cs" />
-    <Compile Include="Models\CloudinessTemplate.cs" />
-    <Compile Include="Models\ConditionTemplate.cs" />
+    <Compile Include="Models\Clarification.cs" />
+    <Compile Include="Models\Cloudiness.cs" />
+    <Compile Include="Models\Condition.cs" />
+    <Compile Include="Models\Forecast.cs" />
     <Compile Include="Models\Group.cs" />
-    <Compile Include="Models\PrecipitationTemplate.cs" />
-    <Compile Include="Models\RegionTemplate.cs" />
+    <Compile Include="Models\Precipitation.cs" />
+    <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Settings.cs" />
-    <Compile Include="Models\WindTemplate.cs" />
+    <Compile Include="Models\Territory.cs" />
+    <Compile Include="Models\Value.cs" />
+    <Compile Include="Models\Wind.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AbonentRepository.cs" />
     <Compile Include="Repositories\BulletinRepository.cs" />
     <Compile Include="Repositories\ClarificationTemplateRepository.cs" />
     <Compile Include="Repositories\CloudinessTemplateRepository.cs" />
     <Compile Include="Repositories\ConditionTemplateRepository.cs" />
+    <Compile Include="Repositories\ForecastRepository.cs" />
     <Compile Include="Repositories\GroupRepository.cs" />
     <Compile Include="Repositories\PrecipitationTemplateRepository.cs" />
-    <Compile Include="Repositories\RegionTemplateRepository.cs" />
+    <Compile Include="Repositories\RegionRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
+    <Compile Include="Repositories\TerritoryRepository.cs" />
+    <Compile Include="Repositories\ValueRepository.cs" />
     <Compile Include="Repositories\WindTemplateRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -172,10 +179,13 @@
     <EmbeddedResource Include="Mapping\Forecast.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Content Include="Mapping\Territory.hbm.xml" />
-    <Content Include="Mapping\Value.hbm.xml">
+    <EmbeddedResource Include="Mapping\Territory.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapping\Value.hbm.xml">
       <SubType>Designer</SubType>
-    </Content>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\html5shiv.min.js" />
     <Content Include="Scripts\i18n\defaults-cs_CZ.js" />
@@ -309,8 +319,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\RegionTemplate\CreateRegion.cshtml" />
-    <Content Include="Views\RegionTemplate\CreateLocality.cshtml" />
     <Content Include="Views\ClarificationTemplate\Index.cshtml" />
     <Content Include="Views\ClarificationTemplate\Create.cshtml" />
     <Content Include="Views\ClarificationTemplate\Edit.cshtml" />
@@ -325,6 +333,10 @@
     <Content Include="Views\Bulletins\_PartialCreateForm.cshtml" />
     <Content Include="Views\Bulletins\_PartialTabPanel.cshtml" />
     <Content Include="Views\Bulletins\_PartialCreateFormPanel.cshtml" />
+    <Content Include="Views\Territory\Index.cshtml" />
+    <Content Include="Views\Territory\Create.cshtml" />
+    <Content Include="Views\Territory\Details.cshtml" />
+    <Content Include="Views\Territory\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fonts\" />
@@ -344,10 +356,10 @@
     <Content Include="Views\WindTemplate\Create.cshtml" />
     <Content Include="Views\WindTemplate\Edit.cshtml" />
     <Content Include="Views\WindTemplate\Details.cshtml" />
-    <Content Include="Views\RegionTemplate\Index.cshtml" />
-    <Content Include="Views\RegionTemplate\Edit.cshtml" />
-    <Content Include="Views\RegionTemplate\Details.cshtml" />
-    <Content Include="Views\RegionTemplate\Create.cshtml" />
+    <Content Include="Views\Region\Index.cshtml" />
+    <Content Include="Views\Region\Edit.cshtml" />
+    <Content Include="Views\Region\Details.cshtml" />
+    <Content Include="Views\Region\Create.cshtml" />
     <Content Include="Views\PrecipitationTemplate\Create.cshtml" />
     <Content Include="Views\PrecipitationTemplate\Details.cshtml" />
     <Content Include="Views\PrecipitationTemplate\Edit.cshtml" />

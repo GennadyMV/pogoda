@@ -16,7 +16,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Index()
         {
-            IRepository<Models.PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
+            IRepository<Models.Precipitation> repo = new PrecipitationTemplateRepository();
             return View(repo.GetAll());
         }
 
@@ -25,7 +25,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Details(int id)
         {
-            IRepository<PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
+            IRepository<Precipitation> repo = new PrecipitationTemplateRepository();
             return View(repo.GetById(id));
         }
 
@@ -47,9 +47,9 @@ namespace Bulletin.Controllers
             {
                 // TODO: Add insert logic here
                 string name = collection.Get("Name");
-                PrecipitationTemplate precipitation = new PrecipitationTemplate() { Name = name };
+                Precipitation precipitation = new Precipitation() { Name = name };
 
-                IRepository<PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
+                IRepository<Precipitation> repo = new PrecipitationTemplateRepository();
                 repo.Save(precipitation);
                 return RedirectToAction("Index");
             }
@@ -64,7 +64,7 @@ namespace Bulletin.Controllers
  
         public ActionResult Edit(int id)
         {
-            IRepository<PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
+            IRepository<Precipitation> repo = new PrecipitationTemplateRepository();
             return View(repo.GetById(id));
         }
 
@@ -78,9 +78,9 @@ namespace Bulletin.Controllers
             {
                 // TODO: Add update logic here
                 string name = collection.Get("Name");
-                PrecipitationTemplate precipitation = new PrecipitationTemplate() { ID = id, Name = name };
+                Precipitation precipitation = new Precipitation() { ID = id, Name = name };
 
-                IRepository<PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
+                IRepository<Precipitation> repo = new PrecipitationTemplateRepository();
                 repo.Update(precipitation); 
                 return RedirectToAction("Index");
             }
@@ -95,7 +95,7 @@ namespace Bulletin.Controllers
  
         public ActionResult Delete(int id)
         {
-            IRepository<Models.PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
+            IRepository<Models.Precipitation> repo = new PrecipitationTemplateRepository();
             repo.Delete(repo.GetById(id));
             return RedirectToAction("Index");
         }
@@ -108,7 +108,7 @@ namespace Bulletin.Controllers
         {
             try
             {
-                IRepository<Models.PrecipitationTemplate> repo = new PrecipitationTemplateRepository();
+                IRepository<Models.Precipitation> repo = new PrecipitationTemplateRepository();
                 repo.Delete(repo.GetById(id));
                 return RedirectToAction("Index");
             }

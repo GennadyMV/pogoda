@@ -9,5 +9,8 @@ namespace Bulletin.Models
     {
         public virtual int ID { get; set; }        
         public virtual string Name { get; set; }
+        public virtual int Deltawind { get; set; }
+        public virtual int Deltatemperature { get; set; }
+        public virtual Territory Territory { get; set; }
     }
 }

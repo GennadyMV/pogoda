@@ -6,6 +6,7 @@
     using NHibernate;
     using Bulletin.Common;
     using NHibernate.Criterion;
+using Bulletin.Models;
 
     namespace Bulletin.Repositories
     {
@@ -65,6 +66,7 @@
                 }
             }
 
+            
             #endregion
         }
     }

@@ -16,7 +16,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Index()
         {
-            IRepository<Models.ClarificationTemplate> repo = new ClarificationTemplateRepository();
+            IRepository<Models.Clarification> repo = new ClarificationTemplateRepository();
             return View(repo.GetAll());
         }
 
@@ -25,7 +25,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Details(int id)
         {
-            IRepository<ClarificationTemplate> repo = new ClarificationTemplateRepository();
+            IRepository<Clarification> repo = new ClarificationTemplateRepository();
             return View(repo.GetById(id));
         }
 
@@ -47,9 +47,9 @@ namespace Bulletin.Controllers
             {
                 // TODO: Add insert logic here
                 string name = collection.Get("Name");
-                ClarificationTemplate clarification = new ClarificationTemplate() { Name = name };
+                Clarification clarification = new Clarification() { Name = name };
 
-                IRepository<ClarificationTemplate> repo = new ClarificationTemplateRepository();
+                IRepository<Clarification> repo = new ClarificationTemplateRepository();
                 repo.Save(clarification);
 
                 return RedirectToAction("Index");
@@ -65,7 +65,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Edit(int id)
         {
-            IRepository<ClarificationTemplate> repo = new ClarificationTemplateRepository();
+            IRepository<Clarification> repo = new ClarificationTemplateRepository();
             return View(repo.GetById(id));
         }
 
@@ -78,9 +78,9 @@ namespace Bulletin.Controllers
             try
             {
                 string name = collection.Get("Name");
-                ClarificationTemplate clarification = new ClarificationTemplate() { ID = id, Name = name };
+                Clarification clarification = new Clarification() { ID = id, Name = name };
 
-                IRepository<ClarificationTemplate> repo = new ClarificationTemplateRepository();
+                IRepository<Clarification> repo = new ClarificationTemplateRepository();
                 repo.Update(clarification);
 
                 return RedirectToAction("Index");
@@ -96,7 +96,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Delete(int id)
         {
-            IRepository<Models.ClarificationTemplate> repo = new ClarificationTemplateRepository();
+            IRepository<Models.Clarification> repo = new ClarificationTemplateRepository();
             repo.Delete(repo.GetById(id));
             return RedirectToAction("Index");
         }
@@ -110,7 +110,7 @@ namespace Bulletin.Controllers
             try
             {
                 // TODO: Add delete logic here
-                IRepository<Models.ClarificationTemplate> repo = new ClarificationTemplateRepository();
+                IRepository<Models.Clarification> repo = new ClarificationTemplateRepository();
                 repo.Delete(repo.GetById(id));
                 return RedirectToAction("Index");
             }

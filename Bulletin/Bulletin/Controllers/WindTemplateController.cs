@@ -16,7 +16,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Index()
         {
-            IRepository<Models.WindTemplate> repo = new WindTemplateRepository();
+            IRepository<Models.Wind> repo = new WindTemplateRepository();
             return View(repo.GetAll());
         }
 
@@ -25,7 +25,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Details(int id)
         {
-            IRepository<WindTemplate> repo = new WindTemplateRepository();
+            IRepository<Wind> repo = new WindTemplateRepository();
             return View(repo.GetById(id));
         }
 
@@ -47,9 +47,9 @@ namespace Bulletin.Controllers
             {
                 // TODO: Add insert logic here
                 string name = collection.Get("Name");
-                WindTemplate wind = new WindTemplate() { Name = name };
+                Wind wind = new Wind() { Name = name };
 
-                IRepository<WindTemplate> repo = new WindTemplateRepository();
+                IRepository<Wind> repo = new WindTemplateRepository();
                 repo.Save(wind);
 
                 return RedirectToAction("Index");
@@ -65,7 +65,7 @@ namespace Bulletin.Controllers
  
         public ActionResult Edit(int id)
         {
-            IRepository<WindTemplate> repo = new WindTemplateRepository();
+            IRepository<Wind> repo = new WindTemplateRepository();
             return View(repo.GetById(id));
         }
 
@@ -78,9 +78,9 @@ namespace Bulletin.Controllers
             try
             {
                 string name = collection.Get("Name");
-                WindTemplate wind = new WindTemplate() { ID = id, Name = name };
+                Wind wind = new Wind() { ID = id, Name = name };
 
-                IRepository<WindTemplate> repo = new WindTemplateRepository();
+                IRepository<Wind> repo = new WindTemplateRepository();
                 repo.Update(wind);
 
                 return RedirectToAction("Index");
@@ -96,7 +96,7 @@ namespace Bulletin.Controllers
  
         public ActionResult Delete(int id)
         {
-            IRepository<Models.WindTemplate> repo = new WindTemplateRepository();
+            IRepository<Models.Wind> repo = new WindTemplateRepository();
             repo.Delete(repo.GetById(id));
             return RedirectToAction("Index");
         }
@@ -110,7 +110,7 @@ namespace Bulletin.Controllers
             try
             {
                 // TODO: Add delete logic here
-                IRepository<Models.WindTemplate> repo = new WindTemplateRepository();
+                IRepository<Models.Wind> repo = new WindTemplateRepository();
                 repo.Delete(repo.GetById(id)); 
                 return RedirectToAction("Index");
             }

@@ -9,11 +9,11 @@
 
     namespace Bulletin.Repositories
     {
-        public class PrecipitationTemplateRepository : IRepository<Bulletin.Models.PrecipitationTemplate>
+        public class PrecipitationTemplateRepository : IRepository<Bulletin.Models.Precipitation>
         {
             #region IRepository<Precipitation> Members
 
-            void IRepository<Bulletin.Models.PrecipitationTemplate>.Save(Bulletin.Models.PrecipitationTemplate entity)
+            void IRepository<Bulletin.Models.Precipitation>.Save(Bulletin.Models.Precipitation entity)
             {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
@@ -25,7 +25,7 @@
                 }
             }
 
-            void IRepository<Bulletin.Models.PrecipitationTemplate>.Update(Bulletin.Models.PrecipitationTemplate entity)
+            void IRepository<Bulletin.Models.Precipitation>.Update(Bulletin.Models.Precipitation entity)
             {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
@@ -37,7 +37,7 @@
                 }
             }
 
-            void IRepository<Bulletin.Models.PrecipitationTemplate>.Delete(Bulletin.Models.PrecipitationTemplate entity)
+            void IRepository<Bulletin.Models.Precipitation>.Delete(Bulletin.Models.Precipitation entity)
             {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
@@ -49,19 +49,19 @@
                 }
             }
 
-            Bulletin.Models.PrecipitationTemplate IRepository<Bulletin.Models.PrecipitationTemplate>.GetById(int id)
+            Bulletin.Models.Precipitation IRepository<Bulletin.Models.Precipitation>.GetById(int id)
             {
                 using (ISession session = NHibernateHelper.OpenSession())
-                    return session.CreateCriteria<Bulletin.Models.PrecipitationTemplate>().Add(Restrictions.Eq("ID", id)).UniqueResult<Models.PrecipitationTemplate>();
+                    return session.CreateCriteria<Bulletin.Models.Precipitation>().Add(Restrictions.Eq("ID", id)).UniqueResult<Models.Precipitation>();
             }
 
-            IList<Bulletin.Models.PrecipitationTemplate> IRepository<Bulletin.Models.PrecipitationTemplate>.GetAll()
+            IList<Bulletin.Models.Precipitation> IRepository<Bulletin.Models.Precipitation>.GetAll()
             {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
-                    ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.PrecipitationTemplate));
+                    ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.Precipitation));
                     criteria.AddOrder(Order.Desc("ID"));
-                    return criteria.List<Bulletin.Models.PrecipitationTemplate>();
+                    return criteria.List<Bulletin.Models.Precipitation>();
                 }
             }
 

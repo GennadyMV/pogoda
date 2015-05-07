@@ -9,11 +9,11 @@
 
     namespace Bulletin.Repositories
     {
-        public class WindTemplateRepository : IRepository<Bulletin.Models.WindTemplate>
+        public class WindTemplateRepository : IRepository<Bulletin.Models.Wind>
         {
             #region IRepository<Wind> Members
 
-            void IRepository<Bulletin.Models.WindTemplate>.Save(Bulletin.Models.WindTemplate entity)
+            void IRepository<Bulletin.Models.Wind>.Save(Bulletin.Models.Wind entity)
             {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
@@ -25,7 +25,7 @@
                 }
             }
 
-            void IRepository<Bulletin.Models.WindTemplate>.Update(Bulletin.Models.WindTemplate entity)
+            void IRepository<Bulletin.Models.Wind>.Update(Bulletin.Models.Wind entity)
             {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
@@ -37,7 +37,7 @@
                 }
             }
 
-            void IRepository<Bulletin.Models.WindTemplate>.Delete(Bulletin.Models.WindTemplate entity)
+            void IRepository<Bulletin.Models.Wind>.Delete(Bulletin.Models.Wind entity)
             {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
@@ -49,19 +49,19 @@
                 }
             }
 
-            Bulletin.Models.WindTemplate IRepository<Bulletin.Models.WindTemplate>.GetById(int id)
+            Bulletin.Models.Wind IRepository<Bulletin.Models.Wind>.GetById(int id)
             {
                 using (ISession session = NHibernateHelper.OpenSession())
-                    return session.CreateCriteria<Bulletin.Models.WindTemplate>().Add(Restrictions.Eq("ID", id)).UniqueResult<Models.WindTemplate>();
+                    return session.CreateCriteria<Bulletin.Models.Wind>().Add(Restrictions.Eq("ID", id)).UniqueResult<Models.Wind>();
             }
 
-            IList<Bulletin.Models.WindTemplate> IRepository<Bulletin.Models.WindTemplate>.GetAll()
+            IList<Bulletin.Models.Wind> IRepository<Bulletin.Models.Wind>.GetAll()
             {
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
-                    ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.WindTemplate));
+                    ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.Wind));
                     criteria.AddOrder(Order.Desc("ID"));
-                    return criteria.List<Bulletin.Models.WindTemplate>();
+                    return criteria.List<Bulletin.Models.Wind>();
                 }
             }
 

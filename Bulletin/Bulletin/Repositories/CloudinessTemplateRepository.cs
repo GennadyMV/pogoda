@@ -8,11 +8,11 @@ using NHibernate.Criterion;
 
 namespace Bulletin.Repositories
 {
-    public class CloudinessTemplateRepository : IRepository<Bulletin.Models.CloudinessTemplate>
+    public class CloudinessTemplateRepository : IRepository<Bulletin.Models.Cloudiness>
     {
         #region IRepository<Cloudiness> Members
 
-        void IRepository<Bulletin.Models.CloudinessTemplate>.Save(Bulletin.Models.CloudinessTemplate entity)
+        void IRepository<Bulletin.Models.Cloudiness>.Save(Bulletin.Models.Cloudiness entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -24,7 +24,7 @@ namespace Bulletin.Repositories
             }
         }
 
-        void IRepository<Bulletin.Models.CloudinessTemplate>.Update(Bulletin.Models.CloudinessTemplate entity)
+        void IRepository<Bulletin.Models.Cloudiness>.Update(Bulletin.Models.Cloudiness entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -36,7 +36,7 @@ namespace Bulletin.Repositories
             }
         }
 
-        void IRepository<Bulletin.Models.CloudinessTemplate>.Delete(Bulletin.Models.CloudinessTemplate entity)
+        void IRepository<Bulletin.Models.Cloudiness>.Delete(Bulletin.Models.Cloudiness entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -48,19 +48,19 @@ namespace Bulletin.Repositories
             }
         }
 
-        Bulletin.Models.CloudinessTemplate IRepository<Bulletin.Models.CloudinessTemplate>.GetById(int id)
+        Bulletin.Models.Cloudiness IRepository<Bulletin.Models.Cloudiness>.GetById(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
-                return session.CreateCriteria<Bulletin.Models.CloudinessTemplate>().Add(Restrictions.Eq("ID", id)).UniqueResult<Bulletin.Models.CloudinessTemplate>();
+                return session.CreateCriteria<Bulletin.Models.Cloudiness>().Add(Restrictions.Eq("ID", id)).UniqueResult<Bulletin.Models.Cloudiness>();
         }
 
-        IList<Bulletin.Models.CloudinessTemplate> IRepository<Bulletin.Models.CloudinessTemplate>.GetAll()
+        IList<Bulletin.Models.Cloudiness> IRepository<Bulletin.Models.Cloudiness>.GetAll()
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.CloudinessTemplate));
+                ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.Cloudiness));
                 criteria.AddOrder(Order.Desc("ID"));
-                return criteria.List<Bulletin.Models.CloudinessTemplate>();
+                return criteria.List<Bulletin.Models.Cloudiness>();
             }
         }
 

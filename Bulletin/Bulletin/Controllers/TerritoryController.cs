@@ -3,42 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Bulletin.Repositories;
 using Bulletin.Common;
+using Bulletin.Repositories;
 using Bulletin.Models;
 
 namespace Bulletin.Controllers
 {
-    public class ConditionTemplateController : Controller
+    public class TerritoryController : Controller
     {
         //
-        // GET: /ConditionTemplate/
+        // GET: /Territory/
 
         public ActionResult Index()
         {
-            IRepository<Models.Condition> repo = new ConditionTemplateRepository();
+            IRepository<Models.Territory> repo = new TerritoryRepository();
             return View(repo.GetAll());
         }
 
         //
-        // GET: /ConditionTemplate/Details/5
+        // GET: /Territory/Details/5
 
         public ActionResult Details(int id)
         {
-            IRepository<Condition> repo = new ConditionTemplateRepository();
+            IRepository<Territory> repo = new TerritoryRepository();
             return View(repo.GetById(id));
         }
 
         //
-        // GET: /ConditionTemplate/Create
+        // GET: /Territory/Create
 
         public ActionResult Create()
         {
+            ViewBag.Regions = ((IRepository<Region>)(new RegionRepository())).GetAll();
             return View();
         }
 
         //
-        // POST: /ConditionTemplate/Create
+        // POST: /Territory/Create
 
         [HttpPost]
         public ActionResult Create(FormCollection collection)
@@ -47,10 +48,11 @@ namespace Bulletin.Controllers
             {
                 // TODO: Add insert logic here
                 string name = collection.Get("Name");
-                Condition condition = new Condition() { Name = name };
+                Territory Territory = new Territory() { Name = name };
 
-                IRepository<Condition> repo = new ConditionTemplateRepository();
-                repo.Save(condition);
+                IRepository<Territory> repo = new TerritoryRepository();
+                repo.Save(Territory);
+
                 return RedirectToAction("Index");
             }
             catch
@@ -60,28 +62,28 @@ namespace Bulletin.Controllers
         }
 
         //
-        // GET: /ConditionTemplate/Edit/5
+        // GET: /Territory/Edit/5
 
         public ActionResult Edit(int id)
         {
-            IRepository<Condition> repo = new ConditionTemplateRepository();
+            IRepository<Territory> repo = new TerritoryRepository();
             return View(repo.GetById(id));
         }
 
         //
-        // POST: /ConditionTemplate/Edit/5
+        // POST: /Territory/Edit/5
 
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
                 string name = collection.Get("Name");
-                Condition condition = new Condition() { ID = id, Name = name };
+                Territory Territory = new Territory() { ID = id, Name = name };
 
-                IRepository<Condition> repo = new ConditionTemplateRepository();
-                repo.Update(condition);
+                IRepository<Territory> repo = new TerritoryRepository();
+                repo.Update(Territory);
+
                 return RedirectToAction("Index");
             }
             catch
@@ -91,24 +93,25 @@ namespace Bulletin.Controllers
         }
 
         //
-        // GET: /ConditionTemplate/Delete/5
+        // GET: /Territory/Delete/5
 
         public ActionResult Delete(int id)
         {
-            IRepository<Models.Condition> repo = new ConditionTemplateRepository();
+            IRepository<Models.Territory> repo = new TerritoryRepository();
             repo.Delete(repo.GetById(id));
             return RedirectToAction("Index");
         }
 
         //
-        // POST: /ConditionTemplate/Delete/5
+        // POST: /Territory/Delete/5
 
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                IRepository<Models.Condition> repo = new ConditionTemplateRepository();
+                // TODO: Add delete logic here
+                IRepository<Models.Territory> repo = new TerritoryRepository();
                 repo.Delete(repo.GetById(id));
                 return RedirectToAction("Index");
             }

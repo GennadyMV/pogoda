@@ -17,21 +17,27 @@ namespace Bulletin.Models
             }
         }
 
-        public virtual RegionTemplate Region { get; set; }
-        // Осадки
-        public virtual PrecipitationTemplate Precipitation { get; set; }
-        // Ветер
-        public virtual WindTemplate Wind { get; set; }
-        public virtual int WindValueMin { get; set; }
-        public virtual int WindValueMax { get; set; }
-        // Температура
-        public virtual int TempDayMin { get; set; }
-        public virtual int TempDayMax { get; set; }
-        public virtual int TempNightMin { get; set; }
-        public virtual int TempNightMax { get; set; }
-        // Явления
-        public virtual ConditionTemplate Condition { get; set; }
-        // Облачность
-        public virtual CloudinessTemplate Cloudiness { get; set; }
+        public virtual ICollection<Forecast> Forecasts { get; protected set; }
+        public Bulletin()
+        {
+            Forecasts = new System.Collections.Generic.HashSet<Forecast>();
+        }
+
+        public virtual void ClearForecasts()
+        {
+            this.Forecasts.Clear();
+        }
+
+        public virtual Boolean IsExistForecast(int ForecastID)
+        {
+            foreach (var forecast in this.Forecasts)
+            {
+                if (forecast.ID == ForecastID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

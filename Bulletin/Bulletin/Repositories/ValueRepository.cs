@@ -1,19 +1,19 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using NHibernate;
 using Bulletin.Common;
+using Bulletin.Models;
+using NHibernate;
 using NHibernate.Criterion;
 
 namespace Bulletin.Repositories
 {
-    public class ClarificationTemplateRepository : IRepository<Bulletin.Models.Clarification>
+    public class ValueRepository : IRepository<Models.Value>
     {
-        #region IRepository<Wind> Members
+        #region IRepository<Value> Members
 
-        void IRepository<Bulletin.Models.Clarification>.Save(Bulletin.Models.Clarification entity)
+        void IRepository<Models.Value>.Save(Models.Value entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -25,7 +25,7 @@ namespace Bulletin.Repositories
             }
         }
 
-        void IRepository<Bulletin.Models.Clarification>.Update(Bulletin.Models.Clarification entity)
+        void IRepository<Models.Value>.Update(Models.Value entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -37,7 +37,7 @@ namespace Bulletin.Repositories
             }
         }
 
-        void IRepository<Bulletin.Models.Clarification>.Delete(Bulletin.Models.Clarification entity)
+        void IRepository<Models.Value>.Delete(Models.Value entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -49,19 +49,19 @@ namespace Bulletin.Repositories
             }
         }
 
-        Bulletin.Models.Clarification IRepository<Bulletin.Models.Clarification>.GetById(int id)
+        Models.Value IRepository<Models.Value>.GetById(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
-                return session.CreateCriteria<Bulletin.Models.Clarification>().Add(Restrictions.Eq("ID", id)).UniqueResult<Models.Clarification>();
+                return session.CreateCriteria<Models.Value>().Add(Restrictions.Eq("ID", id)).UniqueResult<Models.Value>();
         }
 
-        IList<Bulletin.Models.Clarification> IRepository<Bulletin.Models.Clarification>.GetAll()
+        IList<Models.Value> IRepository<Models.Value>.GetAll()
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.Clarification));
+                ICriteria criteria = session.CreateCriteria(typeof(Models.Value));
                 criteria.AddOrder(Order.Desc("ID"));
-                return criteria.List<Bulletin.Models.Clarification>();
+                return criteria.List<Models.Value>();
             }
         }
 

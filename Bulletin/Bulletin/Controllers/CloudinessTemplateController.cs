@@ -16,7 +16,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Index()
         {
-            IRepository<Models.CloudinessTemplate> repo = new CloudinessTemplateRepository();
+            IRepository<Models.Cloudiness> repo = new CloudinessTemplateRepository();
             return View(repo.GetAll());
         }
 
@@ -25,7 +25,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Details(int id)
         {
-            IRepository<CloudinessTemplate> repo = new CloudinessTemplateRepository();
+            IRepository<Cloudiness> repo = new CloudinessTemplateRepository();
             return View(repo.GetById(id));
         }
 
@@ -47,9 +47,9 @@ namespace Bulletin.Controllers
             {
                 // TODO: Add insert logic here
                 string name = collection.Get("Name");
-                CloudinessTemplate cloudiness = new CloudinessTemplate() { Name = name };
+                Cloudiness cloudiness = new Cloudiness() { Name = name };
 
-                IRepository<CloudinessTemplate> repo = new CloudinessTemplateRepository();
+                IRepository<Cloudiness> repo = new CloudinessTemplateRepository();
                 repo.Save(cloudiness);
                 return RedirectToAction("Index");
             }
@@ -64,7 +64,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Edit(int id)
         {
-            IRepository<CloudinessTemplate> repo = new CloudinessTemplateRepository();
+            IRepository<Cloudiness> repo = new CloudinessTemplateRepository();
             return View(repo.GetById(id));
         }
 
@@ -78,9 +78,9 @@ namespace Bulletin.Controllers
             {
                 // TODO: Add update logic here
                 string name = collection.Get("Name");
-                CloudinessTemplate cloudiness = new CloudinessTemplate() { ID = id, Name = name };
+                Cloudiness cloudiness = new Cloudiness() { ID = id, Name = name };
 
-                IRepository<CloudinessTemplate> repo = new CloudinessTemplateRepository();
+                IRepository<Cloudiness> repo = new CloudinessTemplateRepository();
                 repo.Update(cloudiness);
                 return RedirectToAction("Index");
             }
@@ -95,7 +95,7 @@ namespace Bulletin.Controllers
 
         public ActionResult Delete(int id)
         {
-            IRepository<Models.CloudinessTemplate> repo = new CloudinessTemplateRepository();
+            IRepository<Models.Cloudiness> repo = new CloudinessTemplateRepository();
             repo.Delete(repo.GetById(id));
             return RedirectToAction("Index");
         }
@@ -108,7 +108,7 @@ namespace Bulletin.Controllers
         {
             try
             {
-                IRepository<Models.CloudinessTemplate> repo = new CloudinessTemplateRepository();
+                IRepository<Models.Cloudiness> repo = new CloudinessTemplateRepository();
                 repo.Delete(repo.GetById(id));
                 return RedirectToAction("Index");
             }

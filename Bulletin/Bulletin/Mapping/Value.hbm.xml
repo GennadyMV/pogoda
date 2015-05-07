@@ -21,8 +21,6 @@
     <property name="TemperatureClarificationMax" column ="Temperature_Clarification_Max"/>
     <property name="TemperatureClarificationMin" column ="Temperature_Clarification_Min"/>
 
-    <many-to-one name="Condition" column="Condition_ID" />
-
 
   </class>
 </hibernate-mapping>

@@ -5,17 +5,11 @@
 
                 <select id="bulletin-@(ViewBag.forecast)-territories" data-style="btn-info" multiple title='Укажите территорию...' data-width="50%">
                   <optgroup label="Административные районы">
-                    @foreach (var item in ((new RegionTemplateRepository())).GetByTerritory(Territory.Region))
-                    {
-                        <option value="@item.ID">@item.Name</option>
-                    }
+                   
                                         
                   </optgroup>
                     <optgroup label="Населённые пункты">
-                        @foreach (var item in ((RegionTemplateRepository)(new RegionTemplateRepository())).GetByTerritory(Territory.Locality))
-                        {
-                            <option value="@item.ID">@item.Name</option>
-                        }
+                     
                     </optgroup>
                 </select>
                 <script>
