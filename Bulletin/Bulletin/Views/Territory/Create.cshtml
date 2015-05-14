@@ -67,18 +67,4 @@
     
 } 
 
-
-<script>
-    function handleTerritoryRegionsClick(status) {
-        if (status.checked == true) {
-            var new_name = $('#Name').val();
-            new_name = new_name + $(status).attr("region") + ", ";
-            $('#Name').val(new_name);
-        }
-        else {
-            var new_name = $('#Name').val();
-            new_name = new_name.replace($(status).attr("region") + ", ", "");
-            $('#Name').val(new_name);
-        }
-    }
-</script>
+@Html.Partial("_handleTerritoryRegionsClick")

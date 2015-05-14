@@ -14,6 +14,13 @@
             Наименование:
             @Html.Encode(Model.Name)
         </p>     
+
+        <h5>Административные районы и населённые пункты:</h5>
+        @foreach (var item in @Model.Regions)
+        {
+            @item.Name
+            <br />
+        }
         
     </fieldset>
     <p>

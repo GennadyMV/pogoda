@@ -16,6 +16,33 @@
         </div>
     </div>
 
+    <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Административные районы и населённые пункты:</label>
+    <div class="col-sm-10">
+        <table class="table">
+        <tbody>
+            @foreach (var region in Model.Regions)
+            {
+                <tr>
+                    <td>                        
+                            <input type="checkbox" onclick='handleTerritoryRegionsClick(this);' region="@region.Name" name="Regions" id="@region.ID" value="@region.ID" checked="true">&nbsp;&nbsp;&nbsp; @region.Name
+                    </td>                    
+                </tr>
+            }
+
+            @foreach (var region in ViewBag.Regions)
+            {
+                <tr>
+                    <td>                        
+                            <input type="checkbox" onclick='handleTerritoryRegionsClick(this);' region="@region.Name" name="Regions" id="@region.ID" value="@region.ID">&nbsp;&nbsp;&nbsp; @region.Name
+                    </td>                    
+                </tr>
+            }
+        </tbody>
+        </table>         
+    </div>    
+    </div>
+    
     
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
@@ -35,3 +62,5 @@
     
     
 } 
+
+@Html.Partial("_handleTerritoryRegionsClick")

@@ -337,6 +337,7 @@
     <Content Include="Views\Territory\Create.cshtml" />
     <Content Include="Views\Territory\Details.cshtml" />
     <Content Include="Views\Territory\Edit.cshtml" />
+    <Content Include="Views\Territory\_handleTerritoryRegionsClick.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fonts\" />

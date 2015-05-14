@@ -66,6 +66,30 @@ using Bulletin.Models;
                 }
             }
 
+
+            public static IList<Bulletin.Models.Region> GetAllForTerritory()
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    /*
+                     * http://stackoverflow.com/questions/835214/using-nhibernate-to-query-with-not-in-in-the-where-clause
+                    DetachedCriteria c = DetachedCriteria.For<Territory>()
+    .SetProjection(Projections.Property("Region"))
+    .Add(Restrictions.Eq("Year", 2008))
+    .Add(Restrictions.Eq("Month", 4));
+                    session.CreateCriteria(typeof(Publisher))
+                        .Add(Subqueries.PropertyNotIn("Id", c))
+                        .List();
+                
+                     * */
+
+                    ICriteria criteria = session.CreateCriteria(typeof(Bulletin.Models.Region));
+                    criteria.AddOrder(Order.Desc("ID"));
+                    criteria.Add(Restrictions.IsNull("Territory"));
+                    return criteria.List<Bulletin.Models.Region>();
+                }
+            }
+
             
             #endregion
         }
