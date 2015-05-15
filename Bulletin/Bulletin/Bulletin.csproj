@@ -76,7 +76,7 @@
     <Compile Include="Controllers\AbonentController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
     <Compile Include="Controllers\ClarificationTemplateController.cs" />
-    <Compile Include="Controllers\CloudinessTemplateController.cs" />
+    <Compile Include="Controllers\CloudinessController.cs" />
     <Compile Include="Controllers\ConditionTemplateController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\PrecipitationTemplateController.cs" />
@@ -105,7 +105,7 @@
     <Compile Include="Repositories\AbonentRepository.cs" />
     <Compile Include="Repositories\BulletinRepository.cs" />
     <Compile Include="Repositories\ClarificationTemplateRepository.cs" />
-    <Compile Include="Repositories\CloudinessTemplateRepository.cs" />
+    <Compile Include="Repositories\CloudinessRepository.cs" />
     <Compile Include="Repositories\ConditionTemplateRepository.cs" />
     <Compile Include="Repositories\ForecastRepository.cs" />
     <Compile Include="Repositories\GroupRepository.cs" />
@@ -330,7 +330,7 @@
     <Content Include="Views\Bulletins\Params\_Temperature.cshtml" />
     <Content Include="Views\Bulletins\Edit.cshtml" />
     <Content Include="Views\Bulletins\Params\_Alerts.cshtml" />
-    <Content Include="Views\Bulletins\_PartialCreateForm.cshtml" />
+    <Content Include="Views\Bulletins\_PartialCreateForm_.cshtml" />
     <Content Include="Views\Bulletins\_PartialTabPanel.cshtml" />
     <Content Include="Views\Bulletins\_PartialCreateFormPanel.cshtml" />
     <Content Include="Views\Territory\Index.cshtml" />
@@ -338,6 +338,7 @@
     <Content Include="Views\Territory\Details.cshtml" />
     <Content Include="Views\Territory\Edit.cshtml" />
     <Content Include="Views\Territory\_handleTerritoryRegionsClick.cshtml" />
+    <Content Include="Views\Bulletins\_PartialCreateForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fonts\" />

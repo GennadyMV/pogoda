@@ -2,159 +2,112 @@
 @using Bulletin.Models;
 @using Bulletin.Common;
 
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Административные районы</th>
+            <th></th>
+            <th>Облачность</th>
+            <th>Осадки</th>
+            <th>Явления</th>
+            <th>Ветер</th>            
+            <th>Температура</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var territory in ((IRepository<Territory>)(new TerritoryRepository())).GetAll())
+        {
+            <tr>
+                <td rowspan="2">@territory.Name</td>
+                <td>
+                        
+                        <label for="mySubmit" class="btn btn-default"><i class="glyphicon glyphicon-copy"></i> </label>
+    <input id="mySubmit" type="text" value="Go" class="hidden" />
 
-                <select id="bulletin-@(ViewBag.forecast)-territories" data-style="btn-info" multiple title='Укажите территорию...' data-width="50%">
-                  <optgroup label="Административные районы">
-                   
-                                        
-                  </optgroup>
-                    <optgroup label="Населённые пункты">
-                     
-                    </optgroup>
-                </select>
-                <script>
 
-                    $('#bulletin-@(ViewBag.forecast)-territories').selectpicker({
-                        style: 'btn-success',
-                        size: 6
-                    });
-                </script>
-            
 
-                
-                <div role="tabpanel">
+                      <a href="#" class="btn btn-default">
+                        <span class="glyphicon glyphicon-paste"></span>
+                      </a>
+                </td>
+                <td class="cursorClick"></td>
+                <td class="cursorClick"></td>
+                <td class="cursorClick"></td>
+                <td class="cursorClick"></td>
+                <td class="cursorClick"></td>
+            </tr>
+            <tr>
+                <td>
+                        
+                      <a href="#" class="btn btn-default">
+                        <span class="glyphicon glyphicon-copy"></span>
+                      </a>
 
-                                      <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#cloudiness-region-@(ViewBag.forecast)" aria-controls="cloudiness-region-@(ViewBag.forecast)" role="tab" data-toggle="tab">Облачность</a></li>
-                                        <li role="presentation"><a href="#precipitation-region-@(ViewBag.forecast)" aria-controls="precipitation-region-@(ViewBag.forecast)" role="tab" data-toggle="tab">Осадки</a></li>
-                                        <li role="presentation"><a href="#condition-region-@(ViewBag.forecast)" aria-controls="condition-region-@(ViewBag.forecast)" role="tab" data-toggle="tab">Явления</a></li>
-                                        <li role="presentation"><a href="#wind-region-@(ViewBag.forecast)" aria-controls="wind-region-@(ViewBag.forecast)" role="tab" data-toggle="tab">Ветер</a></li>
-                                        <li role="presentation"><a href="#temperature-region-@(ViewBag.forecast)" aria-controls="temperature-region-@(ViewBag.forecast)" role="tab" data-toggle="tab">Температура</a></li>                                       
-                                      </ul>
+                      <a href="#" class="btn btn-default">
+                        <span class="glyphicon glyphicon-paste"></span>
+                      </a>
+                </td>
+                <td class="cursorClick" onclick="handleCloudiness(@(territory.ID))"></td>
+                <td class="cursorClick"></td>
+                <td class="cursorClick"></td>
+                <td class="cursorClick"></td>
+                <td class="cursorClick"></td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-                                      <!-- Tab panes -->
-                                      <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane" id="precipitation-region-@(ViewBag.forecast)">                                            
-                                            @Html.Partial("Params\\_Precipitation", new ViewDataDictionary { { "forecast", ViewBag.forecast } })
-                                        </div>
 
-                                        <div role="tabpanel" class="tab-pane" id="wind-region-@(ViewBag.forecast)">
-                                            @Html.Partial("Params\\_Wind", new ViewDataDictionary { { "forecast", ViewBag.forecast } })
-                                        </div>
-
-                                        <div role="tabpanel" class="tab-pane" id="temperature-region-@(ViewBag.forecast)">
-                                            @Html.Partial("Params\\_Temperature", new ViewDataDictionary { { "forecast", ViewBag.forecast } })
-                                        </div>
-
-                                        <div role="tabpanel" class="tab-pane active" id="cloudiness-region-@(ViewBag.forecast)">
-                                            @Html.Partial("Params\\_Cloudiness", new ViewDataDictionary { { "forecast", ViewBag.forecast } })
-                                        </div>
-                                        
-                                        <div role="tabpanel" class="tab-pane" id="condition-region-@(ViewBag.forecast)">
-                                            @Html.Partial("Params\\_Condition", new ViewDataDictionary { { "forecast", ViewBag.forecast } })
-                                        </div>
-
-                                      </div>
-
-                                    </div>      
 
 <script>
-    $(document).ready(function () {
-        $('.delta').change(function () {
-            var region = $(this).attr('region');
-            var times = $(this).attr('times');
-            var who = $(this).attr('who');
-
-            $('#' + who + '-max-region-@(ViewBag.forecast)-' + region + '-' + times).val(parseInt($(this).val()) + 5);
-        });
-    });
+    function handleCloudiness(id) {
+        $("#TerritoryID").text(id);
+        $("#myModal").modal('show');
+    }
 </script>
 
-<button id="bulletin-@(ViewBag.forecast)-save" class="btn btn-primary btn-lg" type="submit">Сохранить</button>
-<!--
-<a id="bulletin-@(ViewBag.forecast)-add" class="btn btn-info pull-right" href="#" role="button">Добавить</a>
--->
 
-@Html.Partial("Params\\_Alerts", new ViewDataDictionary { { "forecast", ViewBag.forecast } })
 
-<script>
-    function AlertsHide@(ViewBag.forecast)() {
-        $('#bulletin-@(ViewBag.forecast)-alerts-territories').hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-cloudiness-day").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-cloudiness-night").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-precipitation-day").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-precipitation-night").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-condition-day").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-condition-night").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-wind-day").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-wind-night").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-windmin-day").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-windmin-night").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-windmax-day").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-windmax-night").hide();
 
-        $("#bulletin-@(ViewBag.forecast)-alerts-temperaturemin-day").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-temperaturemin-night").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-temperaturemax-day").hide();
-        $("#bulletin-@(ViewBag.forecast)-alerts-temperaturemax-night").hide();
-    }
+    <div id="myModal" class="modal fade">
 
-    $(document).ready(function () {
-        AlertsHide@(ViewBag.forecast)();
+        <div class="modal-dialog">
 
-        $("#bulletin-@(ViewBag.forecast)-save").click(function () {
-            AlertsHide@(ViewBag.forecast)();
-            if ($("#bulletin-@(ViewBag.forecast)-territories").val() == null) {
-                $("#bulletin-@(ViewBag.forecast)-alerts-territories").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-cloudiness-night").val() == null) {
-                $("#bulletin-@(ViewBag.forecast)-alerts-cloudiness-night").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-cloudiness-day").val() == null) {
-                $("#bulletin-@(ViewBag.forecast)-alerts-cloudiness-day").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-precipitation-night").val() == null) {
-                $("#bulletin-@(ViewBag.forecast)-alerts-precipitation-night").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-precipitation-day").val() == null) {
-                $("#bulletin-@(ViewBag.forecast)-alerts-precipitation-day").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-condition-night").val() == null) {
-                $("#bulletin-@(ViewBag.forecast)-alerts-condition-night").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-condition-day").val() == null) {
-                $("#bulletin-@(ViewBag.forecast)-alerts-condition-day").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-wind-night").val() == null) {
-                $("#bulletin-@(ViewBag.forecast)-alerts-wind-night").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-wind-day").val() == null) {
-                $("#bulletin-@(ViewBag.forecast)-alerts-wind-day").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-windmin-night").val() == "") {
-                $("#bulletin-@(ViewBag.forecast)-alerts-windmin-night").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-windmin-day").val() == "") {
-                $("#bulletin-@(ViewBag.forecast)-alerts-windmin-day").show();
-            }
-            if ($("#wind-max-region-@(ViewBag.forecast)-0-day").val() == "") {
-                $("#bulletin-@(ViewBag.forecast)-alerts-windmax-night").show();
-            }
-            if ($("#wind-max-region-@(ViewBag.forecast)-0-day").val() == "") {
-                $("#bulletin-@(ViewBag.forecast)-alerts-windmax-day").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-temperaturemin-night").val() == "") {
-                $("#bulletin-@(ViewBag.forecast)-alerts-temperaturemin-night").show();
-            }
-            if ($("#bulletin-@(ViewBag.forecast)-temperaturemin-day").val() == "") {
-                $("#bulletin-@(ViewBag.forecast)-alerts-temperaturemin-day").show();
-            }
-            if ($("#temperature-max-region-@(ViewBag.forecast)-0-night").val() == "") {
-                $("#bulletin-@(ViewBag.forecast)-alerts-temperaturemax-night").show();
-            }
-            if ($("#temperature-max-region-@(ViewBag.forecast)-0-day").val() == "") {
-                $("#bulletin-@(ViewBag.forecast)-alerts-temperaturemax-day").show();
-            }
-        });
-    });
-</script>   
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title">Confirmation</h4>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div id="TerritoryID">
+                    </div>
+
+                    @Html.Partial("Params\\_Cloudiness", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
+                
+
+                    <p>Do you want to save changes you made to document before closing?</p>
+
+                    <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+

@@ -14,3 +14,18 @@
 {
     background-color: Blue;
 }
+
+.hiddenRow {
+    padding: 0 !important;
+}
+
+.cursorClick 
+{
+    cursor: pointer;    
+}
+
+.cursorClick:hover
+{
+    background-color:ActiveBorder;
+   
+}
