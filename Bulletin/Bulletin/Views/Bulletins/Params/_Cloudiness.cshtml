@@ -3,8 +3,8 @@
 @using Bulletin.Common;
 
 
-            <div class="panel panel-primary">
-                <div class="panel-heading lg">Ночь</div>
+            <div id="cloudiness-panel" class="panel panel-primary">
+                <div id="cloudiness-panel-heading" class="panel-heading lg">Ночь</div>
                 <div class="panel-body">
                 <table class="table">
                     <tbody>
@@ -27,27 +27,4 @@
             </div>
         </div>
 
-        <div class="panel panel-success">
-            <div class="panel-heading">День</div>
-            <div class="panel-body">                                       
-                <table class="table">
-                    <tbody>
-                        <tr class="something">
-                            <td class="col-md-1">
-                                Облачность:
-                            </td>
-                            <td class="col-md-11">
-                                <select id="bulletin-@(ViewBag.forecast)-cloudiness-day" class="selectpicker" data-style="btn-primary" data-live-search="true">
-                                    @foreach (var cloudiness in ((IRepository<Cloudiness>)(new CloudinessRepository())).GetAll())
-                                    {
-                                        <option>@cloudiness.Name</option>
-                                    }                                                        
-                                </select>
-                            </td>
-                            
-                        </tr>
-                    </tbody>
-                </table>                
-                                                    
-            </div>
-        </div>
+        

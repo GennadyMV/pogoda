@@ -15,7 +15,7 @@
                             </td>
                             <td class="col-md-4">
                                 <select id="bulletin-@(ViewBag.forecast)-condition-night" class="selectpicker" data-style="btn-primary" data-live-search="true" data-width="100%">
-                                    @foreach (var condition in ((IRepository<ConditionTemplate>)(new ConditionTemplateRepository())).GetAll())
+                                    @foreach (var condition in ((IRepository<Condition>)(new ConditionRepository())).GetAll())
                                     {
                                         <option>@condition.Name</option>
                                     }                                                        
@@ -48,7 +48,7 @@
                             </td>
                             <td class="col-md-4">
                                 <select id="bulletin-@(ViewBag.forecast)-condition-day" class="selectpicker" data-style="btn-primary" data-live-search="true" data-width="100%">
-                                    @foreach (var condition in ((IRepository<ConditionTemplate>)(new ConditionTemplateRepository())).GetAll())
+                                    @foreach (var condition in ((IRepository<Condition>)(new ConditionRepository())).GetAll())
                                     {
                                         <option>@condition.Name</option>
                                     }                                                        

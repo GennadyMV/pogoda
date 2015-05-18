@@ -2,6 +2,7 @@
 @using Bulletin.Models;
 @using Bulletin.Common;
 
+
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -30,9 +31,9 @@
                         <span class="glyphicon glyphicon-paste"></span>
                       </a>
                 </td>
-                <td class="cursorClick"></td>
-                <td class="cursorClick"></td>
-                <td class="cursorClick"></td>
+                <td class="cursorClick" onclick="handleCloudinessNight(@(territory.ID))"></td>
+                <td class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
+                <td id="test" class="cursorClick"></td>
                 <td class="cursorClick"></td>
                 <td class="cursorClick"></td>
             </tr>
@@ -47,8 +48,8 @@
                         <span class="glyphicon glyphicon-paste"></span>
                       </a>
                 </td>
-                <td class="cursorClick" onclick="handleCloudiness(@(territory.ID))"></td>
-                <td class="cursorClick"></td>
+                <td class="cursorClick" onclick="handleCloudinessDay(@(territory.ID))"></td>
+                <td class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID))"></td>
                 <td class="cursorClick"></td>
                 <td class="cursorClick"></td>
                 <td class="cursorClick"></td>
@@ -60,54 +61,79 @@
 
 
 <script>
-    function handleCloudiness(id) {
+    function handleCloudinessNight(id) {
         $("#TerritoryID").text(id);
-        $("#myModal").modal('show');
+        $("#cloudiness-panel").attr("class", "panel panel-primary");
+        $("#cloudiness-panel-heading").text("Ночью");
+        $("#ModalCloudiness").modal('show');
     }
+
+    function handleCloudinessDay(id) {
+        $("#TerritoryID").text(id);
+        $("#cloudiness-panel").attr("class", "panel panel-success");
+        $("#cloudiness-panel-heading").text("Днём");
+        $("#ModalCloudiness").modal('show');
+    }
+
+    function handlePrecipitationNight(id) {
+        $("#TerritoryID").text(id);
+        $("#precipitation-panel").attr("class", "panel panel-primary");
+        $("#precipitation-panel-heading").text("Ночью");
+        $("#ModalPrecipitation").modal('show');
+    }
+
+    function handlePrecipitationDay(id) {
+        $("#TerritoryID").text(id);
+        $("#precipitation-panel").attr("class", "panel panel-success");
+        $("#precipitation-panel-heading").text("Днём");
+        $("#ModalPrecipitation").modal('show');
+    }
+
 </script>
 
 
 
 
-    <div id="myModal" class="modal fade">
-
+    <div id="ModalCloudiness" class="modal fade">
         <div class="modal-dialog">
-
             <div class="modal-content">
-
                 <div class="modal-header">
-
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-                    <h4 class="modal-title">Confirmation</h4>
-
+                    <h4 class="modal-title">Укажите облачность</h4>
                 </div>
-
                 <div class="modal-body">
-
                     <div id="TerritoryID">
                     </div>
-
                     @Html.Partial("Params\\_Cloudiness", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
-                
-
-                    <p>Do you want to save changes you made to document before closing?</p>
-
-                    <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
-
                 </div>
-
                 <div class="modal-footer">
-
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                    <button type="button" class="btn btn-primary">Save changes</button>
-
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary">Сохранить</button>
                 </div>
-
             </div>
-
         </div>
+    </div>
+    
 
+    <div id="ModalPrecipitation" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Укажите осадки</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="TerritoryID">
+                    </div>
+                    @Html.Partial("Params\\_Precipitation", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </div>
     </div>
 
+
+    

@@ -75,16 +75,16 @@
     <Compile Include="Common\NHibernateHelper.cs" />
     <Compile Include="Controllers\AbonentController.cs" />
     <Compile Include="Controllers\BulletinsController.cs" />
-    <Compile Include="Controllers\ClarificationTemplateController.cs" />
+    <Compile Include="Controllers\ClarificationController.cs" />
     <Compile Include="Controllers\CloudinessController.cs" />
-    <Compile Include="Controllers\ConditionTemplateController.cs" />
+    <Compile Include="Controllers\ConditionController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
-    <Compile Include="Controllers\PrecipitationTemplateController.cs" />
+    <Compile Include="Controllers\PrecipitationController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\SchemaController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\TerritoryController.cs" />
-    <Compile Include="Controllers\WindTemplateController.cs" />
+    <Compile Include="Controllers\WindController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -104,17 +104,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AbonentRepository.cs" />
     <Compile Include="Repositories\BulletinRepository.cs" />
-    <Compile Include="Repositories\ClarificationTemplateRepository.cs" />
+    <Compile Include="Repositories\ClarificationRepository.cs" />
     <Compile Include="Repositories\CloudinessRepository.cs" />
-    <Compile Include="Repositories\ConditionTemplateRepository.cs" />
+    <Compile Include="Repositories\ConditionRepository.cs" />
     <Compile Include="Repositories\ForecastRepository.cs" />
     <Compile Include="Repositories\GroupRepository.cs" />
-    <Compile Include="Repositories\PrecipitationTemplateRepository.cs" />
+    <Compile Include="Repositories\PrecipitationRepository.cs" />
     <Compile Include="Repositories\RegionRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
     <Compile Include="Repositories\TerritoryRepository.cs" />
     <Compile Include="Repositories\ValueRepository.cs" />
-    <Compile Include="Repositories\WindTemplateRepository.cs" />
+    <Compile Include="Repositories\WindRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker3.css" />
@@ -123,6 +123,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\cyborg-bootstrap.min.css" />
     <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\jquery.typeahead.css" />
     <Content Include="Content\roshydromet.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -186,6 +187,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="Scripts\bloodhound.js" />
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\html5shiv.min.js" />
     <Content Include="Scripts\i18n\defaults-cs_CZ.js" />
@@ -225,6 +227,7 @@
     <Content Include="Scripts\jquery.tablesorter.js" />
     <Content Include="Scripts\jquery.tablesorter.pager.js" />
     <Content Include="Scripts\jquery.tablesorter.widgets.js" />
+    <Content Include="Scripts\jquery.typeahead.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.az.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bg.js" />
@@ -290,6 +293,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
