@@ -2,8 +2,8 @@
 @using Bulletin.Models;
 @using Bulletin.Common;
 
-<div class="panel panel-primary">
-    <div class="panel-heading lg">Ночь</div>
+<div id="temperature-panel" class="panel panel-primary">
+    <div id="temperature-panel-heading" class="panel-heading lg">Ночь</div>
     <div class="panel-body">
         <table class="table table-bordered table-hover">
             <thead>
@@ -35,7 +35,7 @@
                     </td>
                     <td class="col-md-4">
                         <select class="selectpicker" data-style="btn-primary" data-width="100%">                                                                        
-                            @foreach (var clarification in ((IRepository<ClarificationTemplate>)(new ClarificationTemplateRepository())).GetAll())
+                            @foreach (var clarification in ((IRepository<Clarification>)(new ClarificationRepository())).GetAll())
                             {
                                 <option>@clarification.Name</option>
                             }  
@@ -51,58 +51,5 @@
             </tbody>
         </table>
                                                                                                     
-    </div>
-</div>
-
-<div class="panel panel-success">
-    <div class="panel-heading">День</div>
-    <div class="panel-body">
-                                                
-    <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>
-                        Минимальное значение (&degC)
-                    </th>
-                    <th>
-                        Максимальное значение (&degC)
-                    </th>
-                    <th>
-                        Уточнение
-                    </th>
-                    <th>
-                        Минимальное значение (&degC)
-                    </th>
-                    <th>
-                        Максимальное значение (&degC)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="col-md-2">
-                        <input type="number" class="form-control input-sm delta" id="bulletin-@(ViewBag.forecast)-temperaturemin-day" region="0" times="day-@(ViewBag.forecast)" who="temperature-@(ViewBag.forecast)">
-                    </td>
-                    <td class="col-md-2">
-                        <input type="number" class="form-control input-sm" id="temperature-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-day-@(ViewBag.forecast)" >
-                    </td>
-                    <td class="col-md-4">
-                        <select class="selectpicker" data-style="btn-primary" data-width="100%">                                                                        
-                                 @foreach (var clarification in ((IRepository<ClarificationTemplate>)(new ClarificationTemplateRepository())).GetAll())
-                                {
-                                    <option>@clarification.Name</option>
-                                }  
-                        </select>                                                                        
-                    </td>
-                    <td class="col-md-2">
-                        <input type="number" class="form-control input-sm delta" id="temperature-clarification-min" region="0" times="day-@(ViewBag.forecast)" who="temperature-clarification-@(ViewBag.forecast)">
-                    </td>
-                    <td class="col-md-2">
-                        <input type="number" class="form-control input-sm" id="temperature-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-day-@(ViewBag.forecast)" >
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
     </div>
 </div>

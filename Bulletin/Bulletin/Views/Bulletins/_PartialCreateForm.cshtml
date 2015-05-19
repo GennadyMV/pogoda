@@ -33,9 +33,9 @@
                 </td>
                 <td class="cursorClick" onclick="handleCloudinessNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
-                <td id="test" class="cursorClick"></td>
-                <td class="cursorClick"></td>
-                <td class="cursorClick"></td>
+                <td class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
+                <td class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
+                <td class="cursorClick" onclick="handleTemperatureNight(@(territory.ID))"></td>
             </tr>
             <tr>
                 <td>
@@ -50,9 +50,9 @@
                 </td>
                 <td class="cursorClick" onclick="handleCloudinessDay(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID))"></td>
-                <td class="cursorClick"></td>
-                <td class="cursorClick"></td>
-                <td class="cursorClick"></td>
+                <td class="cursorClick" onclick="handleConditionDay(@(territory.ID))"></td>
+                <td class="cursorClick" onclick="handleWindDay(@(territory.ID))"></td>
+                <td class="cursorClick" onclick="handleTemperatureDay(@(territory.ID))"></td>
             </tr>
         }
     </tbody>
@@ -88,7 +88,48 @@
         $("#precipitation-panel-heading").text("Днём");
         $("#ModalPrecipitation").modal('show');
     }
+    
+    function handleConditionNight(id) {
+        $("#TerritoryID").text(id);
+        $("#condition-panel").attr("class", "panel panel-primary");
+        $("#condition-panel-heading").text("Ночью");
+        $("#ModalCondition").modal('show');
+    }
 
+    function handleConditionDay(id) {
+        $("#TerritoryID").text(id);
+        $("#condition-panel").attr("class", "panel panel-success");
+        $("#condition-panel-heading").text("Днём");
+        $("#ModalCondition").modal('show');
+    }
+
+    function handleWindNight(id) {
+        $("#TerritoryID").text(id);
+        $("#wind-panel").attr("class", "panel panel-primary");
+        $("#wind-panel-heading").text("Ночью");
+        $("#ModalWind").modal('show');
+    }
+
+    function handleWindDay(id) {
+        $("#TerritoryID").text(id);
+        $("#wind-panel").attr("class", "panel panel-success");
+        $("#wind-panel-heading").text("Днём");
+        $("#ModalWind").modal('show');
+    }
+    
+    function handleTemperatureNight(id) {
+        $("#TerritoryID").text(id);
+        $("#temperature-panel").attr("class", "panel panel-primary");
+        $("#temperature-panel-heading").text("Ночью");
+        $("#ModalTemperature").modal('show');
+    }
+
+    function handleTemperatureDay(id) {
+        $("#TerritoryID").text(id);
+        $("#temperature-panel").attr("class", "panel panel-success");
+        $("#temperature-panel-heading").text("Днём");
+        $("#ModalTemperature").modal('show');
+    }
 </script>
 
 
@@ -135,5 +176,70 @@
         </div>
     </div>
 
+    
+    <div id="ModalCondition" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Укажите явления</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    @Html.Partial("Params\\_Condition", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     
+    <div id="ModalWind" class="modal modal-wide fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Укажите ветер</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    @Html.Partial("Params\\_Wind", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="ModalTemperature" class="modal modal-wide fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Укажите температуру</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    @Html.Partial("Params\\_Temperature", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(".modal-wide").on("show.bs.modal", function () {
+            var height = $(window).height() - 200;
+            $(this).find(".modal-body").css("max-height", height);
+        });
+   </script>

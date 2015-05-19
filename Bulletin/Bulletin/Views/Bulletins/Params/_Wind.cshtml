@@ -2,8 +2,8 @@
 @using Bulletin.Models;
 @using Bulletin.Common;
 
-<div class="panel panel-primary">
-                                              <div class="panel-heading lg">Ночь</div>
+<div id="wind-panel" class="panel panel-primary">
+                                              <div  id="wind-panel-heading" class="panel-heading lg">Ночь</div>
                                               <div class="panel-body">
                                                     <table class="table table-bordered table-hover">
                                                         <thead>
@@ -32,7 +32,7 @@
                                                             <tr>
                                                                 <td class="col-md-2">
                                                                     <select id="bulletin-@(ViewBag.forecast)-wind-night" class="selectpicker" data-style="btn-primary"  data-live-search="true">                                                    
-                                                                        @foreach (var wind in ((IRepository<WindTemplate>)(new WindTemplateRepository())).GetAll())
+                                                                        @foreach (var wind in ((IRepository<Wind>)(new WindRepository())).GetAll())
                                                                         {
                                                                             <option>@wind.Name</option>
                                                                         }                                                        
@@ -46,7 +46,7 @@
                                                                 </td>
                                                                 <td class="col-md-2">
                                                                     <select class="selectpicker" data-style="btn-primary" data-live-search="true">                                                                        
-                                                                            @foreach (var clarification in ((IRepository<ClarificationTemplate>)(new ClarificationTemplateRepository())).GetAll())
+                                                                            @foreach (var clarification in ((IRepository<Clarification>)(new ClarificationRepository())).GetAll())
                                                                             {
                                                                                 <option>@clarification.Name</option>
                                                                             }  
@@ -65,66 +65,4 @@
                                               </div>
                                             </div>
 
-                                            <div class="panel panel-success">
-                                              <div class="panel-heading">День</div>
-                                              <div class="panel-body">
-                                                
-                                                <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>
-                                                                    Ветер
-                                                                </th>
-                                                                <th>
-                                                                    Минимальное значение (м/с)
-                                                                </th>
-                                                                <th>
-                                                                    Максимальное значение (м/с)
-                                                                </th>
-                                                                <th>
-                                                                    Уточнение
-                                                                </th>
-                                                                <th>
-                                                                    Минимальное значение (м/с)
-                                                                </th>
-                                                                <th>
-                                                                    Максимальное значение (м/с)
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="col-md-2">
-                                                                    <select id="bulletin-@(ViewBag.forecast)-wind-day" class="selectpicker" data-style="btn-primary" data-live-search="true">                                                    
-                                                                        @foreach (var wind in ((IRepository<WindTemplate>)(new WindTemplateRepository())).GetAll())
-                                                                        {
-                                                                            <option>@wind.Name</option>
-                                                                        }                                                        
-                                                                    </select>                                                                        
-                                                                </td>
-                                                                <td class="col-md-2">
-                                                                    <input type="number" class="form-control input-sm delta" id="bulletin-@(ViewBag.forecast)-windmin-day" region="0" times="day-@(ViewBag.forecast)" who="wind-@(ViewBag.forecast)">
-                                                                </td>
-                                                                <td class="col-md-2">
-                                                                    <input type="number" class="form-control input-sm" id="wind-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-day-@(ViewBag.forecast)" >
-                                                                </td>
-                                                                <td class="col-md-2">
-                                                                    <select class="selectpicker" data-style="btn-primary" data-live-search="true">                                                                                                                                                    
-                                                                            @foreach (var clarification in ((IRepository<ClarificationTemplate>)(new ClarificationTemplateRepository())).GetAll())
-                                                                            {
-                                                                                <option>@clarification.Name</option>
-                                                                            }  
-                                                                    </select>                                                                        
-                                                                </td>
-                                                                <td class="col-md-2">
-                                                                    <input type="number" class="form-control input-sm delta" id="wind-clarification-min" region="0" times="day-@(ViewBag.forecast)" who="wind-clarification-@(ViewBag.forecast)">
-                                                                </td>
-                                                                <td class="col-md-2">
-                                                                    <input type="number" class="form-control input-sm" id="wind-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-day-@(ViewBag.forecast)" >
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-
-                                              </div>
-                                            </div>
+                                          

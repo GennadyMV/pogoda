@@ -117,5 +117,20 @@ namespace Bulletin.Controllers
                 return View();
             }
         }
+
+        public JsonResult GetPrecipitations()
+        {
+            List<String> _names = new List<String>();
+
+            List<Precipitation> _precipitations = new List<Precipitation>();
+            _precipitations = ((IRepository<Precipitation>)(new PrecipitationRepository())).GetAll().ToList();
+
+            foreach(var item in _precipitations)
+            {
+                _names.Add( item.Name );
+            }
+
+            return Json(_names, JsonRequestBehavior.AllowGet); 
+        }
     }
 }
