@@ -9,10 +9,8 @@
                 <table class="table">
                     <tbody>
                         <tr class="something">
-                            <td class="col-md-1">
-                                Облачность:
-                            </td>
-                            <td class="col-md-11">
+                            
+                            <td class="col-md-12">
                                 <select id="bulletin-@(ViewBag.forecast)-cloudiness-night" class="selectpicker" data-style="btn-primary" data-live-search="true">
                                     @foreach (var cloudiness in ((IRepository<Cloudiness>)(new CloudinessRepository())).GetAll())
                                     {

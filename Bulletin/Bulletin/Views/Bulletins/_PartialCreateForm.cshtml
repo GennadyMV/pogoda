@@ -31,7 +31,7 @@
                         <span class="glyphicon glyphicon-paste"></span>
                       </a>
                 </td>
-                <td class="cursorClick" onclick="handleCloudinessNight(@(territory.ID))"></td>
+                <td class="cursorClick" onclick="handleCloudinessNight(@(territory.ID), @(ViewBag.forecast))"></td>
                 <td class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
@@ -63,15 +63,16 @@
 <script>
     function handleCloudinessNight(id) {
         $("#TerritoryID").text(id);
+
         $("#cloudiness-panel").attr("class", "panel panel-primary");
-        $("#cloudiness-panel-heading").text("Ночью");
+        $("#cloudiness-panel-heading").text("Укажите облачность ночью");
         $("#ModalCloudiness").modal('show');
     }
 
     function handleCloudinessDay(id) {
         $("#TerritoryID").text(id);
         $("#cloudiness-panel").attr("class", "panel panel-success");
-        $("#cloudiness-panel-heading").text("Днём");
+        $("#cloudiness-panel-heading").text("Укажите облачность днём");
         $("#ModalCloudiness").modal('show');
     }
 
@@ -132,6 +133,12 @@
     }
 </script>
 
+<script>
+    function handleSaveCloudiness() {
+        alert("cloud");
+    }
+</script>
+
 
 
 
@@ -140,16 +147,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Укажите облачность</h4>
+                    <h4 class="modal-title">Облачность</h4>
                 </div>
                 <div class="modal-body">
-                    <div id="TerritoryID">
-                    </div>
+                    
+                    
                     @Html.Partial("Params\\_Cloudiness", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="handleSaveCloudiness()" territory="@(ViewBag." data-dismiss="modal">Сохранить</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-primary">Сохранить</button>
                 </div>
             </div>
         </div>
