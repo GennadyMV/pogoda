@@ -31,7 +31,7 @@
                         <span class="glyphicon glyphicon-paste"></span>
                       </a>
                 </td>
-                <td class="cursorClick" onclick="handleCloudinessNight(@(territory.ID), @(ViewBag.forecast))"></td>
+                <td id="TdCloudinessNight@(territory.ID)" class="cursorClick" onclick="handleCloudinessNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
@@ -48,7 +48,7 @@
                         <span class="glyphicon glyphicon-paste"></span>
                       </a>
                 </td>
-                <td class="cursorClick" onclick="handleCloudinessDay(@(territory.ID))"></td>
+                <td id="TdCloudinessDay@(territory.ID)" class="cursorClick" onclick="handleCloudinessDay(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleConditionDay(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleWindDay(@(territory.ID))"></td>
@@ -62,6 +62,8 @@
 
 <script>
     function handleCloudinessNight(id) {
+        $("#TerritoryID-Modal").val(id);
+        $("#TerritoryID-Modal-Night").text(1);
         $("#TerritoryID").text(id);
 
         $("#cloudiness-panel").attr("class", "panel panel-primary");
@@ -71,6 +73,8 @@
 
     function handleCloudinessDay(id) {
         $("#TerritoryID").text(id);
+        $("#TerritoryID-Modal-Night").text(0);
+
         $("#cloudiness-panel").attr("class", "panel panel-success");
         $("#cloudiness-panel-heading").text("Укажите облачность днём");
         $("#ModalCloudiness").modal('show');
@@ -135,7 +139,14 @@
 
 <script>
     function handleSaveCloudiness() {
-        alert("cloud");
+        alert($("#TerritoryID-Modal").val());
+        alert($("#bulletin-@(ViewBag.forecast)-cloudiness-night").val());
+
+        if ($("#TerritoryID-Modal-Night").val() == 1) {
+                        $("#TdCloudinessNight" + $("#TerritoryID-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-cloudiness-night").val());
+            console.log("#TdCloudinessNight" + $("#TerritoryID-Modal").val());
+            //$("#TdCloudinessNight" + $("#TerritoryID-Modal").val()).val("s");
+        }
     }
 </script>
 
@@ -151,11 +162,12 @@
                 </div>
                 <div class="modal-body">
                     
-                    
+                    @Html.Hidden("TerritoryID-Modal", "0")
+                    @Html.Hidden("TerritoryID-Modal-Night", "0")
                     @Html.Partial("Params\\_Cloudiness", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="handleSaveCloudiness()" territory="@(ViewBag." data-dismiss="modal">Сохранить</button>
+                    <button type="button" class="btn btn-primary" onclick="handleSaveCloudiness()"  data-dismiss="modal">Сохранить</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
@@ -176,8 +188,8 @@
                     @Html.Partial("Params\\_Precipitation", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-default" onclick="handleSavePrecipitation()" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
                 </div>
             </div>
         </div>
