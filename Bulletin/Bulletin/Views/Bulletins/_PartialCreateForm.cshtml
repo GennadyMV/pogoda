@@ -32,7 +32,7 @@
                       </a>
                 </td>
                 <td id="TdCloudinessNight@(territory.ID)" class="cursorClick" onclick="handleCloudinessNight(@(territory.ID))"></td>
-                <td class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
+                <td id="TdPrecipitationNight@(territory.ID)" class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleTemperatureNight(@(territory.ID))"></td>
@@ -49,7 +49,7 @@
                       </a>
                 </td>
                 <td id="TdCloudinessDay@(territory.ID)" class="cursorClick" onclick="handleCloudinessDay(@(territory.ID))"></td>
-                <td class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID))"></td>
+                <td id="TdPrecipitationDay@(territory.ID)" class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleConditionDay(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleWindDay(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleTemperatureDay(@(territory.ID))"></td>
@@ -63,8 +63,8 @@
 <script>
     function handleCloudinessNight(id) {
         $("#TerritoryID-Modal").val(id);
-        $("#TerritoryID-Modal-Night").text(1);
-        $("#TerritoryID").text(id);
+        $("#TerritoryID-Modal-Night").val(1);
+        
 
         $("#cloudiness-panel").attr("class", "panel panel-primary");
         $("#cloudiness-panel-heading").text("Укажите облачность ночью");
@@ -72,8 +72,9 @@
     }
 
     function handleCloudinessDay(id) {
-        $("#TerritoryID").text(id);
-        $("#TerritoryID-Modal-Night").text(0);
+        
+        $("#TerritoryID-Modal").val(id);
+        $("#TerritoryID-Modal-Night").val(0);
 
         $("#cloudiness-panel").attr("class", "panel panel-success");
         $("#cloudiness-panel-heading").text("Укажите облачность днём");
@@ -81,14 +82,20 @@
     }
 
     function handlePrecipitationNight(id) {
-        $("#TerritoryID").text(id);
+
+        $("#TerritoryID-Precipitation-Modal").val(id);
+        $("#TerritoryID-Precipitation-Modal-Night").val(1);
+
         $("#precipitation-panel").attr("class", "panel panel-primary");
         $("#precipitation-panel-heading").text("Ночью");
         $("#ModalPrecipitation").modal('show');
     }
 
     function handlePrecipitationDay(id) {
-        $("#TerritoryID").text(id);
+        
+        $("#TerritoryID-Precipitation-Modal").val(id);
+        $("#TerritoryID-Precipitation-Modal-Night").val(0);
+
         $("#precipitation-panel").attr("class", "panel panel-success");
         $("#precipitation-panel-heading").text("Днём");
         $("#ModalPrecipitation").modal('show');
@@ -139,13 +146,22 @@
 
 <script>
     function handleSaveCloudiness() {
-        alert($("#TerritoryID-Modal").val());
-        alert($("#bulletin-@(ViewBag.forecast)-cloudiness-night").val());
 
-        if ($("#TerritoryID-Modal-Night").val() == 1) {
-                        $("#TdCloudinessNight" + $("#TerritoryID-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-cloudiness-night").val());
-            console.log("#TdCloudinessNight" + $("#TerritoryID-Modal").val());
-            //$("#TdCloudinessNight" + $("#TerritoryID-Modal").val()).val("s");
+        if ($("#TerritoryID-Modal-Night").val() == "1") {            
+            $("#TdCloudinessNight" + $("#TerritoryID-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-cloudiness-night").val());
+        }
+        else {
+            $("#TdCloudinessDay" + $("#TerritoryID-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-cloudiness-night").val());
+        }
+    }
+
+    function handleSavePrecipitation() {
+        
+        if ($("#TerritoryID-Precipitation-Modal-Night").val() == "1") {
+            $("#TdPrecipitationNight" + $("#TerritoryID-Precipitation-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-precipitation-night").val());
+        }
+        else {
+            $("#TdPrecipitationDay" + $("#TerritoryID-Precipitation-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-precipitation-night").val());
         }
     }
 </script>
@@ -185,11 +201,14 @@
                 <div class="modal-body">
                     <div id="TerritoryID">
                     </div>
+                    
+                    @Html.Hidden("TerritoryID-Precipitation-Modal", "0")
+                    @Html.Hidden("TerritoryID-Precipitation-Modal-Night", "0")
                     @Html.Partial("Params\\_Precipitation", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" onclick="handleSavePrecipitation()" data-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
+                    <button type="button" class="btn btn-default" onclick="handleSavePrecipitation()" data-dismiss="modal">Сохранить</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>

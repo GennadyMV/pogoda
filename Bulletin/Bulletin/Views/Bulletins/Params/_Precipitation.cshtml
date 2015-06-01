@@ -23,7 +23,7 @@
         <div class="typeahead-field">
  
             <span class="typeahead-query">
-                <input id="country_v1-query" name="country_v1[query]" placeholder="Осадки" autocomplete="off" type="search">
+                <input id="bulletin-@(ViewBag.forecast)-precipitation-night" name="bulletin-@(ViewBag.forecast)-precipitation-night" placeholder="Осадки" autocomplete="off" type="search">
             </span>
  
         </div>
@@ -32,7 +32,7 @@
     <!-- http://www.runningcoder.org/jquerytypeahead/documentation/ -->
     
     <script>
-        $('#country_v1-query').typeahead({
+        $('#bulletin-@(ViewBag.forecast)-precipitation-night').typeahead({
             minLength: 0,
             maxItem: 15000,
             order: "asc",
