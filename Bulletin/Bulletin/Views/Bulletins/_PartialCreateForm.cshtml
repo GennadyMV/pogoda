@@ -33,7 +33,7 @@
                 </td>
                 <td id="TdCloudinessNight@(territory.ID)" class="cursorClick" onclick="handleCloudinessNight(@(territory.ID))"></td>
                 <td id="TdPrecipitationNight@(territory.ID)" class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
-                <td class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
+                <td id="TdConditionNight@(territory.ID)" class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleTemperatureNight(@(territory.ID))"></td>
             </tr>
@@ -50,7 +50,7 @@
                 </td>
                 <td id="TdCloudinessDay@(territory.ID)" class="cursorClick" onclick="handleCloudinessDay(@(territory.ID))"></td>
                 <td id="TdPrecipitationDay@(territory.ID)" class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID))"></td>
-                <td class="cursorClick" onclick="handleConditionDay(@(territory.ID))"></td>
+                <td id="TdConditionDay@(territory.ID)" class="cursorClick" onclick="handleConditionDay(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleWindDay(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleTemperatureDay(@(territory.ID))"></td>
             </tr>
@@ -93,23 +93,27 @@
 
     function handlePrecipitationDay(id) {
         
-        $("#TerritoryID-Precipitation-Modal").val(id);
-        $("#TerritoryID-Precipitation-Modal-Night").val(0);
 
         $("#precipitation-panel").attr("class", "panel panel-success");
         $("#precipitation-panel-heading").text("Днём");
         $("#ModalPrecipitation").modal('show');
     }
-    
+
     function handleConditionNight(id) {
-        $("#TerritoryID").text(id);
+        
+        $("#TerritoryID-Condition-Modal").val(id);
+        $("#TerritoryID-Condition-Modal-Night").val(1);
+
         $("#condition-panel").attr("class", "panel panel-primary");
         $("#condition-panel-heading").text("Ночью");
         $("#ModalCondition").modal('show');
     }
 
     function handleConditionDay(id) {
-        $("#TerritoryID").text(id);
+
+        $("#TerritoryID-Condition-Modal").val(id);
+        $("#TerritoryID-Condition-Modal-Night").val(0);
+
         $("#condition-panel").attr("class", "panel panel-success");
         $("#condition-panel-heading").text("Днём");
         $("#ModalCondition").modal('show');
@@ -156,12 +160,43 @@
     }
 
     function handleSavePrecipitation() {
-        
+
+
         if ($("#TerritoryID-Precipitation-Modal-Night").val() == "1") {
             $("#TdPrecipitationNight" + $("#TerritoryID-Precipitation-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-precipitation-night").val());
         }
         else {
             $("#TdPrecipitationDay" + $("#TerritoryID-Precipitation-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-precipitation-night").val());
+        }
+    }
+
+    function handleSaveCondition() {
+
+        str_add = "";
+
+        if ($("#condition-checkbox-places").is(':checked')) {
+            str_add = str_add + "местами ";
+        }
+        if ($("#condition-checkbox-sometimes").is(':checked')) {
+            str_add = str_add + "временами ";
+        }
+
+        if ($("#condition-checkbox-none").is(':checked')) {
+            if ($("#TerritoryID-Condition-Modal-Night").val() == "1") {
+                $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).text("");
+            }
+            else {
+                $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).text("");
+            }
+        }
+        else {
+
+            if ($("#TerritoryID-Condition-Modal-Night").val() == "1") {
+                $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-condition-night").val() + " " + str_add);
+            }
+            else {
+                $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-condition-night").val() + " " + str_add);
+            }
         }
     }
 </script>
@@ -199,12 +234,11 @@
                     <h4 class="modal-title">Укажите осадки</h4>
                 </div>
                 <div class="modal-body">
-                    <div id="TerritoryID">
-                    </div>
                     
                     @Html.Hidden("TerritoryID-Precipitation-Modal", "0")
                     @Html.Hidden("TerritoryID-Precipitation-Modal-Night", "0")
                     @Html.Partial("Params\\_Precipitation", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" onclick="handleSavePrecipitation()" data-dismiss="modal">Сохранить</button>
@@ -224,11 +258,13 @@
                 </div>
                 <div class="modal-body">
                     
+                    @Html.Hidden("TerritoryID-Condition-Modal", "0")
+                    @Html.Hidden("TerritoryID-Condition-Modal-Night", "0")
                     @Html.Partial("Params\\_Condition", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer">                    
+                    <button type="button" class="btn btn-primary" onclick="handleSaveCondition()" data-dismiss="modal">Сохранить</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-primary">Сохранить</button>
                 </div>
             </div>
         </div>
