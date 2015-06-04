@@ -7,7 +7,7 @@
     <thead>
         <tr>
             <th>Административные районы</th>
-            <th></th>
+            <!--<th></th>-->
             <th>Облачность</th>
             <th>Осадки</th>
             <th>Явления</th>
@@ -20,6 +20,7 @@
         {
             <tr>
                 <td rowspan="2">@territory.Name</td>
+                <!--
                 <td>
                         
                         <label for="mySubmit" class="btn btn-default"><i class="glyphicon glyphicon-copy"></i> </label>
@@ -31,15 +32,18 @@
                         <span class="glyphicon glyphicon-paste"></span>
                       </a>
                 </td>
+                -->
+                
                 <td id="TdCloudinessNight@(territory.ID)" class="cursorClick" onclick="handleCloudinessNight(@(territory.ID))"></td>
                 <td id="TdPrecipitationNight@(territory.ID)" class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
                 <td id="TdConditionNight@(territory.ID)" class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
-                <td class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
+                <td id="TdWindNight@(territory.ID)" class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleTemperatureNight(@(territory.ID))"></td>
             </tr>
             <tr>
+            <!--
                 <td>
-                        
+                       
                       <a href="#" class="btn btn-default">
                         <span class="glyphicon glyphicon-copy"></span>
                       </a>
@@ -48,10 +52,11 @@
                         <span class="glyphicon glyphicon-paste"></span>
                       </a>
                 </td>
+                -->
                 <td id="TdCloudinessDay@(territory.ID)" class="cursorClick" onclick="handleCloudinessDay(@(territory.ID))"></td>
                 <td id="TdPrecipitationDay@(territory.ID)" class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID))"></td>
                 <td id="TdConditionDay@(territory.ID)" class="cursorClick" onclick="handleConditionDay(@(territory.ID))"></td>
-                <td class="cursorClick" onclick="handleWindDay(@(territory.ID))"></td>
+                <td id="TdWindDay@(territory.ID)" class="cursorClick" onclick="handleWindDay(@(territory.ID))"></td>
                 <td class="cursorClick" onclick="handleTemperatureDay(@(territory.ID))"></td>
             </tr>
         }
@@ -92,7 +97,9 @@
     }
 
     function handlePrecipitationDay(id) {
-        
+
+        $("#TerritoryID-Precipitation-Modal").val(id);
+        $("#TerritoryID-Precipitation-Modal-Night").val(0);
 
         $("#precipitation-panel").attr("class", "panel panel-success");
         $("#precipitation-panel-heading").text("Днём");
@@ -120,14 +127,19 @@
     }
 
     function handleWindNight(id) {
-        $("#TerritoryID").text(id);
+
+        $("#TerritoryID-Wind-Modal").val(id);
+        $("#TerritoryID-Wind-Modal-Night").val(1);
+
         $("#wind-panel").attr("class", "panel panel-primary");
         $("#wind-panel-heading").text("Ночью");
         $("#ModalWind").modal('show');
     }
 
     function handleWindDay(id) {
-        $("#TerritoryID").text(id);
+        $("#TerritoryID-Wind-Modal").val(id);
+        $("#TerritoryID-Wind-Modal-Night").val(0);
+
         $("#wind-panel").attr("class", "panel panel-success");
         $("#wind-panel-heading").text("Днём");
         $("#ModalWind").modal('show');
@@ -199,6 +211,28 @@
             }
         }
     }
+
+    function handleSaveWind() {
+
+
+        windmin = $("#bulletin-@(ViewBag.forecast)-windmin-night").val();
+        windmax = $("#wind-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val();
+        text = " " + windmin + " - " + windmax + " м/с";
+        if ($("#wind-clarification").val() != 0) {
+            text = text + " " + $("#wind-clarification option:selected").text();
+            clarification_min = $("#wind-clarification-min").val();
+            clarification_max = $("#wind-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val();
+
+            text = text + " " + clarification_min + " - " + clarification_max;
+        }
+
+        if ($("#TerritoryID-Wind-Modal-Night").val() == "1") {
+            $("#TdWindNight" + $("#TerritoryID-Wind-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-wind-night").val() + text);
+        }
+        else {
+            $("#TdWindDay" + $("#TerritoryID-Wind-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-wind-night").val() + text);
+        }
+    }
 </script>
 
 
@@ -241,8 +275,8 @@
                     
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" onclick="handleSavePrecipitation()" data-dismiss="modal">Сохранить</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" onclick="handleSavePrecipitation()" data-dismiss="modal">Сохранить</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>
@@ -271,8 +305,8 @@
     </div>
 
     
-    <div id="ModalWind" class="modal modal-wide fade">
-        <div class="modal-dialog">
+    <div id="ModalWind" class="modal fade">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -280,11 +314,14 @@
                 </div>
                 <div class="modal-body">
                     
-                    @Html.Partial("Params\\_Wind", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
+                    @Html.Hidden("TerritoryID-Wind-Modal", "0")
+                    @Html.Hidden("TerritoryID-Wind-Modal-Night", "0")
+                    @Html.Partial("Params\\_Wind", new ViewDataDictionary { { "forecast", ViewBag.forecast } })  
+                       
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="handleSaveWind()" data-dismiss="modal">Сохранить</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-primary">Сохранить</button>
                 </div>
             </div>
         </div>

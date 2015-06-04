@@ -325,10 +325,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\ClarificationTemplate\Index.cshtml" />
-    <Content Include="Views\ClarificationTemplate\Create.cshtml" />
-    <Content Include="Views\ClarificationTemplate\Edit.cshtml" />
-    <Content Include="Views\ClarificationTemplate\Details.cshtml" />
+    <Content Include="Views\Clarification\Index.cshtml" />
+    <Content Include="Views\Clarification\Create.cshtml" />
+    <Content Include="Views\Clarification\Edit.cshtml" />
+    <Content Include="Views\Clarification\Details.cshtml" />
     <Content Include="Views\Bulletins\Params\_Precipitation.cshtml" />
     <Content Include="Views\Bulletins\Params\_Cloudiness.cshtml" />
     <Content Include="Views\Bulletins\Params\_Wind.cshtml" />
@@ -360,26 +360,26 @@
     <Content Include="Views\Bulletins\CreateByParam.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\WindTemplate\Index.cshtml" />
-    <Content Include="Views\WindTemplate\Create.cshtml" />
-    <Content Include="Views\WindTemplate\Edit.cshtml" />
-    <Content Include="Views\WindTemplate\Details.cshtml" />
+    <Content Include="Views\Wind\Index.cshtml" />
+    <Content Include="Views\Wind\Create.cshtml" />
+    <Content Include="Views\Wind\Edit.cshtml" />
+    <Content Include="Views\Wind\Details.cshtml" />
     <Content Include="Views\Region\Index.cshtml" />
     <Content Include="Views\Region\Edit.cshtml" />
     <Content Include="Views\Region\Details.cshtml" />
     <Content Include="Views\Region\Create.cshtml" />
-    <Content Include="Views\PrecipitationTemplate\Create.cshtml" />
-    <Content Include="Views\PrecipitationTemplate\Details.cshtml" />
-    <Content Include="Views\PrecipitationTemplate\Edit.cshtml" />
-    <Content Include="Views\PrecipitationTemplate\Index.cshtml" />
-    <Content Include="Views\ConditionTemplate\Create.cshtml" />
-    <Content Include="Views\ConditionTemplate\Details.cshtml" />
-    <Content Include="Views\ConditionTemplate\Edit.cshtml" />
-    <Content Include="Views\ConditionTemplate\Index.cshtml" />
-    <Content Include="Views\CloudinessTemplate\Create.cshtml" />
-    <Content Include="Views\CloudinessTemplate\Details.cshtml" />
-    <Content Include="Views\CloudinessTemplate\Edit.cshtml" />
-    <Content Include="Views\CloudinessTemplate\Index.cshtml" />
+    <Content Include="Views\Precipitation\Create.cshtml" />
+    <Content Include="Views\Precipitation\Details.cshtml" />
+    <Content Include="Views\Precipitation\Edit.cshtml" />
+    <Content Include="Views\Precipitation\Index.cshtml" />
+    <Content Include="Views\Condition\Create.cshtml" />
+    <Content Include="Views\Condition\Details.cshtml" />
+    <Content Include="Views\Condition\Edit.cshtml" />
+    <Content Include="Views\Condition\Index.cshtml" />
+    <Content Include="Views\Cloudiness\Create.cshtml" />
+    <Content Include="Views\Cloudiness\Details.cshtml" />
+    <Content Include="Views\Cloudiness\Edit.cshtml" />
+    <Content Include="Views\Cloudiness\Index.cshtml" />
     <Content Include="Views\Abonent\Index.cshtml" />
     <Content Include="Views\Abonent\Create.cshtml" />
     <Content Include="Views\Abonent\Edit.cshtml" />
@@ -410,7 +410,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1732</DevelopmentServerPort>
+          <DevelopmentServerPort>2116</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Направление ветра";
+}
+
+
+
+<h2>Просмотр направления ветра</h2>
+
+    <fieldset>
+        <legend>Поля</legend>
+        <p>
+            Направление:
+            @Html.Encode(Model.Name)
+        </p>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Редактировать", "Edit", new { id=Model.ID }) |
+        @Html.ActionLink("Назад", "Index")
+    </p>
