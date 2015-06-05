@@ -38,7 +38,7 @@
                 <td id="TdPrecipitationNight@(territory.ID)" class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
                 <td id="TdConditionNight@(territory.ID)" class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
                 <td id="TdWindNight@(territory.ID)" class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
-                <td class="cursorClick" onclick="handleTemperatureNight(@(territory.ID))"></td>
+                <td id="TdTemperatureNight@(territory.ID)" class="cursorClick" onclick="handleTemperatureNight(@(territory.ID))"></td>
             </tr>
             <tr>
             <!--
@@ -57,7 +57,7 @@
                 <td id="TdPrecipitationDay@(territory.ID)" class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID))"></td>
                 <td id="TdConditionDay@(territory.ID)" class="cursorClick" onclick="handleConditionDay(@(territory.ID))"></td>
                 <td id="TdWindDay@(territory.ID)" class="cursorClick" onclick="handleWindDay(@(territory.ID))"></td>
-                <td class="cursorClick" onclick="handleTemperatureDay(@(territory.ID))"></td>
+                <td id="TdTemperatureDay@(territory.ID)" class="cursorClick" onclick="handleTemperatureDay(@(territory.ID))"></td>
             </tr>
         }
     </tbody>
@@ -146,14 +146,20 @@
     }
     
     function handleTemperatureNight(id) {
-        $("#TerritoryID").text(id);
+
+        $("#TerritoryID-Temperature-Modal").val(id);
+        $("#TerritoryID-Temperature-Modal-Night").val(1);
+
         $("#temperature-panel").attr("class", "panel panel-primary");
         $("#temperature-panel-heading").text("Ночью");
         $("#ModalTemperature").modal('show');
     }
 
     function handleTemperatureDay(id) {
-        $("#TerritoryID").text(id);
+
+        $("#TerritoryID-Temperature-Modal").val(id);
+        $("#TerritoryID-Temperature-Modal-Night").val(0);
+
         $("#temperature-panel").attr("class", "panel panel-success");
         $("#temperature-panel-heading").text("Днём");
         $("#ModalTemperature").modal('show');
@@ -213,8 +219,6 @@
     }
 
     function handleSaveWind() {
-
-
         windmin = $("#bulletin-@(ViewBag.forecast)-windmin-night").val();
         windmax = $("#wind-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val();
         text = " " + windmin + " - " + windmax + " м/с";
@@ -233,6 +237,27 @@
             $("#TdWindDay" + $("#TerritoryID-Wind-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-wind-night").val() + text);
         }
     }
+
+    function handleSaveTemperature() {
+        temperaturemin = $("#bulletin-@(ViewBag.forecast)-temperaturemin-night").val();
+        temperaturemax = $("#temperature-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val();
+        text = temperaturemin + " - " + temperaturemax + " " + "\u00B0" + "C";
+        
+        if ($("#temperature-clarification").val() != 0) {
+            text = text + " " + $("#temperature-clarification option:selected").text();
+            clarification_min = $("#temperature-clarification-min").val();
+            clarification_max = $("#temperature-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val();
+            text = text + " " + clarification_min + " - " + clarification_max + " " + "\u00B0" + "C"; ;
+        }
+
+        if ($("#TerritoryID-Temperature-Modal-Night").val() == "1") {
+            $("#TdTemperatureNight" + $("#TerritoryID-Temperature-Modal").val()).text(text);
+        }
+        else {
+            $("#TdTemperatureDay" + $("#TerritoryID-Temperature-Modal").val()).text(text);
+        }
+    }
+
 </script>
 
 
@@ -328,7 +353,7 @@
     </div>
 
     
-    <div id="ModalTemperature" class="modal modal-wide fade">
+    <div id="ModalTemperature" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -337,11 +362,13 @@
                 </div>
                 <div class="modal-body">
                     
+                    @Html.Hidden("TerritoryID-Temperature-Modal", "0")
+                    @Html.Hidden("TerritoryID-Temperature-Modal-Night", "0")
                     @Html.Partial("Params\\_Temperature", new ViewDataDictionary { { "forecast", ViewBag.forecast } })    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-primary" onclick="handleSaveTemperature()" data-dismiss="modal">Сохранить</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>                    
                 </div>
             </div>
         </div>
