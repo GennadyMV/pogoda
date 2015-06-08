@@ -34,7 +34,7 @@
                 </td>
                 -->
                 
-                <td id="TdCloudinessNight@(territory.ID)" class="cursorClick" onclick="handleCloudinessNight(@(territory.ID))"></td>
+                <td id="TdCloudinessNight@(territory.ID)" variable="0" times="0" class="cursorClick" onclick="handleCloudinessNight(@(territory.ID), this)"></td>
                 <td id="TdPrecipitationNight@(territory.ID)" class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
                 <td id="TdConditionNight@(territory.ID)" class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
                 <td id="TdWindNight@(territory.ID)" class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
@@ -66,10 +66,16 @@
 
 
 <script>
-    function handleCloudinessNight(id) {
+    function handleCloudinessNight(id, theObj) {
         $("#TerritoryID-Modal").val(id);
         $("#TerritoryID-Modal-Night").val(1);
-        
+
+
+        $("#bulletin-@(ViewBag.forecast)-cloudiness-night").val("\"" + $(theObj).attr("variable") + "\"");
+
+        $("#bulletin-@(ViewBag.forecast)-cloudiness-night").val($(theObj).attr("variable"));
+
+        $("#bulletin-@(ViewBag.forecast)-cloudiness-night").selectpicker('render');
 
         $("#cloudiness-panel").attr("class", "panel panel-primary");
         $("#cloudiness-panel-heading").text("Укажите облачность ночью");
@@ -169,8 +175,10 @@
 <script>
     function handleSaveCloudiness() {
 
-        if ($("#TerritoryID-Modal-Night").val() == "1") {            
-            $("#TdCloudinessNight" + $("#TerritoryID-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-cloudiness-night").val());
+        if ($("#TerritoryID-Modal-Night").val() == "1") {
+            $("#TdCloudinessNight" + $("#TerritoryID-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-cloudiness-night option:selected").text());
+            $("#TdCloudinessNight" + $("#TerritoryID-Modal").val()).attr("variable", $("#bulletin-@(ViewBag.forecast)-cloudiness-night").val() );
+            
         }
         else {
             $("#TdCloudinessDay" + $("#TerritoryID-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-cloudiness-night").val());

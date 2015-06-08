@@ -48,3 +48,15 @@
             </div>
         </div>
        
+
+       <script>
+
+           $("#condition-checkbox-none").click(function () {
+
+               $("#bulletin-@(ViewBag.forecast)-condition-night").prop('disabled', $("#condition-checkbox-none").is(':checked'));
+               $("#condition-checkbox-places").prop('disabled', $("#condition-checkbox-none").is(':checked'));
+               $("#condition-checkbox-sometimes").prop('disabled', $("#condition-checkbox-none").is(':checked'));
+           });
+
+              
+       </script>

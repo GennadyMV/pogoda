@@ -14,7 +14,7 @@
                                 <select id="bulletin-@(ViewBag.forecast)-cloudiness-night" class="selectpicker" data-style="btn-primary" data-live-search="true">
                                     @foreach (var cloudiness in ((IRepository<Cloudiness>)(new CloudinessRepository())).GetAll())
                                     {
-                                        <option>@cloudiness.Name</option>
+                                        <option value="@cloudiness.ID">@cloudiness.Name</option>
                                     }                                                        
                                 </select>
                             </td>
