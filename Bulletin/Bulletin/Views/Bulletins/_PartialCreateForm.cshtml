@@ -35,7 +35,7 @@
                 -->
                 
                 <td id="TdCloudinessNight@(territory.ID)" variable="0" times="0" class="cursorClick" onclick="handleCloudinessNight(@(territory.ID), this)"></td>
-                <td id="TdPrecipitationNight@(territory.ID)" class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID))"></td>
+                <td id="TdPrecipitationNight@(territory.ID)" variable="" times="0" class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID), this)"></td>
                 <td id="TdConditionNight@(territory.ID)" class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
                 <td id="TdWindNight@(territory.ID)" class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
                 <td id="TdTemperatureNight@(territory.ID)" class="cursorClick" onclick="handleTemperatureNight(@(territory.ID))"></td>
@@ -53,8 +53,8 @@
                       </a>
                 </td>
                 -->
-                <td id="TdCloudinessDay@(territory.ID)" class="cursorClick" onclick="handleCloudinessDay(@(territory.ID))"></td>
-                <td id="TdPrecipitationDay@(territory.ID)" class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID))"></td>
+                <td id="TdCloudinessDay@(territory.ID)" variable="0" times="0" class="cursorClick" onclick="handleCloudinessDay(@(territory.ID), this)"></td>
+                <td id="TdPrecipitationDay@(territory.ID)" variable="" times="0" class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID), this)"></td>
                 <td id="TdConditionDay@(territory.ID)" class="cursorClick" onclick="handleConditionDay(@(territory.ID))"></td>
                 <td id="TdWindDay@(territory.ID)" class="cursorClick" onclick="handleWindDay(@(territory.ID))"></td>
                 <td id="TdTemperatureDay@(territory.ID)" class="cursorClick" onclick="handleTemperatureDay(@(territory.ID))"></td>
@@ -72,9 +72,7 @@
 
 
         $("#bulletin-@(ViewBag.forecast)-cloudiness-night").val("\"" + $(theObj).attr("variable") + "\"");
-
         $("#bulletin-@(ViewBag.forecast)-cloudiness-night").val($(theObj).attr("variable"));
-
         $("#bulletin-@(ViewBag.forecast)-cloudiness-night").selectpicker('render');
 
         $("#cloudiness-panel").attr("class", "panel panel-primary");
@@ -82,30 +80,79 @@
         $("#ModalCloudiness").modal('show');
     }
 
-    function handleCloudinessDay(id) {
+    function handleCloudinessDay(id, theObj) {
         
         $("#TerritoryID-Modal").val(id);
         $("#TerritoryID-Modal-Night").val(0);
+
+
+        $("#bulletin-@(ViewBag.forecast)-cloudiness-night").val("\"" + $(theObj).attr("variable") + "\"");
+        $("#bulletin-@(ViewBag.forecast)-cloudiness-night").val($(theObj).attr("variable"));
+        $("#bulletin-@(ViewBag.forecast)-cloudiness-night").selectpicker('render');
 
         $("#cloudiness-panel").attr("class", "panel panel-success");
         $("#cloudiness-panel-heading").text("Укажите облачность днём");
         $("#ModalCloudiness").modal('show');
     }
 
-    function handlePrecipitationNight(id) {
+    function handlePrecipitationNight(id, theObj) {
+
+
+
 
         $("#TerritoryID-Precipitation-Modal").val(id);
         $("#TerritoryID-Precipitation-Modal-Night").val(1);
+
+   
+        $("#bulletin-@(ViewBag.forecast)-precipitation-night").val($(theObj).attr("variable"));
+
+        $('#bulletin-@(ViewBag.forecast)-precipitation-night').typeahead({
+            minLength: 0,
+            maxItem: 15000,
+            order: "asc",
+            hint: true,
+            accent: true,
+            searchOnFocus: true,
+            source: {
+                url: ["/Precipitation/GetPrecipitations"]
+            },
+            callback: {
+                onInit: function (node) {
+                    console.log('Typeahead Initiated on ' + node.selector);
+                }
+            }
+        });
 
         $("#precipitation-panel").attr("class", "panel panel-primary");
         $("#precipitation-panel-heading").text("Ночью");
         $("#ModalPrecipitation").modal('show');
     }
 
-    function handlePrecipitationDay(id) {
+    function handlePrecipitationDay(id, theObj) {
+
 
         $("#TerritoryID-Precipitation-Modal").val(id);
         $("#TerritoryID-Precipitation-Modal-Night").val(0);
+
+ 
+        $("#bulletin-@(ViewBag.forecast)-precipitation-night").val($(theObj).attr("variable"));
+
+        $('#bulletin-@(ViewBag.forecast)-precipitation-night').typeahead({
+            minLength: 0,
+            maxItem: 15000,
+            order: "asc",
+            hint: true,
+            accent: true,
+            searchOnFocus: true,
+            source: {
+                url: ["/Precipitation/GetPrecipitations"]
+            },
+            callback: {
+                onInit: function (node) {
+                    console.log('Typeahead Initiated on ' + node.selector);
+                }
+            }
+        });
 
         $("#precipitation-panel").attr("class", "panel panel-success");
         $("#precipitation-panel-heading").text("Днём");
@@ -181,7 +228,8 @@
             
         }
         else {
-            $("#TdCloudinessDay" + $("#TerritoryID-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-cloudiness-night").val());
+            $("#TdCloudinessDay" + $("#TerritoryID-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-cloudiness-night option:selected").text());
+            $("#TdCloudinessDay" + $("#TerritoryID-Modal").val()).attr("variable", $("#bulletin-@(ViewBag.forecast)-cloudiness-night").val());
         }
     }
 
@@ -189,10 +237,13 @@
 
 
         if ($("#TerritoryID-Precipitation-Modal-Night").val() == "1") {
+
             $("#TdPrecipitationNight" + $("#TerritoryID-Precipitation-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-precipitation-night").val());
+            $("#TdPrecipitationNight" + $("#TerritoryID-Precipitation-Modal").val()).attr("variable", $("#bulletin-@(ViewBag.forecast)-precipitation-night").val());
         }
         else {
             $("#TdPrecipitationDay" + $("#TerritoryID-Precipitation-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-precipitation-night").val());
+            $("#TdPrecipitationDay" + $("#TerritoryID-Precipitation-Modal").val()).attr("variable", $("#bulletin-@(ViewBag.forecast)-precipitation-night").val());
         }
     }
 
