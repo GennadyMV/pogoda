@@ -5,7 +5,7 @@
 
 
     <div id="condition-panel" class="panel panel-primary">
-            <div id="condition-panel-handling" class="panel-heading lg">Ночь</div>
+            <div id="condition-panel-heading" class="panel-heading lg">Ночь</div>
             <div class="panel-body">
                 <table class="table">
                     <tbody>
@@ -39,7 +39,7 @@
                         <tr>
                             <td class="col-md-6">
                                 <div class="checkbox pull-left">
-                                    <label><input id="condition-checkbox-sometimes" type="checkbox" value="">временами</label>
+                                    <label><input id="condition-checkbox-times" type="checkbox" value="">временами</label>
                                 </div>
                             </td>
                         </tr>
@@ -55,7 +55,8 @@
 
                $("#bulletin-@(ViewBag.forecast)-condition-night").prop('disabled', $("#condition-checkbox-none").is(':checked'));
                $("#condition-checkbox-places").prop('disabled', $("#condition-checkbox-none").is(':checked'));
-               $("#condition-checkbox-sometimes").prop('disabled', $("#condition-checkbox-none").is(':checked'));
+               $("#condition-checkbox-times").prop('disabled', $("#condition-checkbox-none").is(':checked'));
+               $("#bulletin-@(ViewBag.forecast)-condition-night").selectpicker('render');
            });
 
               

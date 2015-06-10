@@ -36,7 +36,7 @@
                 
                 <td id="TdCloudinessNight@(territory.ID)" variable="0" times="0" class="cursorClick" onclick="handleCloudinessNight(@(territory.ID), this)"></td>
                 <td id="TdPrecipitationNight@(territory.ID)" variable="" times="0" class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID), this)"></td>
-                <td id="TdConditionNight@(territory.ID)" class="cursorClick" onclick="handleConditionNight(@(territory.ID))"></td>
+                <td id="TdConditionNight@(territory.ID)" variable="0" none="false" times="false" places="false" class="cursorClick" onclick="handleConditionNight(@(territory.ID), this )"></td>
                 <td id="TdWindNight@(territory.ID)" class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
                 <td id="TdTemperatureNight@(territory.ID)" class="cursorClick" onclick="handleTemperatureNight(@(territory.ID))"></td>
             </tr>
@@ -55,7 +55,7 @@
                 -->
                 <td id="TdCloudinessDay@(territory.ID)" variable="0" times="0" class="cursorClick" onclick="handleCloudinessDay(@(territory.ID), this)"></td>
                 <td id="TdPrecipitationDay@(territory.ID)" variable="" times="0" class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID), this)"></td>
-                <td id="TdConditionDay@(territory.ID)" class="cursorClick" onclick="handleConditionDay(@(territory.ID))"></td>
+                <td id="TdConditionDay@(territory.ID)" variable="0" none="false" times="false" places="false" class="cursorClick" onclick="handleConditionDay(@(territory.ID), this)"></td>
                 <td id="TdWindDay@(territory.ID)" class="cursorClick" onclick="handleWindDay(@(territory.ID))"></td>
                 <td id="TdTemperatureDay@(territory.ID)" class="cursorClick" onclick="handleTemperatureDay(@(territory.ID))"></td>
             </tr>
@@ -96,9 +96,6 @@
     }
 
     function handlePrecipitationNight(id, theObj) {
-
-
-
 
         $("#TerritoryID-Precipitation-Modal").val(id);
         $("#TerritoryID-Precipitation-Modal-Night").val(1);
@@ -159,20 +156,80 @@
         $("#ModalPrecipitation").modal('show');
     }
 
-    function handleConditionNight(id) {
+    function handleConditionNight(id, theObj) {
         
         $("#TerritoryID-Condition-Modal").val(id);
         $("#TerritoryID-Condition-Modal-Night").val(1);
+
+        $("#bulletin-@(ViewBag.forecast)-condition-night").val("\"" + $(theObj).attr("variable") + "\"");
+        $("#bulletin-@(ViewBag.forecast)-condition-night").val($(theObj).attr("variable"));
+        $("#bulletin-@(ViewBag.forecast)-condition-night").selectpicker('render');
+
+        if ($(theObj).attr("places") == "true")
+        {
+            $("#condition-checkbox-places").prop('checked', true);
+        }
+        else {
+            $("#condition-checkbox-places").prop('checked', false);
+        }
+        
+        if ($(theObj).attr("times") == "true") {
+            $("#condition-checkbox-times").prop('checked', true);
+        }
+        else {
+            $("#condition-checkbox-times").prop('checked', false);
+        }
+
+        if ($(theObj).attr("none") == "true") {
+            $("#condition-checkbox-none").prop('checked', true);
+        }
+        else {
+            $("#condition-checkbox-none").prop('checked', false);
+        }
+
+        $("#bulletin-@(ViewBag.forecast)-condition-night").prop('disabled', $("#condition-checkbox-none").is(':checked'));
+        $("#condition-checkbox-places").prop('disabled', $("#condition-checkbox-none").is(':checked'));
+        $("#condition-checkbox-times").prop('disabled', $("#condition-checkbox-none").is(':checked'));
 
         $("#condition-panel").attr("class", "panel panel-primary");
         $("#condition-panel-heading").text("Ночью");
         $("#ModalCondition").modal('show');
     }
 
-    function handleConditionDay(id) {
+    function handleConditionDay(id, theObj) {
 
         $("#TerritoryID-Condition-Modal").val(id);
         $("#TerritoryID-Condition-Modal-Night").val(0);
+
+        $("#bulletin-@(ViewBag.forecast)-condition-night").val("\"" + $(theObj).attr("variable") + "\"");
+        $("#bulletin-@(ViewBag.forecast)-condition-night").val($(theObj).attr("variable"));
+        $("#bulletin-@(ViewBag.forecast)-condition-night").selectpicker('render');
+
+        if ($(theObj).attr("places") == "true") {
+            $("#condition-checkbox-places").prop('checked', true);
+        }
+        else {
+            $("#condition-checkbox-places").prop('checked', false);
+        }
+
+        if ($(theObj).attr("times") == "true") {
+            $("#condition-checkbox-times").prop('checked', true);
+        }
+        else {
+            $("#condition-checkbox-times").prop('checked', false);
+        }
+
+        if ($(theObj).attr("none") == "true") {
+            $("#condition-checkbox-none").prop('checked', true);
+        }
+        else {
+            $("#condition-checkbox-none").prop('checked', false);
+        }
+
+
+        $("#bulletin-@(ViewBag.forecast)-condition-night").prop('disabled', $("#condition-checkbox-none").is(':checked'));
+        $("#condition-checkbox-places").prop('disabled', $("#condition-checkbox-none").is(':checked'));
+        $("#condition-checkbox-times").prop('disabled', $("#condition-checkbox-none").is(':checked'));
 
         $("#condition-panel").attr("class", "panel panel-success");
         $("#condition-panel-heading").text("Днём");
@@ -252,29 +309,59 @@
         str_add = "";
 
         if ($("#condition-checkbox-places").is(':checked')) {
-            str_add = str_add + "местами ";
+            str_add = str_add + "местами ";            
         }
-        if ($("#condition-checkbox-sometimes").is(':checked')) {
+        if ($("#condition-checkbox-times").is(':checked')) {
             str_add = str_add + "временами ";
         }
 
         if ($("#condition-checkbox-none").is(':checked')) {
             if ($("#TerritoryID-Condition-Modal-Night").val() == "1") {
                 $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).text("");
+                $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).attr("places", false);
+                $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).attr("times", false);
+                $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).attr("none", true);
             }
             else {
                 $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).text("");
+                $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).attr("places", false);
+                $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).attr("times", false);
+                $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).attr("none", true);
             }
         }
         else {
 
             if ($("#TerritoryID-Condition-Modal-Night").val() == "1") {
-                $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-condition-night").val() + " " + str_add);
+                if ($("#bulletin-@(ViewBag.forecast)-condition-night").val() == null) {
+                    $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).attr("places", false);
+                    $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).attr("times", false);
+                    $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).attr("none", true);
+                }
+                else {
+                    $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-condition-night").val() + " " + str_add);
+                    $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).attr("variable", $("#bulletin-@(ViewBag.forecast)-condition-night").val());
+                    $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).attr("places", $("#condition-checkbox-places").is(':checked'));
+                    $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).attr("times", $("#condition-checkbox-times").is(':checked'));
+                    $("#TdConditionNight" + $("#TerritoryID-Condition-Modal").val()).attr("none", $("#condition-checkbox-none").is(':checked'));
+
+                }
             }
             else {
-                $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-condition-night").val() + " " + str_add);
+                if ($("#bulletin-@(ViewBag.forecast)-condition-night").val() == null) {
+                    $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).attr("places", false);
+                    $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).attr("times", false);
+                    $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).attr("none", true);
+                }
+                else {
+                    $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-condition-night").val() + " " + str_add);
+                    $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).attr("variable", $("#bulletin-@(ViewBag.forecast)-condition-night").val());
+                    $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).attr("places", $("#condition-checkbox-places").is(':checked'));
+                    $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).attr("times", $("#condition-checkbox-times").is(':checked'));
+                    $("#TdConditionDay" + $("#TerritoryID-Condition-Modal").val()).attr("none", $("#condition-checkbox-none").is(':checked'));
+                }
             }
         }
+
     }
 
     function handleSaveWind() {
