@@ -22,7 +22,7 @@
                 <td rowspan="2">@territory.Name</td>
                 <!--
                 <td>
-                        
+                         
                         <label for="mySubmit" class="btn btn-default"><i class="glyphicon glyphicon-copy"></i> </label>
     <input id="mySubmit" type="text" value="Go" class="hidden" />
 
@@ -37,7 +37,7 @@
                 <td id="TdCloudinessNight@(territory.ID)" variable="0" times="0" class="cursorClick" onclick="handleCloudinessNight(@(territory.ID), this)"></td>
                 <td id="TdPrecipitationNight@(territory.ID)" variable="" times="0" class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID), this)"></td>
                 <td id="TdConditionNight@(territory.ID)" variable="0" none="false" times="false" places="false" class="cursorClick" onclick="handleConditionNight(@(territory.ID), this )"></td>
-                <td id="TdWindNight@(territory.ID)" class="cursorClick" onclick="handleWindNight(@(territory.ID))"></td>
+                <td id="TdWindNight@(territory.ID)" variable="0" windmin="0" windmax="0" clarification="0" clarificationmin="0" clarificationmax="0" class="cursorClick" onclick="handleWindNight(@(territory.ID), this)"></td>
                 <td id="TdTemperatureNight@(territory.ID)" class="cursorClick" onclick="handleTemperatureNight(@(territory.ID))"></td>
             </tr>
             <tr>
@@ -56,7 +56,7 @@
                 <td id="TdCloudinessDay@(territory.ID)" variable="0" times="0" class="cursorClick" onclick="handleCloudinessDay(@(territory.ID), this)"></td>
                 <td id="TdPrecipitationDay@(territory.ID)" variable="" times="0" class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID), this)"></td>
                 <td id="TdConditionDay@(territory.ID)" variable="0" none="false" times="false" places="false" class="cursorClick" onclick="handleConditionDay(@(territory.ID), this)"></td>
-                <td id="TdWindDay@(territory.ID)" class="cursorClick" onclick="handleWindDay(@(territory.ID))"></td>
+                <td id="TdWindDay@(territory.ID)" variable="0" windmin="0" windmax="0" clarification="0" clarificationmin="0" clarificationmax="0" class="cursorClick" onclick="handleWindDay(@(territory.ID), this)"></td>
                 <td id="TdTemperatureDay@(territory.ID)" class="cursorClick" onclick="handleTemperatureDay(@(territory.ID))"></td>
             </tr>
         }
@@ -236,20 +236,49 @@
         $("#ModalCondition").modal('show');
     }
 
-    function handleWindNight(id) {
+    function handleWindNight(id, theObj) {
 
         $("#TerritoryID-Wind-Modal").val(id);
         $("#TerritoryID-Wind-Modal-Night").val(1);
+
+        $("#bulletin-@(ViewBag.forecast)-wind-night").val("\"" + $(theObj).attr("variable") + "\"");
+        $("#bulletin-@(ViewBag.forecast)-wind-night").val($(theObj).attr("variable"));
+        $("#bulletin-@(ViewBag.forecast)-wind-night").selectpicker('render');
+
+        $("#wind-clarification").val("\"" + $(theObj).attr("clarification") + "\"");
+        $("#wind-clarification").val($(theObj).attr("clarification"));
+        $("#wind-clarification").selectpicker('render');
+
+        $("#bulletin-@(ViewBag.forecast)-windmin-night").val($(theObj).attr("windmin"));
+        $("#wind-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val($(theObj).attr("windmax"));
+
+        $("#wind-clarification-min").val($(theObj).attr("clarificationmin"));
+        $("#wind-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val($(theObj).attr("clarificationmax"));
+        
 
         $("#wind-panel").attr("class", "panel panel-primary");
         $("#wind-panel-heading").text("Ночью");
         $("#ModalWind").modal('show');
     }
 
-    function handleWindDay(id) {
+    function handleWindDay(id, theObj) {
         $("#TerritoryID-Wind-Modal").val(id);
         $("#TerritoryID-Wind-Modal-Night").val(0);
 
+        $("#bulletin-@(ViewBag.forecast)-wind-night").val("\"" + $(theObj).attr("variable") + "\"");
+        $("#bulletin-@(ViewBag.forecast)-wind-night").val($(theObj).attr("variable"));
+        $("#bulletin-@(ViewBag.forecast)-wind-night").selectpicker('render');
+
+        $("#wind-clarification").val("\"" + $(theObj).attr("clarification") + "\"");
+        $("#wind-clarification").val($(theObj).attr("clarification"));
+        $("#wind-clarification").selectpicker('render');
+
+        $("#bulletin-@(ViewBag.forecast)-windmin-night").val($(theObj).attr("windmin"));
+        $("#wind-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val($(theObj).attr("windmax"));
+
+        $("#wind-clarification-min").val($(theObj).attr("clarificationmin"));
+        $("#wind-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val($(theObj).attr("clarificationmax"));
+        
         $("#wind-panel").attr("class", "panel panel-success");
         $("#wind-panel-heading").text("Днём");
         $("#ModalWind").modal('show');
@@ -376,11 +405,33 @@
             text = text + " " + clarification_min + " - " + clarification_max;
         }
 
+
         if ($("#TerritoryID-Wind-Modal-Night").val() == "1") {
             $("#TdWindNight" + $("#TerritoryID-Wind-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-wind-night").val() + text);
+            $("#TdWindNight" + $("#TerritoryID-Wind-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-wind-night option:selected").text() + text);
+            $("#TdWindNight" + $("#TerritoryID-Wind-Modal").val()).attr("variable", $("#bulletin-@(ViewBag.forecast)-wind-night").val());
+            $("#TdWindNight" + $("#TerritoryID-Wind-Modal").val()).attr("clarification", $("#wind-clarification").val());
+
+            $("#TdWindNight" + $("#TerritoryID-Wind-Modal").val()).attr("windmin", $("#bulletin-@(ViewBag.forecast)-windmin-night").val());
+            $("#TdWindNight" + $("#TerritoryID-Wind-Modal").val()).attr("windmax", $("#wind-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val());
+
+            $("#TdWindNight" + $("#TerritoryID-Wind-Modal").val()).attr("clarificationmin", $("#wind-clarification-min").val());
+            $("#TdWindNight" + $("#TerritoryID-Wind-Modal").val()).attr("clarificationmax", $("#wind-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val());
+
         }
         else {
             $("#TdWindDay" + $("#TerritoryID-Wind-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-wind-night").val() + text);
+
+            $("#TdWindDay" + $("#TerritoryID-Wind-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-wind-night option:selected").text() + text);
+            $("#TdWindDay" + $("#TerritoryID-Wind-Modal").val()).attr("variable", $("#bulletin-@(ViewBag.forecast)-wind-night").val());
+            $("#TdWindDay" + $("#TerritoryID-Wind-Modal").val()).attr("clarification", $("#wind-clarification").val());
+
+            $("#TdWindDay" + $("#TerritoryID-Wind-Modal").val()).attr("windmin", $("#bulletin-@(ViewBag.forecast)-windmin-night").val());
+            $("#TdWindDay" + $("#TerritoryID-Wind-Modal").val()).attr("windmax", $("#wind-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val());
+
+            $("#TdWindDay" + $("#TerritoryID-Wind-Modal").val()).attr("clarificationmin", $("#wind-clarification-min").val());
+            $("#TdWindDay" + $("#TerritoryID-Wind-Modal").val()).attr("clarificationmax", $("#wind-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val());
+
         }
     }
 
