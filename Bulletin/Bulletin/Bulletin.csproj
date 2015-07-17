@@ -143,6 +143,7 @@
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <None Include="hibernate.cfg.xml_debug">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <EmbeddedResource Include="Mapping\Bulletin.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -173,6 +174,7 @@
     </EmbeddedResource>
     <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <EmbeddedResource Include="Mapping\Clarification.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

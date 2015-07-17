@@ -38,7 +38,7 @@
                 <td id="TdPrecipitationNight@(territory.ID)" variable="" times="0" class="cursorClick" onclick="handlePrecipitationNight(@(territory.ID), this)"></td>
                 <td id="TdConditionNight@(territory.ID)" variable="0" none="false" times="false" places="false" class="cursorClick" onclick="handleConditionNight(@(territory.ID), this )"></td>
                 <td id="TdWindNight@(territory.ID)" variable="0" windmin="0" windmax="0" clarification="0" clarificationmin="0" clarificationmax="0" class="cursorClick" onclick="handleWindNight(@(territory.ID), this)"></td>
-                <td id="TdTemperatureNight@(territory.ID)" class="cursorClick" onclick="handleTemperatureNight(@(territory.ID))"></td>
+                <td id="TdTemperatureNight@(territory.ID)" variable="0" tempmin="0" tempmax="0" clarification="0" clarificationmin="0" clarificationmax="0" class="cursorClick" onclick="handleTemperatureNight(@(territory.ID), this)"></td>
             </tr>
             <tr>
             <!--
@@ -57,7 +57,7 @@
                 <td id="TdPrecipitationDay@(territory.ID)" variable="" times="0" class="cursorClick" onclick="handlePrecipitationDay(@(territory.ID), this)"></td>
                 <td id="TdConditionDay@(territory.ID)" variable="0" none="false" times="false" places="false" class="cursorClick" onclick="handleConditionDay(@(territory.ID), this)"></td>
                 <td id="TdWindDay@(territory.ID)" variable="0" windmin="0" windmax="0" clarification="0" clarificationmin="0" clarificationmax="0" class="cursorClick" onclick="handleWindDay(@(territory.ID), this)"></td>
-                <td id="TdTemperatureDay@(territory.ID)" class="cursorClick" onclick="handleTemperatureDay(@(territory.ID))"></td>
+                <td id="TdTemperatureDay@(territory.ID)" variable="0" tempmin="0" tempmax="0" clarification="0" clarificationmin="0" clarificationmax="0" class="cursorClick" onclick="handleTemperatureDay(@(territory.ID), this)"></td>
             </tr>
         }
     </tbody>
@@ -284,20 +284,54 @@
         $("#ModalWind").modal('show');
     }
     
-    function handleTemperatureNight(id) {
+    function handleTemperatureNight(id, theObj) {
 
         $("#TerritoryID-Temperature-Modal").val(id);
         $("#TerritoryID-Temperature-Modal-Night").val(1);
+
+
+        $("#bulletin-@(ViewBag.forecast)-temperature-night").val("\"" + $(theObj).attr("variable") + "\"");
+        $("#bulletin-@(ViewBag.forecast)-temperature-night").val($(theObj).attr("variable"));
+        $("#bulletin-@(ViewBag.forecast)-temperature-night").selectpicker('render');
+
+        $("#temperature-clarification").val("\"" + $(theObj).attr("clarification") + "\"");
+        $("#temperature-clarification").val($(theObj).attr("clarification"));
+        $("#temperature-clarification").selectpicker('render');
+
+        $("#bulletin-@(ViewBag.forecast)-temperaturemin-night").val($(theObj).attr("tempmin"));
+        $("#temperature-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val($(theObj).attr("tempmax"));
+
+        $("#temperature-clarification-min").val($(theObj).attr("clarificationmin"));
+        $("#temperature-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val($(theObj).attr("clarificationmax"));
+        
+
 
         $("#temperature-panel").attr("class", "panel panel-primary");
         $("#temperature-panel-heading").text("Ночью");
         $("#ModalTemperature").modal('show');
     }
 
-    function handleTemperatureDay(id) {
+    function handleTemperatureDay(id, theObj) {
 
         $("#TerritoryID-Temperature-Modal").val(id);
         $("#TerritoryID-Temperature-Modal-Night").val(0);
+
+
+        $("#bulletin-@(ViewBag.forecast)-temperature-day").val("\"" + $(theObj).attr("variable") + "\"");
+        $("#bulletin-@(ViewBag.forecast)-temperature-day").val($(theObj).attr("variable"));
+        $("#bulletin-@(ViewBag.forecast)-temperature-day").selectpicker('render');
+
+        $("#temperature-clarification").val("\"" + $(theObj).attr("clarification") + "\"");
+        $("#temperature-clarification").val($(theObj).attr("clarification"));
+        $("#temperature-clarification").selectpicker('render');
+
+        $("#bulletin-@(ViewBag.forecast)-temperaturemin-night").val($(theObj).attr("tempmin"));
+        $("#temperature-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val($(theObj).attr("tempmax"));
+
+        $("#temperature-clarification-min").val($(theObj).attr("clarificationmin"));
+        $("#temperature-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val($(theObj).attr("clarificationmax"));
+        
+
 
         $("#temperature-panel").attr("class", "panel panel-success");
         $("#temperature-panel-heading").text("Днём");
@@ -447,12 +481,35 @@
             text = text + " " + clarification_min + " - " + clarification_max + " " + "\u00B0" + "C"; ;
         }
 
+
         if ($("#TerritoryID-Temperature-Modal-Night").val() == "1") {
-            $("#TdTemperatureNight" + $("#TerritoryID-Temperature-Modal").val()).text(text);
+            $("#TdTemperatureNight" + $("#TerritoryID-Temperature-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-temperature-night").val() + text);
+            $("#TdTemperatureNight" + $("#TerritoryID-Temperature-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-temperature-night option:selected").text() + text);
+            $("#TdTemperatureNight" + $("#TerritoryID-Temperature-Modal").val()).attr("variable", $("#bulletin-@(ViewBag.forecast)-temperature-night").val());
+            $("#TdTemperatureNight" + $("#TerritoryID-Temperature-Modal").val()).attr("clarification", $("#temperature-clarification").val());
+
+            $("#TdTemperatureNight" + $("#TerritoryID-Temperature-Modal").val()).attr("tempmin", $("#bulletin-@(ViewBag.forecast)-temperaturemin-night").val());
+            $("#TdTemperatureNight" + $("#TerritoryID-Temperature-Modal").val()).attr("tempmax", $("#temperature-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val());
+
+            $("#TdTemperatureNight" + $("#TerritoryID-Temperature-Modal").val()).attr("clarificationmin", $("#temperature-clarification-min").val());
+            $("#TdTemperatureNight" + $("#TerritoryID-Temperature-Modal").val()).attr("clarificationmax", $("#temperature-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val());
+
         }
         else {
-            $("#TdTemperatureDay" + $("#TerritoryID-Temperature-Modal").val()).text(text);
+            $("#TdTemperatureDay" + $("#TerritoryID-Temperature-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-temperature-night").val() + text);
+
+            $("#TdTemperatureDay" + $("#TerritoryID-Temperature-Modal").val()).text($("#bulletin-@(ViewBag.forecast)-temperature-day option:selected").text() + text);
+            $("#TdTemperatureDay" + $("#TerritoryID-Temperature-Modal").val()).attr("variable", $("#bulletin-@(ViewBag.forecast)-temperature-night").val());
+            $("#TdTemperatureDay" + $("#TerritoryID-Temperature-Modal").val()).attr("clarification", $("#temperature-clarification").val());
+
+            $("#TdTemperatureDay" + $("#TerritoryID-Temperature-Modal").val()).attr("tempmin", $("#bulletin-@(ViewBag.forecast)-temperaturemin-night").val());
+            $("#TdTemperatureDay" + $("#TerritoryID-Temperature-Modal").val()).attr("tempmax", $("#temperature-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val());
+
+            $("#TdTemperatureDay" + $("#TerritoryID-Temperature-Modal").val()).attr("clarificationmin", $("#temperature-clarification-min").val());
+            $("#TdTemperatureDay" + $("#TerritoryID-Temperature-Modal").val()).attr("clarificationmax", $("#temperature-clarification-@(ViewBag.forecast)-max-region-@(ViewBag.forecast)-0-night-@(ViewBag.forecast)").val());
+
         }
+
     }
 
 </script>
